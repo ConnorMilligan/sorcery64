@@ -1,6 +1,6 @@
 SOURCES = ${wildcard *.c}
 
-PROGRAM = foobar
+PROGRAM = sorcery64
 CC65_TARGET = c64
  
 CC      = cl65
