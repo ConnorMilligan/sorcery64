@@ -2,3 +2,4 @@
 *.prg
 *.d
 *.o
+/.vscode

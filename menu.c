@@ -2,45 +2,70 @@
 
 #include <cbm.h>
 #include <conio.h>
+#include <peekpoke.h>
 #include <stdio.h>
 
 extern unsigned char XSize, YSize;
 
-void menuDrawTeeLine(unsigned int y) {
+void menuDrawTeeLine(char y) {
     cputcxy(0, y, CH_LTEE);
     chline(XSize - 2);
     cputc(CH_RTEE);
 }
 
-void menuDrawWindow() {
-    bordercolor(COLOR_BLACK);
-    bgcolor(COLOR_BLACK);
-    textcolor(COLOR_WHITE);
-
-    clrscr();
-    cursor(0);
-
+void menuDrawWindow(char x, char y, char width, char height) {
     /* Top line */
-    cputcxy(0, 0, CH_ULCORNER);
-    chline(XSize - 2);
+    cputcxy(x, y, CH_ULCORNER);
+    chline(width - 2);
     cputc(CH_URCORNER);
 
     /* Left line */
-    cvlinexy(0, 1, 23);
+    cvlinexy(x, y+1, height-2);
 
     /* Bottom line */
     cputc(CH_LLCORNER);
-    chline(XSize - 2);
+    chline(width - 2);
     cputc(CH_LRCORNER);
 
     /* Right line */
-    cvlinexy(XSize - 1, 1, 23);
+    cvlinexy(x + width - 1, y+1, height-2);
 }
 
-void drawTitleScreen() {
-    menuDrawWindow();
+void menuDrawTitleScreen() {
+    char i, x, y;
+    menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(20);
 
-    gotoxy((XSize)/2 - 11, 21);
-    printf("Press ENTER to begin!");
+    x = y = 1;
+
+    for (i = 0; i < 15; i++) {
+        POKE_CHAR(x, y, 77);
+        POKE(((55296U+x)+(y*40)), COLOR_RED);
+
+        x = ++y;
+    }
+    
+
+    cputsxy((XSize)/2 - 11, 21, "press enter to begin!");
+}
+
+void menuDrawQuitPrompt() {
+    char i, j;
+    char x = XSize/2 - 8;
+    char y = YSize/2 - 4;
+
+    for(i = 1; i < 14; i++) {
+        for (j = 1; j < 7; j++) {
+            cputcxy(i + x, y + j, 32);
+        }
+    }
+
+    textcolor(COLOR_RED);
+    menuDrawWindow(x, y, 15, 8);
+    textcolor(COLOR_WHITE);
+    cputsxy(x + 1, 10, "do you really");
+    cputsxy(x + 1, 11, "wish to quit?");
+
+    cputsxy(x + 6, 13, "yes");
+    cputsxy(x + 6, 14, "no");
 }
