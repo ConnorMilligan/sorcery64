@@ -6,25 +6,29 @@
 bool gameRunning = true;
 bool quitPrompt = false;
 
-unsigned char c = 0;
-
 void gameLoop() {
+    uint8 c = 0;
+
     while (gameRunning) {
         clrscr();
         menuDrawTitleScreen();
         menuDrawWindow(5, 5, 5, 5);
 
-        gotoxy(3,5);
-        cprintf("%d", c);
-
         if (quitPrompt) {
             menuDrawQuitPrompt();
+            gameRunning = selectorQuitPrompt() ? true : false;
+            quitPrompt = false;
+        } else {
+            c = cgetc();
         }
         
-        c = cgetc();
         if (c == 3) {
             quitPrompt = true;
         }
+
+        gotoxy(3,5);
+        cprintf("%d", c);
+
         c = 0;
     }
     

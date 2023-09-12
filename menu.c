@@ -5,15 +5,15 @@
 #include <peekpoke.h>
 #include <stdio.h>
 
-extern unsigned char XSize, YSize;
+extern uint8 XSize, YSize;
 
-void menuDrawTeeLine(char y) {
+void menuDrawTeeLine(uint8 y) {
     cputcxy(0, y, CH_LTEE);
     chline(XSize - 2);
     cputc(CH_RTEE);
 }
 
-void menuDrawWindow(char x, char y, char width, char height) {
+void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height) {
     /* Top line */
     cputcxy(x, y, CH_ULCORNER);
     chline(width - 2);
@@ -32,7 +32,7 @@ void menuDrawWindow(char x, char y, char width, char height) {
 }
 
 void menuDrawTitleScreen() {
-    char i, x, y;
+    uint8 i, x, y;
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(20);
 
@@ -50,9 +50,9 @@ void menuDrawTitleScreen() {
 }
 
 void menuDrawQuitPrompt() {
-    char i, j;
-    char x = XSize/2 - 8;
-    char y = YSize/2 - 4;
+    uint8 i, j;
+    uint8 x = XSize/2 - 8;
+    uint8 y = YSize/2 - 4;
 
     for(i = 1; i < 14; i++) {
         for (j = 1; j < 7; j++) {

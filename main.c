@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <peekpoke.h>
 
-unsigned char XSize, YSize;
+uint8 XSize, YSize;
 
 int main (void) {
     /* Get the screen dimensions */
