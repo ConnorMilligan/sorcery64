@@ -7,9 +7,9 @@
 
 extern uint8 XSize, YSize;
 
-void menuDrawTeeLine(uint8 y) {
+void menuDrawTeeLine(uint8 x, uint8 y) {
     cputcxy(0, y, CH_LTEE);
-    chline(XSize - 2);
+    chline(x - 2);
     cputc(CH_RTEE);
 }
 
@@ -34,7 +34,7 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height) {
 void menuDrawTitleScreen() {
     uint8 i, x, y;
     menuDrawWindow(0, 0, XSize, YSize);
-    menuDrawTeeLine(20);
+    menuDrawTeeLine(XSize, 20);
 
     x = y = 1;
 
@@ -68,4 +68,16 @@ void menuDrawQuitPrompt() {
 
     cputsxy(x + 6, 13, "yes");
     cputsxy(x + 6, 14, "no");
+}
+
+void menuDrawNamePrompt() {
+    menuDrawWindow(0, 0, XSize, YSize);
+
+
+    cputsxy((XSize)/2 - 12, YSize/2, "please enter your name:");
+}
+
+void menuDrawGameScreen() {
+    menuDrawWindow(0, 0, XSize, YSize);
+    menuDrawTeeLine(XSize - XSize/3, 20);
 }

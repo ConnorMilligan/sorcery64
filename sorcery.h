@@ -18,16 +18,21 @@ typedef char int8;
 extern unsigned char XSize, YSize;
 
 /* Menu */
-void menuDrawTitleScreen();
-
-void menuDrawTeeLine(uint8 y);
+void menuDrawTeeLine(uint8 x, uint8 y);
 void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
+
+
+void menuDrawTitleScreen();
 void menuDrawQuitPrompt();
+void menuDrawNamePrompt();
+void menuDrawGameScreen();
 
 /* Selector */
 uint8 selectorQuitPrompt();
 
 /* Game */
 void gameLoop();
+void draw();
+void takeInput();
 
 #endif

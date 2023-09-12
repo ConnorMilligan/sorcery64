@@ -8,6 +8,8 @@ uint8 XSize, YSize;
 int main (void) {
     /* Get the screen dimensions */
     screensize(&XSize, &YSize);
+
+    // revert from shifted-mode
     POKE(53272,21);
     
     bordercolor(COLOR_BLACK);

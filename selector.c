@@ -13,8 +13,6 @@ uint8 selectorQuitPrompt() {
         choice ? cputcxy(XSize/2 - 4, 13, 32) : cputcxy(XSize/2 - 4, 14, 32);
         
         c = cgetc();
-        gotoxy(3,5);
-        cprintf("%d", c);
 
         if (c == KEY_DOWN || c == KEY_UP) {
             choice =  choice ? 0 : 1;
