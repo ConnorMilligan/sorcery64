@@ -10,9 +10,22 @@
 #define KEY_RIGHT 76
 
 #define KEY_RETURN 13
+#define KEY_BACKSPACE 20
+
+#define CHAR_BLANK 32
 
 typedef unsigned char uint8;
 typedef char int8;
+
+typedef struct Player {
+    char name[16];
+} Player;
+
+enum quitSelection {
+    Quit,
+    Remain,
+    Pass
+};
 
 // Screen dimensions
 extern unsigned char XSize, YSize;
@@ -29,10 +42,11 @@ void menuDrawGameScreen();
 
 /* Selector */
 uint8 selectorQuitPrompt();
+void namePrompt();
 
 /* Game */
 void gameLoop();
-void draw();
-void takeInput();
+void draw(uint8 *c, uint8 *choice);
+void takeInput(uint8 *c, uint8 *choice);
 
 #endif
