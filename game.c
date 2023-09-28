@@ -11,6 +11,7 @@ enum gameState {
 
 bool gameRunning = true;
 bool quitPrompt = false;
+uint8 quitSelector = 0;
 enum gameState currentState = TitleScreen;
 
 void gameLoop() {
@@ -19,7 +20,6 @@ void gameLoop() {
     while (gameRunning) {
         draw(&c, &choice);
 
-        c = 12;
         gotoxy(3,5);
         cprintf("value of c: %d", c);
         gotoxy(3,6);
@@ -43,7 +43,7 @@ void draw(uint8 *c, uint8 *choice) {
     }
 
     if (quitPrompt) {
-        menuDrawQuitPrompt(*choice);
+        menuDrawQuitPrompt(quitSelector);
     }
 }
 
@@ -52,14 +52,15 @@ void takeInput(uint8 *c, uint8 *choice) {
 
     if (quitPrompt) {
         if (*c == KEY_DOWN || *c == KEY_UP) {
-            *choice = *choice ? 0 : 1;
+            quitSelector = quitSelector ? 0 : 1;
         } 
         else if (*c == KEY_RETURN) {
-            if (*choice == 0) {
+            if (quitSelector == 0) {
                 gameRunning = false;
             }
             else {
                 quitPrompt = false;
+                clrscr();
             }
         }
     }
@@ -73,6 +74,13 @@ void takeInput(uint8 *c, uint8 *choice) {
     else if (currentState == NamePrompt) {
         uint8 x = (XSize)/2 - 12, y = YSize/2+1;
 
+        if (*c != KEY_RETURN && *c != KEY_BACKSPACE) {
+            *choice+=1;
+            cputcxy(x + *choice, y, c);
+        } else if (*c == KEY_BACKSPACE) {
+            *choice-=1;;
+            cputcxy(x + *choice, y, CHAR_BLANK);
+        }
         
     }
         
