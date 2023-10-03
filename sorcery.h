@@ -20,7 +20,7 @@ typedef unsigned char uint8;
 typedef char int8;
 
 typedef struct Player {
-    char name[16];
+    char name[9];
 } Player;
 
 enum GameState {
@@ -59,7 +59,7 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
 void menuDrawTitleScreen();
 void menuDrawQuitPrompt();
 void menuDrawNamePrompt();
-void menuDrawGameScreen();
+void menuDrawGameScreen(Context *ctx);
 
 /* Selector */
 uint8 selectorQuitPrompt();

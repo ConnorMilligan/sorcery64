@@ -4,7 +4,7 @@
 
 void buildContext(Context *ctx) {
     // Build the context
-    Player player = {"player"};
+    Player player = {"p"};
     ctx->player = player;
 
     ctx->gameState = true;
@@ -41,11 +41,16 @@ void draw(Context *ctx) {
         clrscr();
     }
 
-    if (ctx->gameState == TitleScreen) {
-        menuDrawTitleScreen();
-    }
-    else if (ctx->gameState == NamePrompt) {
-        menuDrawNamePrompt();
+    switch (ctx->gameState) {
+        case TitleScreen:
+            menuDrawTitleScreen();
+            break;
+        case NamePrompt:
+            menuDrawNamePrompt();
+            break;
+        case Game:
+            menuDrawGameScreen(ctx);
+            break;
     }
 
     if (ctx->quitPrompt) {
@@ -79,22 +84,26 @@ void takeInput(Context *ctx) {
     }
 
     else if (ctx->gameState == NamePrompt) {
-        uint8 x = (XSize)/2 - 8, y = YSize/2+1;
+        uint8 x = (XSize)/2 - 4, y = YSize/2+1;
 
         if (ctx->input != KEY_RETURN && ctx->input != KEY_BACKSPACE) {
-            if (ctx->choice+1 != 16) {
+            if (ctx->choice+1 != 9) {
                 ctx->player.name[ctx->choice] = ctx->input;
                 cputcxy(x + ctx->choice, y, ctx->input);
                 ctx->choice+=1;
             }
-        } else if (ctx->input == KEY_BACKSPACE) {
+        } 
+        else if (ctx->input == KEY_BACKSPACE) {
             if (ctx->choice != 0) {
                 ctx->choice-=1;
                 ctx->player.name[ctx->choice] = ' ';
                 cputcxy(x + ctx->choice, y, CHAR_BLANK);
             }
         }
-        
+        else if (ctx->input == KEY_RETURN) {
+            ctx->gameState = Game;
+            clrscr();
+        }
     }
         
     if (ctx->input == 3) {

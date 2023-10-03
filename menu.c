@@ -76,10 +76,42 @@ void menuDrawQuitPrompt(uint8 choice) {
 void menuDrawNamePrompt() {
     menuDrawWindow(0, 0, XSize, YSize);
     cputsxy((XSize)/2 - 12, YSize/2-1, "please enter your name:");
-    cputcxy((XSize)/2 - 10, YSize/2+1, 62);
+    cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
 
-void menuDrawGameScreen() {
+void menuDrawGameScreen(Context *ctx) {
+    uint8 xBound = (XSize - XSize/3)+2;
+    uint8 yBound = 16;
+
+    // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
-    menuDrawTeeLine(XSize - XSize/3, 20);
+    menuDrawTeeLine(xBound+1, yBound);
+    cvlinexy(xBound, 1, YSize-2);
+    cputcxy(xBound, 0, 178);
+    cputcxy(xBound, YSize-1, 177);
+    cputcxy(xBound, yBound, 179);
+
+    // Draw player information
+    cputsxy(xBound+1, 1, ctx->player.name);
+    gotoxy(xBound+1, 2);
+    cprintf("lv: %d", 1);
+    gotoxy(xBound+1, 3);
+    cprintf("hp: %d/%d", 30, 30);
+
+    cputsxy(xBound+1, 5, "stats");
+    gotoxy(xBound+1, 6);
+    cprintf("atk: %d", 2);
+    gotoxy(xBound+1, 7);
+    cprintf("def: %d", 2);
+    gotoxy(xBound+1, 8);
+    cprintf("spd: %d", 2);
+    gotoxy(xBound+1, 9);
+    cprintf("lck: %d", 2);
+
+    cputsxy(xBound+1, 11, "location");
+    gotoxy(xBound+1, 12);
+    cprintf("loc: %d,%d", 2, 2);
+    gotoxy(xBound+1, 13);
+    cprintf("dir: %c", 'n');
+
 }
