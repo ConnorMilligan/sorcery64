@@ -1,6 +1,8 @@
 #ifndef SORCERY_H
 #define SORCERY_H
 
+#include <stdbool.h>
+
 #define POKE_CHAR(x, y, char) (POKE(((1024 + (x)) + ((y) * 40)), (char)))
 #define POKE_COLOR(x, y, color) (((55296U+x)+(y*40)), color);
 
@@ -21,11 +23,30 @@ typedef struct Player {
     char name[16];
 } Player;
 
+enum GameState {
+    TitleScreen,
+    NamePrompt,
+    Game
+};
+
 enum quitSelection {
     Quit,
     Remain,
     Pass
 };
+
+typedef struct Context {
+    Player player;
+
+    bool gameRunning;
+    bool quitPrompt;
+
+    uint8 quitSelector;
+    uint8 choice;
+    uint8 input;
+
+    enum GameState gameState;
+} Context;
 
 // Screen dimensions
 extern unsigned char XSize, YSize;
@@ -45,8 +66,9 @@ uint8 selectorQuitPrompt();
 void namePrompt();
 
 /* Game */
+void buildContext(Context *ctx);
 void gameLoop();
-void draw(uint8 *c, uint8 *choice);
-void takeInput(uint8 *c, uint8 *choice);
+void draw(Context *ctx);
+void takeInput(Context *ctx);
 
 #endif

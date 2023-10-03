@@ -75,9 +75,8 @@ void menuDrawQuitPrompt(uint8 choice) {
 
 void menuDrawNamePrompt() {
     menuDrawWindow(0, 0, XSize, YSize);
-
-
-    cputsxy((XSize)/2 - 12, YSize/2, "please enter your name:");
+    cputsxy((XSize)/2 - 12, YSize/2-1, "please enter your name:");
+    cputcxy((XSize)/2 - 10, YSize/2+1, 62);
 }
 
 void menuDrawGameScreen() {

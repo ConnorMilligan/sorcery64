@@ -1,90 +1,103 @@
 #include "sorcery.h"
 
 #include <conio.h>
-#include <stdbool.h>
 
-enum gameState {
-    TitleScreen,
-    NamePrompt,
-    Game
-};
+void buildContext(Context *ctx) {
+    // Build the context
+    Player player = {"player"};
+    ctx->player = player;
 
-bool gameRunning = true;
-bool quitPrompt = false;
-uint8 quitSelector = 0;
-enum gameState currentState = TitleScreen;
+    ctx->gameState = true;
+    ctx->quitPrompt = false;
+
+    ctx->quitSelector = 0;
+    ctx->choice = 0;
+    ctx->input = 0;
+
+    ctx->gameState = TitleScreen;
+}
 
 void gameLoop() {
-    uint8 c = 0, choice = 0;
+    Context ctx;
+    buildContext(&ctx);
 
-    while (gameRunning) {
-        draw(&c, &choice);
+    while (ctx.gameRunning) {
+        draw(&ctx);
 
         gotoxy(3,5);
-        cprintf("value of c: %d", c);
+        cprintf("value of input: %d", ctx.input);
         gotoxy(3,6);
-        cprintf("value of choice: %d", choice);
+        cprintf("value of choice: %d", ctx.choice);
+        gotoxy(3,7);
+        cprintf("current name: %s", ctx.player.name);
 
-        takeInput(&c, &choice);
+        takeInput(&ctx);
     }
     
 }
 
-void draw(uint8 *c, uint8 *choice) {
-    if (!quitPrompt && currentState != NamePrompt) {
+void draw(Context *ctx) {
+    if (!ctx->quitPrompt && ctx->gameState != NamePrompt && ctx->gameState != TitleScreen) {
         clrscr();
     }
 
-    if (currentState == TitleScreen) {
+    if (ctx->gameState == TitleScreen) {
         menuDrawTitleScreen();
     }
-    else if (currentState == NamePrompt) {
+    else if (ctx->gameState == NamePrompt) {
         menuDrawNamePrompt();
     }
 
-    if (quitPrompt) {
-        menuDrawQuitPrompt(quitSelector);
+    if (ctx->quitPrompt) {
+        menuDrawQuitPrompt(ctx->quitSelector);
     }
 }
 
-void takeInput(uint8 *c, uint8 *choice) {
-    *c = cgetc();
+void takeInput(Context *ctx) {
+    ctx->input = cgetc();
 
-    if (quitPrompt) {
-        if (*c == KEY_DOWN || *c == KEY_UP) {
-            quitSelector = quitSelector ? 0 : 1;
+    if (ctx->quitPrompt) {
+        if (ctx->input == KEY_DOWN || ctx->input == KEY_UP) {
+            ctx->quitSelector = ctx->quitSelector ? 0 : 1;
         } 
-        else if (*c == KEY_RETURN) {
-            if (quitSelector == 0) {
-                gameRunning = false;
+        else if (ctx->input == KEY_RETURN) {
+            if (ctx->quitSelector == 0) {
+                ctx->gameRunning = false;
             }
             else {
-                quitPrompt = false;
+                ctx->quitPrompt = false;
                 clrscr();
             }
         }
+        ctx->input = 0;
     }
 
     // Title Screen prompts
-    if (*c == KEY_RETURN && currentState == TitleScreen && !quitPrompt) {
-        currentState = NamePrompt;
+    if (ctx->input == KEY_RETURN && ctx->gameState == TitleScreen && !ctx->quitPrompt) {
+        ctx->gameState = NamePrompt;
         clrscr();
     }
 
-    else if (currentState == NamePrompt) {
-        uint8 x = (XSize)/2 - 12, y = YSize/2+1;
+    else if (ctx->gameState == NamePrompt) {
+        uint8 x = (XSize)/2 - 8, y = YSize/2+1;
 
-        if (*c != KEY_RETURN && *c != KEY_BACKSPACE) {
-            *choice+=1;
-            cputcxy(x + *choice, y, c);
-        } else if (*c == KEY_BACKSPACE) {
-            *choice-=1;;
-            cputcxy(x + *choice, y, CHAR_BLANK);
+        if (ctx->input != KEY_RETURN && ctx->input != KEY_BACKSPACE) {
+            if (ctx->choice+1 != 16) {
+                ctx->player.name[ctx->choice] = ctx->input;
+                cputcxy(x + ctx->choice, y, ctx->input);
+                ctx->choice+=1;
+            }
+        } else if (ctx->input == KEY_BACKSPACE) {
+            if (ctx->choice != 0) {
+                ctx->choice-=1;
+                ctx->player.name[ctx->choice] = ' ';
+                cputcxy(x + ctx->choice, y, CHAR_BLANK);
+            }
         }
         
     }
         
-    if (*c == 3) {
-        quitPrompt = true;
+    if (ctx->input == 3) {
+        ctx->quitPrompt = true;
     }
 }
