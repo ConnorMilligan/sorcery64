@@ -79,9 +79,35 @@ void menuDrawNamePrompt() {
     cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
 
+
+const char sprite_NW[] = {
+	192,0,0,48,0,0,12,0,0,3,0,0,0,192,0,0,
+    48,0,0,12,0,0,3,0,0,0,192,0,0,48,0,0,
+    12,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+};
+const char sprite_SW[] = {
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,
+    12,0,0,48,0,0,192,0,3,0,0,6,0,0,24,0,
+    0,96,0,1,128,0,6,0,0,24,0,0,96,0,0,127,1
+};
+
+int v = 0xD000;
+
+void rasterWait(void) {
+	unsigned char raster;
+	do {
+		raster = PEEK(v + 18);
+	} while (raster < 250 || raster > 252);
+}
+
 void menuDrawGameScreen(Context *ctx) {
     uint8 xBound = (XSize - XSize/3)+2;
     uint8 yBound = 16;
+    unsigned char n;
+	unsigned char x;
+	unsigned char t;
 
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
@@ -113,5 +139,31 @@ void menuDrawGameScreen(Context *ctx) {
     cprintf("loc: %d,%d", 2, 2);
     gotoxy(xBound+1, 13);
     cprintf("dir: %c", 'n');
+
+    // enable sprite 2 and 3
+    POKE(v + 21, 12);
+	POKE(2042, 13);
+    POKE(2043, 13);
+
+    POKE(v + 23, 4); // Expand sprite 2
+	POKE(v + 29, 4);
+    POKE(v + 23, 5); // Expand sprite 3
+	POKE(v + 29, 5);
+
+	for (n = 0 ; n < sizeof(sprite_NW) ; n++) {
+		POKE(832 + n, sprite_NW[n]);
+	}
+
+    x = 30;
+	POKE(v + 4, 30); // UPDATE X COORDINATES
+	POKE(v + 5, 60); // UPDATE Y COORDINATES
+    cvlinexy(6, 4, YSize-20);
+
+    for (n = 0 ; n < sizeof(sprite_SW) ; n++) {
+		POKE(832 + n, sprite_SW[n]);
+	}
+	POKE(v + 6, 30); // UPDATE X COORDINATES
+	POKE(v + 7, 120); // UPDATE Y COORDINATES
+    
 
 }
