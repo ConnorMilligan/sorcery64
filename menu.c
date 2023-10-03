@@ -32,19 +32,8 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height) {
 }
 
 void menuDrawTitleScreen() {
-    uint8 i, x, y;
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(XSize, 20);
-
-    x = y = 1;
-
-    for (i = 0; i < 15; i++) {
-        POKE_CHAR(x, y, 77);
-        POKE(((55296U+x)+(y*40)), COLOR_RED);
-
-        x = ++y;
-    }
-    
 
     cputsxy((XSize)/2 - 11, 21, "press enter to begin!");
 }
@@ -79,35 +68,11 @@ void menuDrawNamePrompt() {
     cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
 
-
-const char sprite_NW[] = {
-	192,0,0,48,0,0,12,0,0,3,0,0,0,192,0,0,
-    48,0,0,12,0,0,3,0,0,0,192,0,0,48,0,0,
-    12,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-};
-const char sprite_SW[] = {
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,
-    12,0,0,48,0,0,192,0,3,0,0,6,0,0,24,0,
-    0,96,0,1,128,0,6,0,0,24,0,0,96,0,0,127,1
-};
-
-int v = 0xD000;
-
-void rasterWait(void) {
-	unsigned char raster;
-	do {
-		raster = PEEK(v + 18);
-	} while (raster < 250 || raster > 252);
-}
-
 void menuDrawGameScreen(Context *ctx) {
     uint8 xBound = (XSize - XSize/3)+2;
-    uint8 yBound = 16;
-    unsigned char n;
-	unsigned char x;
-	unsigned char t;
+    uint8 yBound = 17;
+    uint8 x = 1, y = 1;
+    size_t i;
 
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
@@ -140,30 +105,27 @@ void menuDrawGameScreen(Context *ctx) {
     gotoxy(xBound+1, 13);
     cprintf("dir: %c", 'n');
 
-    // enable sprite 2 and 3
-    POKE(v + 21, 12);
-	POKE(2042, 13);
-    POKE(2043, 13);
 
-    POKE(v + 23, 4); // Expand sprite 2
-	POKE(v + 29, 4);
-    POKE(v + 23, 5); // Expand sprite 3
-	POKE(v + 29, 5);
-
-	for (n = 0 ; n < sizeof(sprite_NW) ; n++) {
-		POKE(832 + n, sprite_NW[n]);
-	}
-
-    x = 30;
-	POKE(v + 4, 30); // UPDATE X COORDINATES
-	POKE(v + 5, 60); // UPDATE Y COORDINATES
-    cvlinexy(6, 4, YSize-20);
-
-    for (n = 0 ; n < sizeof(sprite_SW) ; n++) {
-		POKE(832 + n, sprite_SW[n]);
-	}
-	POKE(v + 6, 30); // UPDATE X COORDINATES
-	POKE(v + 7, 120); // UPDATE Y COORDINATES
+    cvlinexy(6, 3, 10);
+    for (i = 0; i < 3; i++) {
+        cputcxy(x, y, 197);
+        cputcxy(x+1, y, 195);
+        cputcxy(x+2, y, 210);
+        cputcxy(x+3, y, 175);
+        y++;
+        x+=4;
+    }
     
+    x = 1;
+    y = yBound-1;
+
+    for (i = 0; i < 3; i++) {
+        cputcxy(x, y, 175);
+        cputcxy(x+1, y, 210);
+        cputcxy(x+2, y, 195);
+        cputcxy(x+3, y, 197);
+        y--;
+        x+=4;
+    }
 
 }

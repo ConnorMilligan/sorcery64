@@ -14,7 +14,8 @@ void buildContext(Context *ctx) {
     ctx->choice = 0;
     ctx->input = 0;
 
-    ctx->gameState = TitleScreen;
+    //ctx->gameState = TitleScreen;
+    ctx->gameState = Game;
 }
 
 void gameLoop() {
@@ -24,12 +25,12 @@ void gameLoop() {
     while (ctx.gameRunning) {
         draw(&ctx);
 
-        gotoxy(3,5);
-        cprintf("value of input: %d", ctx.input);
-        gotoxy(3,6);
-        cprintf("value of choice: %d", ctx.choice);
-        gotoxy(3,7);
-        cprintf("current name: %s", ctx.player.name);
+        //gotoxy(3,5);
+        //cprintf("value of input: %d", ctx.input);
+        //gotoxy(3,6);
+        //cprintf("value of choice: %d", ctx.choice);
+        //gotoxy(3,7);
+        //cprintf("current name: %s", ctx.player.name);
 
         takeInput(&ctx);
     }
