@@ -71,7 +71,7 @@ void menuDrawNamePrompt() {
 void menuDrawGameScreen(Context *ctx) {
     uint8 xBound = (XSize - XSize/3)+2;
     uint8 yBound = 17;
-    uint8 x = 1, y = 1;
+    uint8 x = 1, y = 2;
     size_t i;
 
     // Draw lines
@@ -105,9 +105,13 @@ void menuDrawGameScreen(Context *ctx) {
     gotoxy(xBound+1, 13);
     cprintf("dir: %c", 'n');
 
+    cputsxy(1, yBound+1, "> you have entered the maze!");
 
-    cvlinexy(6, 3, 10);
-    for (i = 0; i < 3; i++) {
+    cvlinexy(xBound-4, 3, 12);
+    cvlinexy(xBound-8, 3, 11);
+    cvlinexy(4, 3, 12);
+    cvlinexy(8, 3, 11);
+    for (i = 0; i < 2; i++) {
         cputcxy(x, y, 197);
         cputcxy(x+1, y, 195);
         cputcxy(x+2, y, 210);
@@ -117,14 +121,38 @@ void menuDrawGameScreen(Context *ctx) {
     }
     
     x = 1;
-    y = yBound-1;
+    y = yBound-2;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 2; i++) {
         cputcxy(x, y, 175);
         cputcxy(x+1, y, 210);
         cputcxy(x+2, y, 195);
         cputcxy(x+3, y, 197);
         y--;
+        x+=4;
+    }
+
+    x = xBound-8;
+    y = 3;
+
+    for (i = 0; i < 2; i++) {
+        cputcxy(x, y, 175);
+        cputcxy(x+1, y, 210);
+        cputcxy(x+2, y, 195);
+        cputcxy(x+3, y, 197);
+        y--;
+        x+=4;
+    }
+
+    x = xBound-8;
+    y = yBound-3;
+
+    for (i = 0; i < 2; i++) {
+        cputcxy(x, y, 197);
+        cputcxy(x+1, y, 195);
+        cputcxy(x+2, y, 210);
+        cputcxy(x+3, y, 175);
+        y++;
         x+=4;
     }
 
