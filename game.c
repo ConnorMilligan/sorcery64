@@ -9,13 +9,14 @@ void buildContext(Context *ctx) {
 
     ctx->gameState = true;
     ctx->quitPrompt = false;
+    ctx->showMap = false;
 
     ctx->quitSelector = 0;
     ctx->choice = 0;
     ctx->input = 0;
 
-    //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
+    ctx->gameState = TitleScreen;
+    //ctx->gameState = Game;
 }
 
 void gameLoop() {
@@ -57,11 +58,16 @@ void draw(Context *ctx) {
     if (ctx->quitPrompt) {
         menuDrawQuitPrompt(ctx->quitSelector);
     }
+
+    if (ctx->showMap) {
+        menuDrawMap(ctx);
+    }
 }
 
 void takeInput(Context *ctx) {
     ctx->input = cgetc();
 
+    // Quit prompt
     if (ctx->quitPrompt) {
         if (ctx->input == KEY_DOWN || ctx->input == KEY_UP) {
             ctx->quitSelector = ctx->quitSelector ? 0 : 1;
@@ -84,6 +90,7 @@ void takeInput(Context *ctx) {
         clrscr();
     }
 
+    // Name prompt
     else if (ctx->gameState == NamePrompt) {
         uint8 x = (XSize)/2 - 4, y = YSize/2+1;
 
@@ -106,7 +113,15 @@ void takeInput(Context *ctx) {
             clrscr();
         }
     }
-        
+    
+    // Game
+    else if (ctx->gameState == Game) {
+        if (ctx->showMap == false && ctx->input == 'm') {
+            ctx->showMap = true;
+        }
+    }
+    
+
     if (ctx->input == 3) {
         ctx->quitPrompt = true;
     }

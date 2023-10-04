@@ -40,6 +40,7 @@ typedef struct Context {
 
     bool gameRunning;
     bool quitPrompt;
+    bool showMap;
 
     uint8 quitSelector;
     uint8 choice;
@@ -57,9 +58,10 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
 
 
 void menuDrawTitleScreen();
-void menuDrawQuitPrompt();
+void menuDrawQuitPrompt(uint8 choice);
 void menuDrawNamePrompt();
 void menuDrawGameScreen(Context *ctx);
+void menuDrawMap(Context *ctx);
 
 /* Selector */
 uint8 selectorQuitPrompt();

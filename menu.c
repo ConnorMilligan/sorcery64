@@ -157,3 +157,17 @@ void menuDrawGameScreen(Context *ctx) {
     }
 
 }
+
+void menuDrawMap(Context *ctx) {
+    uint8 x = 3, y = 3;
+    uint8 width = 15, height = 15;
+
+    menuDrawWindow(x, y, width, height);
+    for (y = 4; y < height+3; y++) {
+        for (x = 4; x < width+3; x++) {
+            cputcxy(x, y, 32);
+        }
+    }
+
+    cputsxy(5, 4, "map");
+}
