@@ -7,7 +7,7 @@ void buildContext(Context *ctx) {
     Player player = {"p"};
     ctx->player = player;
 
-    ctx->gameState = true;
+    ctx->gameRunning = true;
     ctx->quitPrompt = false;
     ctx->showMap = false;
 
@@ -15,8 +15,8 @@ void buildContext(Context *ctx) {
     ctx->choice = 0;
     ctx->input = 0;
 
-    ctx->gameState = TitleScreen;
-    //ctx->gameState = Game;
+    //ctx->gameState = TitleScreen;
+    ctx->gameState = Game;
 }
 
 void gameLoop() {
@@ -55,12 +55,12 @@ void draw(Context *ctx) {
             break;
     }
 
-    if (ctx->quitPrompt) {
-        menuDrawQuitPrompt(ctx->quitSelector);
-    }
-
     if (ctx->showMap) {
         menuDrawMap(ctx);
+    }
+
+    if (ctx->quitPrompt) {
+        menuDrawQuitPrompt(ctx->quitSelector);
     }
 }
 
@@ -116,13 +116,14 @@ void takeInput(Context *ctx) {
     
     // Game
     else if (ctx->gameState == Game) {
-        if (ctx->showMap == false && ctx->input == 'm') {
-            ctx->showMap = true;
+        if (ctx->input == 'm') {
+            ctx->showMap = ctx->showMap ? false : true;
         }
     }
     
 
     if (ctx->input == 3) {
+        ctx->quitSelector = 0;
         ctx->quitPrompt = true;
     }
 }
