@@ -158,16 +158,22 @@ void menuDrawGameScreen(Context *ctx) {
 
 }
 
-void menuDrawMap(Context *ctx) {
-    uint8 x = 3, y = 3;
-    uint8 width = 15, height = 15;
+void menuDrawPopUpWindow(char *title) {
+    uint8 i, j;
+    uint8 x = 4, y = 1;
+    uint8 width = 22, height = 22;
 
     menuDrawWindow(x, y, width, height);
-    for (y = 4; y < height+3; y++) {
-        for (x = 4; x < width+3; x++) {
-            cputcxy(x, y, 32);
+    for (i = x+1; i < x+height-1; i++) {
+        for (j = y+1; j < y+width-1; j++) {
+            cputcxy(i, j, 32);
         }
     }
 
-    cputsxy(5, 4, "map");
+    cputsxy(x+1, y, title);
+}
+
+void menuDrawMap(Context *ctx) {
+    menuDrawPopUpWindow("map");
+    cputsxy(5, 3, "1 2 3 4 5 6 7 8 9 0");
 }

@@ -61,6 +61,7 @@ void menuDrawTitleScreen();
 void menuDrawQuitPrompt(uint8 choice);
 void menuDrawNamePrompt();
 void menuDrawGameScreen(Context *ctx);
+void menuDrawPopUpWindow(char *title);
 void menuDrawMap(Context *ctx);
 
 /* Selector */
