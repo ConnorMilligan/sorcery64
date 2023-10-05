@@ -4,8 +4,10 @@
 #include <conio.h>
 #include <peekpoke.h>
 #include <stdio.h>
+#include <string.h>
 
 extern uint8 XSize, YSize;
+extern char* locale[2][LC_NUM_STRINGS];
 
 void menuDrawTeeLine(uint8 x, uint8 y) {
     cputcxy(0, y, CH_LTEE);
@@ -31,11 +33,12 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height) {
     cvlinexy(x + width - 1, y+1, height-2);
 }
 
-void menuDrawTitleScreen() {
+void menuDrawTitleScreen(Context *ctx) {
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(XSize, 20);
 
-    cputsxy((XSize)/2 - 11, 21, "press enter to begin!");
+    cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_TITLE_PROMPT])/2, YSize - 3, locale[ctx->locale][LC_TITLE_PROMPT]);
+    cputsxy(1, YSize-1, locale[ctx->locale][LC_TITLE_LANG]);
 }
 
 void menuDrawQuitPrompt(uint8 choice) {

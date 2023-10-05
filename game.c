@@ -1,4 +1,5 @@
 #include "sorcery.h"
+#include "locale.h"
 
 #include <conio.h>
 
@@ -15,8 +16,9 @@ void buildContext(Context *ctx) {
     ctx->choice = 0;
     ctx->input = 0;
 
-    //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
+    ctx->locale = English;
+    ctx->gameState = TitleScreen;
+    //ctx->gameState = Game;
 }
 
 void gameLoop() {
@@ -26,12 +28,12 @@ void gameLoop() {
     while (ctx.gameRunning) {
         draw(&ctx);
 
-        //gotoxy(3,5);
-        //cprintf("value of input: %d", ctx.input);
-        //gotoxy(3,6);
-        //cprintf("value of choice: %d", ctx.choice);
-        //gotoxy(3,7);
-        //cprintf("current name: %s", ctx.player.name);
+        gotoxy(3,5);
+        cprintf("value of input: %d", ctx.input);
+        gotoxy(3,6);
+        cprintf("value of choice: %d", ctx.choice);
+        gotoxy(3,7);
+        cprintf("current name: %s", ctx.player.name);
 
         takeInput(&ctx);
     }
@@ -45,7 +47,7 @@ void draw(Context *ctx) {
 
     switch (ctx->gameState) {
         case TitleScreen:
-            menuDrawTitleScreen();
+            menuDrawTitleScreen(ctx);
             break;
         case NamePrompt:
             menuDrawNamePrompt();
@@ -69,7 +71,7 @@ void takeInput(Context *ctx) {
 
     // Quit prompt
     if (ctx->quitPrompt) {
-        if (ctx->input == KEY_DOWN || ctx->input == KEY_UP) {
+        if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
             ctx->quitSelector = ctx->quitSelector ? 0 : 1;
         } 
         else if (ctx->input == KEY_RETURN) {
@@ -85,9 +87,15 @@ void takeInput(Context *ctx) {
     }
 
     // Title Screen prompts
-    if (ctx->input == KEY_RETURN && ctx->gameState == TitleScreen && !ctx->quitPrompt) {
-        ctx->gameState = NamePrompt;
-        clrscr();
+    if (ctx->gameState == TitleScreen && !ctx->quitPrompt) {
+        if (ctx->input == KEY_RETURN) {
+            ctx->gameState = NamePrompt;
+            clrscr();
+        }
+        else if (ctx->input == KEY_L) {
+            ctx->locale = ctx->locale == English ? Esperanto : English;
+            clrscr();
+        }
     }
 
     // Name prompt
