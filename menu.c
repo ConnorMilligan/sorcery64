@@ -6,7 +6,6 @@
 #include <peekpoke.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 extern uint8 XSize, YSize;
 extern const char* locale[2][LC_NUM_STRINGS];
@@ -41,7 +40,7 @@ void menuDrawTitleScreen(Context *ctx) {
 
     cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_TITLE_PROMPT])/2, YSize - 3, locale[ctx->locale][LC_TITLE_PROMPT]);
     gotoxy(1, YSize-1);
-    printf(locale[ctx->locale][LC_TITLE_LANG], ctx->locale == English ? "en" : "eo");
+    cprintf(locale[ctx->locale][LC_TITLE_LANG], ctx->locale == English ? "en" : "eo");
 }
 
 void menuDrawQuitPrompt(Context *ctx) {
@@ -92,25 +91,25 @@ void menuDrawGameScreen(Context *ctx) {
     // Draw player information
     cputsxy(xBound+1, 1, ctx->player.name);
     gotoxy(xBound+1, 2);
-    cprintf("lv: %d", 1);
+    cprintf(locale[ctx->locale][LC_STAT_LEVEL], 1);
     gotoxy(xBound+1, 3);
-    cprintf("hp: %d/%d", 30, 30);
+    cprintf(locale[ctx->locale][LC_STAT_HP], 30, 30);
 
-    cputsxy(xBound+1, 5, "stats");
+    cputsxy(xBound+1, 5, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
     gotoxy(xBound+1, 6);
-    cprintf("atk: %d", 2);
+    cprintf(locale[ctx->locale][LC_STAT_ATK], 2);
     gotoxy(xBound+1, 7);
-    cprintf("def: %d", 2);
+    cprintf(locale[ctx->locale][LC_STAT_DEF], 2);
     gotoxy(xBound+1, 8);
-    cprintf("spd: %d", 2);
+    cprintf(locale[ctx->locale][LC_STAT_SPD], 2);
     gotoxy(xBound+1, 9);
-    cprintf("lck: %d", 2);
+    cprintf(locale[ctx->locale][LC_STAT_LCK], 2);
 
-    cputsxy(xBound+1, 11, "location");
+    cputsxy(xBound+1, 11, locale[ctx->locale][LC_SIDEBAR_LOC_LABEL]);
     gotoxy(xBound+1, 12);
-    cprintf("loc: %d,%d", 2, 2);
+    cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], 2, 2);
     gotoxy(xBound+1, 13);
-    cprintf("dir: %c", 'n');
+    cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], 'n');
 
     cputsxy(1, yBound+1, "> you have entered the maze!");
 
