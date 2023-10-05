@@ -28,12 +28,12 @@ void gameLoop() {
     while (ctx.gameRunning) {
         draw(&ctx);
 
-        gotoxy(3,5);
-        cprintf("value of input: %d", ctx.input);
-        gotoxy(3,6);
-        cprintf("value of choice: %d", ctx.choice);
-        gotoxy(3,7);
-        cprintf("current name: %s", ctx.player.name);
+        // gotoxy(3,5);
+        // cprintf("value of input: %d", ctx.input);
+        // gotoxy(3,6);
+        // cprintf("value of choice: %d", ctx.choice);
+        // gotoxy(3,7);
+        // cprintf("current name: %s", ctx.player.name);
 
         takeInput(&ctx);
     }
@@ -50,7 +50,7 @@ void draw(Context *ctx) {
             menuDrawTitleScreen(ctx);
             break;
         case NamePrompt:
-            menuDrawNamePrompt();
+            menuDrawNamePrompt(ctx);
             break;
         case Game:
             menuDrawGameScreen(ctx);
@@ -133,5 +133,10 @@ void takeInput(Context *ctx) {
     if (ctx->input == 3) {
         ctx->quitSelector = 0;
         ctx->quitPrompt = true;
+    }
+
+    else if (ctx->input == 80) {
+        ctx->locale = ctx->locale == English ? Esperanto : English;
+        clrscr();
     }
 }

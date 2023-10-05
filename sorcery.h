@@ -77,14 +77,10 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
 
 void menuDrawTitleScreen(Context *ctx);
 void menuDrawQuitPrompt(uint8 choice);
-void menuDrawNamePrompt();
+void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawPopUpWindow(char *title);
 void menuDrawMap(Context *ctx);
-
-/* Selector */
-uint8 selectorQuitPrompt();
-void namePrompt();
 
 /* Game */
 void buildContext(Context *ctx);
