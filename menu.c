@@ -44,7 +44,7 @@ void menuDrawTitleScreen(Context *ctx) {
     printf(locale[ctx->locale][LC_TITLE_LANG], ctx->locale == English ? "en" : "eo");
 }
 
-void menuDrawQuitPrompt(uint8 choice) {
+void menuDrawQuitPrompt(Context *ctx) {
     uint8 i, j;
     uint8 x = XSize/2 - 8;
     uint8 y = YSize/2 - 4;
@@ -58,14 +58,14 @@ void menuDrawQuitPrompt(uint8 choice) {
     textcolor(COLOR_RED);
     menuDrawWindow(x, y, 15, 8);
     textcolor(COLOR_WHITE);
-    cputsxy(x + 1, 10, "do you really");
-    cputsxy(x + 1, 11, "wish to quit?");
+    cputsxy(x + 1, 10, locale[ctx->locale][LC_QUIT_PROMPT1]);
+    cputsxy(x + 1, 11, locale[ctx->locale][LC_QUIT_PROMPT2]);
 
-    cputsxy(x + 6, 13, "yes");
-    cputsxy(x + 6, 14, "no");
+    cputsxy(x + 6, 13, locale[ctx->locale][LC_YES]);
+    cputsxy(x + 6, 14, locale[ctx->locale][LC_NO]);
 
-    choice ? cputcxy(XSize/2 - 4, 14, 218) : cputcxy(XSize/2 - 4, 13, 218);
-    choice ? cputcxy(XSize/2 - 4, 13, CHAR_BLANK) : cputcxy(XSize/2 - 4, 14, CHAR_BLANK);
+    ctx->quitSelector ? cputcxy(XSize/2 - 4, 14, 218) : cputcxy(XSize/2 - 4, 13, 218);
+    ctx->quitSelector ? cputcxy(XSize/2 - 4, 13, CHAR_BLANK) : cputcxy(XSize/2 - 4, 14, CHAR_BLANK);
 }
 
 void menuDrawNamePrompt(Context *ctx) {

@@ -62,7 +62,7 @@ void draw(Context *ctx) {
     }
 
     if (ctx->quitPrompt) {
-        menuDrawQuitPrompt(ctx->quitSelector);
+        menuDrawQuitPrompt(ctx);
     }
 }
 

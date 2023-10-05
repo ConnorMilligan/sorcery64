@@ -76,7 +76,7 @@ void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
 
 
 void menuDrawTitleScreen(Context *ctx);
-void menuDrawQuitPrompt(uint8 choice);
+void menuDrawQuitPrompt(Context *ctx);
 void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawPopUpWindow(char *title);
