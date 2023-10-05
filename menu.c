@@ -1,13 +1,15 @@
 #include "sorcery.h"
+#include "locale.h"
 
 #include <cbm.h>
 #include <conio.h>
 #include <peekpoke.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 extern uint8 XSize, YSize;
-extern char* locale[2][LC_NUM_STRINGS];
+extern const char* locale[2][LC_NUM_STRINGS];
 
 void menuDrawTeeLine(uint8 x, uint8 y) {
     cputcxy(0, y, CH_LTEE);
@@ -38,7 +40,8 @@ void menuDrawTitleScreen(Context *ctx) {
     menuDrawTeeLine(XSize, 20);
 
     cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_TITLE_PROMPT])/2, YSize - 3, locale[ctx->locale][LC_TITLE_PROMPT]);
-    cputsxy(1, YSize-1, locale[ctx->locale][LC_TITLE_LANG]);
+    gotoxy(1, YSize-1);
+    printf(locale[ctx->locale][LC_TITLE_LANG], ctx->locale == English ? "en" : "eo");
 }
 
 void menuDrawQuitPrompt(uint8 choice) {

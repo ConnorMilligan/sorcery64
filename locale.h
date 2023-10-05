@@ -11,6 +11,6 @@ enum Locale {
     Esperanto
 };
 
-extern char* locale[2][LC_NUM_STRINGS];
+extern const char* locale[2][LC_NUM_STRINGS];
 
 #endif
