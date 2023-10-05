@@ -1,7 +1,7 @@
 #ifndef LOCALE_H
 #define LOCALE_H
 
-#define LC_NUM_STRINGS 17
+#define LC_NUM_STRINGS 18
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -23,6 +23,8 @@
 #define LC_SIDEBAR_LOC_LABEL 14
 #define LC_SIDEBAR_LOC 15
 #define LC_SIDEBAR_DIR 16
+
+#define LC_MAP_WINDOW_LABEL 17
 
 
 

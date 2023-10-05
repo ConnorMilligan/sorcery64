@@ -17,8 +17,8 @@ void buildContext(Context *ctx) {
     ctx->input = 0;
 
     ctx->locale = English;
-    ctx->gameState = TitleScreen;
-    //ctx->gameState = Game;
+    //ctx->gameState = TitleScreen;
+    ctx->gameState = Game;
 }
 
 void gameLoop() {
@@ -41,9 +41,11 @@ void gameLoop() {
 }
 
 void draw(Context *ctx) {
-    if (!ctx->quitPrompt && ctx->gameState != NamePrompt && ctx->gameState != TitleScreen) {
-        clrscr();
-    }
+
+
+    if (ctx->quitPrompt) {
+        menuDrawQuitPrompt(ctx);
+    } else {
 
     switch (ctx->gameState) {
         case TitleScreen:
@@ -59,11 +61,7 @@ void draw(Context *ctx) {
 
     if (ctx->showMap) {
         menuDrawMap(ctx);
-    }
-
-    if (ctx->quitPrompt) {
-        menuDrawQuitPrompt(ctx);
-    }
+    }}
 }
 
 void takeInput(Context *ctx) {
@@ -87,7 +85,7 @@ void takeInput(Context *ctx) {
     }
 
     // Title Screen prompts
-    if (ctx->gameState == TitleScreen && !ctx->quitPrompt) {
+    else if (ctx->gameState == TitleScreen && !ctx->quitPrompt) {
         if (ctx->input == KEY_RETURN) {
             ctx->gameState = NamePrompt;
             clrscr();

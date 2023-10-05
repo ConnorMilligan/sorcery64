@@ -18,7 +18,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "lck: %d",
         "location",
         "loc: %d,%d",
-        "dir: %c"
+        "dir: %c",
+        "map"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -37,6 +38,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "snc: %d",
         "loko",
         "lok: %d,%d",
-        "dir: %c"
+        "dir: %c",
+        "mapo"
     }
 };
