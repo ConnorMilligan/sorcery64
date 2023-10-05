@@ -1,6 +1,8 @@
 #ifndef LOCALE_H
 #define LOCALE_H
 
+#include "constants.h"
+
 #define LC_NUM_STRINGS 18
 
 #define LC_TITLE_PROMPT 0
@@ -25,13 +27,6 @@
 #define LC_SIDEBAR_DIR 16
 
 #define LC_MAP_WINDOW_LABEL 17
-
-
-
-enum Locale {
-    English,
-    Esperanto
-};
 
 extern const char* locale[2][LC_NUM_STRINGS];
 

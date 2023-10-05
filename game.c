@@ -5,7 +5,21 @@
 
 void buildContext(Context *ctx) {
     // Build the context
-    Player player = {"p"};
+    Player player = {
+        "p", // name
+        {0, 0}, // position
+        North, // direction
+        1, // level
+        0, // experience
+        {30, 30}, // health
+        2, // attack
+        2, // defense
+        2, // speed
+        2 // luck
+    };
+
+    player.position = mapGetStart();
+
     ctx->player = player;
 
     ctx->gameRunning = true;
@@ -17,8 +31,8 @@ void buildContext(Context *ctx) {
     ctx->input = 0;
 
     ctx->locale = English;
-    //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
+    ctx->gameState = TitleScreen;
+    //ctx->gameState = Game;
 }
 
 void gameLoop() {

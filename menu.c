@@ -108,7 +108,7 @@ void menuDrawGameScreen(Context *ctx) {
 
     cputsxy(xBound+1, 11, locale[ctx->locale][LC_SIDEBAR_LOC_LABEL]);
     gotoxy(xBound+1, 12);
-    cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], 2, 2);
+    cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], ctx->player.position.x, ctx->player.position.y);
     gotoxy(xBound+1, 13);
     cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], 'n');
 
