@@ -5,21 +5,9 @@
 
 void buildContext(Context *ctx) {
     // Build the context
-    Player player = {
-        "p", // name
-        {0, 0}, // position
-        North, // direction
-        1, // level
-        0, // experience
-        {30, 30}, // health
-        2, // attack
-        2, // defense
-        2, // speed
-        2 // luck
-    };
 
-    ctx->player = player;
-    ctx->maze = mazeBuild();
+    playerBuild(&ctx->player);
+    mazeBuild(&ctx->maze);
     ctx->player.position = ctx->maze.start;
 
     ctx->gameRunning = true;

@@ -181,5 +181,9 @@ void menuDrawMap(Context *ctx) {
             }
         }
     }
+
+    textcolor(COLOR_RED);
+    cputcxy(x+ctx->player.position.x+1, y+ctx->player.position.y+1, '@');
+    textcolor(COLOR_WHITE);
     
 }

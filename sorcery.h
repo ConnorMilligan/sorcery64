@@ -26,7 +26,10 @@ void draw(Context *ctx);
 void takeInput(Context *ctx);
 
 /* Maze */
-Maze mazeBuild();
+void mazeBuild(Maze *maze);
 bool mazeGetPos(Maze *maze, uint8 x, uint8 y);
+
+/* Player */
+void playerBuild(Player *player);
 
 #endif
