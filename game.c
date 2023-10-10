@@ -127,7 +127,20 @@ void takeInput(Context *ctx) {
         if (ctx->input == 'm') {
             ctx->showMap = ctx->showMap ? false : true;
             clrscr();
+        } 
+        else if (UP_PRESSED(ctx->input)) {
+            playerAttemptMove(&ctx->player, &ctx->maze, Forward);
         }
+        else if (DOWN_PRESSED(ctx->input)) {
+            playerAttemptMove(&ctx->player, &ctx->maze, Backward);
+        }
+        else if (LEFT_PRESSED(ctx->input)) {
+            playerMakeTurn(&ctx->player, Left);
+        }
+        else if (RIGHT_PRESSED(ctx->input)) {
+            playerMakeTurn(&ctx->player, Right);
+        }
+        
     }
     
 

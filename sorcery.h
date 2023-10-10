@@ -24,9 +24,11 @@ void takeInput(Context *ctx);
 
 /* Maze */
 void mazeBuild(Maze *maze);
-bool mazeGetPos(Maze *maze, uint8 x, uint8 y);
+bool mazeGetPos(Maze *maze, int8 x, int8 y);
 
 /* Player */
 void playerBuild(Player *player);
+bool playerAttemptMove(Player *player, Maze *maze, enum Movement move);
+void playerMakeTurn(Player *player, enum Movement move);
 
 #endif

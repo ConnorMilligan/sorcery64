@@ -112,10 +112,13 @@ void menuDrawGameScreen(Context *ctx) {
 
     cputsxy(1, yBound+1, "> you have entered the maze!");
 
+    // Draw vertical lines
     cvlinexy(xBound-4, 3, 12);
-    cvlinexy(xBound-8, 3, 11);
+    cvlinexy(xBound-8, 4, 10);
     cvlinexy(4, 3, 12);
-    cvlinexy(8, 3, 11);
+    cvlinexy(8, 4, 10);
+
+    // Horizontal lines top left
     for (i = 0; i < 2; i++) {
         cputcxy(x, y, 197);
         cputcxy(x+1, y, 195);
@@ -125,6 +128,7 @@ void menuDrawGameScreen(Context *ctx) {
         x+=4;
     }
     
+    // Horizontal lines bottom left
     x = 1;
     y = yBound-2;
 
@@ -137,6 +141,7 @@ void menuDrawGameScreen(Context *ctx) {
         x+=4;
     }
 
+    // Horizontal lines top right
     x = xBound-8;
     y = 3;
 
@@ -149,6 +154,7 @@ void menuDrawGameScreen(Context *ctx) {
         x+=4;
     }
 
+    // Horizontal lines bottom right
     x = xBound-8;
     y = yBound-3;
 

@@ -57,6 +57,13 @@ enum Direction {
     West = 21
 };
 
+enum Movement {
+    Forward,
+    Backward,
+    Left,
+    Right
+};
+
 enum Locale {
     English,
     Esperanto
