@@ -29,7 +29,7 @@ Position mapGetStart() {
 
     for (y = 0; y < MAZE_HEIGHT; y++) {
         for (x = 0; x < MAZE_WIDTH; x++) {
-            if (maze[y][x] == 'x') { // I hate doing it this way, but the compiler has forced my hand :()
+            if (maze[y][x] == 'x') { // I hate doing it this way, but the compiler has forced my hand :(
                 pos.y = y;
                 pos.x = x;
                 return pos;

@@ -138,6 +138,7 @@ void takeInput(Context *ctx) {
     else if (ctx->gameState == Game) {
         if (ctx->input == 'm') {
             ctx->showMap = ctx->showMap ? false : true;
+            clrscr();
         }
     }
     
