@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 18
+#define LC_NUM_STRINGS 22
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -25,6 +25,11 @@
 #define LC_SIDEBAR_LOC_LABEL 14
 #define LC_SIDEBAR_LOC 15
 #define LC_SIDEBAR_DIR 16
+
+#define LC_DIR_NORTH 18
+#define LC_DIR_EAST 19
+#define LC_DIR_SOUTH 20
+#define LC_DIR_WEST 21
 
 #define LC_MAP_WINDOW_LABEL 17
 

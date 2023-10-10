@@ -10,15 +10,15 @@ void playerBuild(Player *player) {
     player->position.y = 0;
     player->direction = North;
     
-    player->level = 1;
-    player->experience = 0;
+    player->stats.level = 1;
+    player->stats.experience = 0;
 
-    player->health.health = 30;
-    player->health.maxHealth = 30;
+    player->stats.health.health = 30;
+    player->stats.health.maxHealth = 30;
 
-    player->attack = 2;
-    player->defense = 2;
-    player->speed = 2;
-    player->luck;
+    player->stats.attack = 2;
+    player->stats.defense = 2;
+    player->stats.speed = 2;
+    player->stats.luck = 2;
 
 }

@@ -69,7 +69,6 @@ void menuDrawQuitPrompt(Context *ctx) {
 
 void menuDrawNamePrompt(Context *ctx) {
     menuDrawWindow(0, 0, XSize, YSize);
-    //cputsxy((XSize)/2 - 12, YSize/2-1, "please enter your name:");
     cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_NAME_PROMPT])/2, YSize/2-1, locale[ctx->locale][LC_NAME_PROMPT]);
     cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
@@ -91,25 +90,25 @@ void menuDrawGameScreen(Context *ctx) {
     // Draw player information
     cputsxy(xBound+1, 1, ctx->player.name);
     gotoxy(xBound+1, 2);
-    cprintf(locale[ctx->locale][LC_STAT_LEVEL], 1);
+    cprintf(locale[ctx->locale][LC_STAT_LEVEL], ctx->player.stats.level);
     gotoxy(xBound+1, 3);
-    cprintf(locale[ctx->locale][LC_STAT_HP], 30, 30);
+    cprintf(locale[ctx->locale][LC_STAT_HP], ctx->player.stats.health.health, ctx->player.stats.health.maxHealth);
 
     cputsxy(xBound+1, 5, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
     gotoxy(xBound+1, 6);
-    cprintf(locale[ctx->locale][LC_STAT_ATK], 2);
+    cprintf(locale[ctx->locale][LC_STAT_ATK], ctx->player.stats.attack);
     gotoxy(xBound+1, 7);
-    cprintf(locale[ctx->locale][LC_STAT_DEF], 2);
+    cprintf(locale[ctx->locale][LC_STAT_DEF], ctx->player.stats.defense);
     gotoxy(xBound+1, 8);
-    cprintf(locale[ctx->locale][LC_STAT_SPD], 2);
+    cprintf(locale[ctx->locale][LC_STAT_SPD], ctx->player.stats.speed);
     gotoxy(xBound+1, 9);
-    cprintf(locale[ctx->locale][LC_STAT_LCK], 2);
+    cprintf(locale[ctx->locale][LC_STAT_LCK], ctx->player.stats.luck);
 
     cputsxy(xBound+1, 11, locale[ctx->locale][LC_SIDEBAR_LOC_LABEL]);
     gotoxy(xBound+1, 12);
     cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], ctx->player.position.x, ctx->player.position.y);
     gotoxy(xBound+1, 13);
-    cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], 'n');
+    cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], locale[ctx->locale][ctx->player.direction]);
 
     cputsxy(1, yBound+1, "> you have entered the maze!");
 

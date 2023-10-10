@@ -51,10 +51,10 @@ enum quitSelection {
 };
 
 enum Direction {
-    North,
-    East,
-    South,
-    West
+    North = 18,
+    East = 19,
+    South = 20,
+    West = 21
 };
 
 enum Locale {
@@ -72,13 +72,7 @@ typedef struct Position {
     char y;
 } Position;
 
-
-typedef struct Player {
-    char name[9];
-
-    Position position;
-    enum Direction direction;
-
+typedef struct Stats {
     uint8 level;
     uint8 experience;
 
@@ -88,6 +82,15 @@ typedef struct Player {
     uint8 defense;
     uint8 speed;
     uint8 luck;
+} Stats;
+
+typedef struct Player {
+    char name[9];
+
+    Position position;
+    enum Direction direction;
+
+    Stats stats;
 } Player;
 
 typedef struct Maze {

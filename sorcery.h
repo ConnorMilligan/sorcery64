@@ -9,9 +9,6 @@
 extern unsigned char XSize, YSize;
 
 /* Menu */
-void menuDrawTeeLine(uint8 x, uint8 y);
-void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
-
 void menuDrawTitleScreen(Context *ctx);
 void menuDrawQuitPrompt(Context *ctx);
 void menuDrawNamePrompt(Context *ctx);
