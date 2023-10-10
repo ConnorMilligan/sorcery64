@@ -18,9 +18,9 @@ void buildContext(Context *ctx) {
         2 // luck
     };
 
-    player.position = mapGetStart();
-
     ctx->player = player;
+    ctx->maze = mazeBuild();
+    ctx->player.position = ctx->maze.start;
 
     ctx->gameRunning = true;
     ctx->quitPrompt = false;
@@ -31,8 +31,8 @@ void buildContext(Context *ctx) {
     ctx->input = 0;
 
     ctx->locale = English;
-    ctx->gameState = TitleScreen;
-    //ctx->gameState = Game;
+    //ctx->gameState = TitleScreen;
+    ctx->gameState = Game;
 }
 
 void gameLoop() {

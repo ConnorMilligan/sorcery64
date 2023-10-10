@@ -1,6 +1,5 @@
 #include "sorcery.h"
 #include "locale.h"
-#include "maze.h"
 
 #include <cbm.h>
 #include <conio.h>
@@ -172,10 +171,10 @@ void menuDrawMap(Context *ctx) {
 
     menuDrawWindow(x, y, width, height);
     cputsxy(x+1, y, locale[ctx->locale][LC_MAP_WINDOW_LABEL]);
-    
+
     for (i = 0; i < MAZE_HEIGHT; i++) {
         for (j = 0; j < MAZE_WIDTH; j++) {
-            if (maze[j][i] == 'w') {
+            if (mazeGetPos(&ctx->maze, i, j)) {
                 cputcxy(x+i+1, y+j+1, 166);
             } else {
                 cputcxy(x+i+1, y+j+1, 32);

@@ -2,7 +2,6 @@
 #define SORCERY_H
 
 #include "locale.h"
-#include "maze.h"
 
 #include <stdbool.h>
 
@@ -12,7 +11,6 @@ extern unsigned char XSize, YSize;
 /* Menu */
 void menuDrawTeeLine(uint8 x, uint8 y);
 void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
-
 
 void menuDrawTitleScreen(Context *ctx);
 void menuDrawQuitPrompt(Context *ctx);
@@ -26,5 +24,9 @@ void buildContext(Context *ctx);
 void gameLoop();
 void draw(Context *ctx);
 void takeInput(Context *ctx);
+
+/* Maze */
+Maze mazeBuild();
+bool mazeGetPos(Maze *maze, uint8 x, uint8 y);
 
 #endif

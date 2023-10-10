@@ -31,6 +31,10 @@
 
 #define CHAR_BLANK 32
 
+#define MAZE_WIDTH  20
+#define MAZE_HEIGHT 20
+#define MAZE_OFFSET 3
+
 typedef unsigned char uint8;
 typedef char int8;
 
@@ -86,8 +90,15 @@ typedef struct Player {
     uint8 luck;
 } Player;
 
+typedef struct Maze {
+    uint8 map[MAZE_HEIGHT][MAZE_OFFSET];
+    Position start;
+} Maze;
+
+
 typedef struct Context {
     Player player;
+    Maze maze;
 
     bool gameRunning;
     bool quitPrompt;

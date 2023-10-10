@@ -1,39 +1,42 @@
-#include "maze.h"
+#include "constants.h"
 
-const char maze[MAZE_HEIGHT][MAZE_WIDTH] = {
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'o', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'o', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'o', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'o', 'o', 'o', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'o', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'x', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
-    {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w','w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'}
-};
+#include <string.h>
 
-Position mapGetStart() {
-    uint8 x, y;
-    Position pos;
+void mazeBuild(Maze *maze) {
+    Maze map = {
+        {
+            {255, 255, 15},
+            {255, 255, 15},
+            {255, 255, 15},
+            {255, 255, 15},
+            {255, 255, 15},
+            {255, 192, 15},
+            {255, 222, 15},
+            {255, 222, 15},
+            {255, 222, 7},
+            {15, 222, 7},
+            {239, 223, 7},
+            {239, 31, 0},
+            {225, 255, 15},
+            {253, 255, 15},
+            {253, 255, 15},
+            {253, 255, 15},
+            {253, 255, 15},
+            {253, 255, 15},
+            {253, 255, 15},
+            {255, 255, 15}
+        },
+        {2, 3}
+    };
 
-    for (y = 0; y < MAZE_HEIGHT; y++) {
-        for (x = 0; x < MAZE_WIDTH; x++) {
-            if (maze[y][x] == 'x') { // I hate doing it this way, but the compiler has forced my hand :(
-                pos.y = y;
-                pos.x = x;
-                return pos;
-            }
-        }
-    }
+    *maze = map;
+}
+
+
+
+bool mazeGetPos(Maze *maze, uint8 x, uint8 y) {
+    int bitPosition = x % 8;
+    unsigned char byte = maze->map[y][x/8];
+
+    return (byte >> bitPosition) & 1;
 }
