@@ -100,36 +100,46 @@ void menuDrawPlayerInfo(Context *ctx) {
 
 }
 
-void menuDrawLeftSector(bool hasWall) {
+void menuDrawLeftSector(Context *ctx) {
+    uint8 posX, posY;
     uint8 x = 1, y = 2;
-    size_t i;
+    size_t i, j;
+    bool isWall;
 
-    // Draw vertical lines
-    cvlinexy(4, 3, 12);
-    cvlinexy(8, 4, 10);
+    posX = ctx->player.position.x;
+    posY = ctx->player.position.y;
 
+    for (i = 0; i < 3; i++) {
+        switch (ctx->player.direction) {
+            case North:
+                
+                break;
+        }
 
-    // Horizontal lines top left
-    for (i = 0; i < 2; i++) {
-        cputcxy(x, y, 197);
-        cputcxy(x+1, y, 195);
-        cputcxy(x+2, y, 210);
-        cputcxy(x+3, y, 175);
-        y++;
-        x+=4;
-    }
-    
-    // Horizontal lines bottom left
-    x = 1;
-    y = yBound-2;
+        // Vertical line
+        cvlinexy(4*i, 2+i, 14-(2*i));
 
-    for (i = 0; i < 2; i++) {
-        cputcxy(x, y, 175);
-        cputcxy(x+1, y, 210);
-        cputcxy(x+2, y, 195);
-        cputcxy(x+3, y, 197);
-        y--;
-        x+=4;
+        if (posX == 0 || mazeGetPos(&ctx->maze, posX-1, posY)) {
+
+            // Top horizontal line
+            cputcxy(x+(4*i), y+i, 197);
+            cputcxy(x+1+(4*i), y+i, 195);
+            cputcxy(x+2+(4*i), y+i, 210);
+            cputcxy(x+3+(4*i), y+i, 175);
+
+            // Bottom horizontal line
+            cputcxy(x+(4*i), y+(yBound-4)-i, 175);
+            cputcxy(x+1+(4*i), y+(yBound-4)-i, 210);
+            cputcxy(x+2+(4*i), y+(yBound-4)-i, 195);
+            cputcxy(x+3+(4*i), y+(yBound-4)-i, 197);
+
+        }
+        else {
+            for (j = 0; i < 4; j++) {
+                cputcxy(x+(4*i)+j, y+i, 197);
+                cputcxy(x+(4*i)+j, y+(yBound-4)-i, 175);
+            }
+        }
     }
 }
 
@@ -189,9 +199,9 @@ void menuDrawGameScreen(Context *ctx) {
     menuDrawPlayerInfo(ctx);
 
     // Draw walls
-    menuDrawLeftSector(1);
+    menuDrawLeftSector(ctx);
     menuDrawRightSector(1);
-    menuDrawCenterSector(1);
+    //menuDrawCenterSector(0);
     
 }
 
