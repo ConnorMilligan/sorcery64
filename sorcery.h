@@ -6,7 +6,8 @@
 #include <stdbool.h>
 
 // Screen dimensions
-extern unsigned char XSize, YSize;
+extern uint8 XSize, YSize, xBound, yBound;
+
 
 /* Menu */
 void menuDrawTitleScreen(Context *ctx);
@@ -15,6 +16,8 @@ void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawPopUpWindow(char *title);
 void menuDrawMap(Context *ctx);
+
+void menuConsoleWrite(char *text);
 
 /* Game */
 void buildContext(Context *ctx);

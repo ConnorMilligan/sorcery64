@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern uint8 XSize, YSize;
+extern uint8 XSize, YSize, xBound, yBound;
 extern const char* locale[2][LC_NUM_STRINGS];
 
 void menuDrawTeeLine(uint8 x, uint8 y) {
@@ -73,27 +73,14 @@ void menuDrawNamePrompt(Context *ctx) {
     cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
 
-void menuDrawGameScreen(Context *ctx) {
-    uint8 xBound = (XSize - XSize/3)+2;
-    uint8 yBound = 17;
-    uint8 x = 1, y = 2;
-    size_t i;
-
-    // Draw lines
-    menuDrawWindow(0, 0, XSize, YSize);
-    menuDrawTeeLine(xBound+1, yBound);
-    cvlinexy(xBound, 1, YSize-2);
-    cputcxy(xBound, 0, 178);
-    cputcxy(xBound, YSize-1, 177);
-    cputcxy(xBound, yBound, 179);
-
-    // Draw player information
+void menuDrawPlayerInfo(Context *ctx) {
     cputsxy(xBound+1, 1, ctx->player.name);
     gotoxy(xBound+1, 2);
     cprintf(locale[ctx->locale][LC_STAT_LEVEL], ctx->player.stats.level);
     gotoxy(xBound+1, 3);
     cprintf(locale[ctx->locale][LC_STAT_HP], ctx->player.stats.health.health, ctx->player.stats.health.maxHealth);
 
+    // Stats
     cputsxy(xBound+1, 5, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
     gotoxy(xBound+1, 6);
     cprintf(locale[ctx->locale][LC_STAT_ATK], ctx->player.stats.attack);
@@ -104,19 +91,23 @@ void menuDrawGameScreen(Context *ctx) {
     gotoxy(xBound+1, 9);
     cprintf(locale[ctx->locale][LC_STAT_LCK], ctx->player.stats.luck);
 
+    // Location
     cputsxy(xBound+1, 11, locale[ctx->locale][LC_SIDEBAR_LOC_LABEL]);
     gotoxy(xBound+1, 12);
     cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], ctx->player.position.x, ctx->player.position.y);
     gotoxy(xBound+1, 13);
     cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], locale[ctx->locale][ctx->player.direction]);
 
-    cputsxy(1, yBound+1, "> you have entered the maze!");
+}
+
+void menuDrawLeftSector(bool hasWall) {
+    uint8 x = 1, y = 2;
+    size_t i;
 
     // Draw vertical lines
-    cvlinexy(xBound-4, 3, 12);
-    cvlinexy(xBound-8, 4, 10);
     cvlinexy(4, 3, 12);
     cvlinexy(8, 4, 10);
+
 
     // Horizontal lines top left
     for (i = 0; i < 2; i++) {
@@ -140,11 +131,17 @@ void menuDrawGameScreen(Context *ctx) {
         y--;
         x+=4;
     }
+}
+
+void menuDrawRightSector(bool hasWall) {
+    uint8 x = xBound-8, y = 3;
+    size_t i;
+
+    // Draw vertical lines
+    cvlinexy(xBound-4, 3, 12);
+    cvlinexy(xBound-8, 4, 10);
 
     // Horizontal lines top right
-    x = xBound-8;
-    y = 3;
-
     for (i = 0; i < 2; i++) {
         cputcxy(x, y, 175);
         cputcxy(x+1, y, 210);
@@ -166,7 +163,36 @@ void menuDrawGameScreen(Context *ctx) {
         y++;
         x+=4;
     }
+}
 
+void menuDrawCenterSector(bool hasWall) {
+    size_t i;
+    uint8 x = 9, y = 3;
+
+    for (i = 0; i < 12; i++) {
+        cputcxy(x+i, y, 175);
+        cputcxy(x+i, y+11, 197);
+    }
+
+}
+
+void menuDrawGameScreen(Context *ctx) {
+    // Draw lines
+    menuDrawWindow(0, 0, XSize, YSize);
+    menuDrawTeeLine(XSize, yBound);
+    // Separator line
+    cvlinexy(xBound, 1, yBound-1);
+    cputcxy(xBound, 0, 178);
+    cputcxy(xBound, yBound, 177);
+
+    // Draw player information
+    menuDrawPlayerInfo(ctx);
+
+    // Draw walls
+    menuDrawLeftSector(1);
+    menuDrawRightSector(1);
+    menuDrawCenterSector(1);
+    
 }
 
 void menuDrawMap(Context *ctx) {

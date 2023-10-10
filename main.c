@@ -3,11 +3,13 @@
 #include <conio.h>
 #include <peekpoke.h>
 
-uint8 XSize, YSize;
+uint8 XSize, YSize, xBound, yBound;
 
 int main (void) {
     /* Get the screen dimensions */
     screensize(&XSize, &YSize);
+    xBound = (XSize - XSize/3)+2;
+    yBound = 17;
 
     // revert from shifted-mode
     POKE(53272,21);
