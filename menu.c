@@ -112,14 +112,11 @@ void menuDrawLeftSector(Context *ctx) {
     for (i = 0; i < 3; i++) {
         switch (ctx->player.direction) {
             case North:
-                
+                isWall = posX == 0 ? false : mazeGetPos(&ctx->maze, posX-1, posY-i);
                 break;
         }
 
-        // Vertical line
-        cvlinexy(4*i, 2+i, 14-(2*i));
-
-        if (posX == 0 || mazeGetPos(&ctx->maze, posX-1, posY)) {
+        if (isWall) {
 
             // Top horizontal line
             cputcxy(x+(4*i), y+i, 197);
@@ -135,11 +132,14 @@ void menuDrawLeftSector(Context *ctx) {
 
         }
         else {
-            for (j = 0; i < 4; j++) {
-                cputcxy(x+(4*i)+j, y+i, 197);
-                cputcxy(x+(4*i)+j, y+(yBound-4)-i, 175);
+            for (j = 0; j < 4; j++) {
+                cputcxy(x+(4*i)+j, y+i+1, 197);
+                cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, 175);
             }
         }
+
+        // Vertical line
+        cvlinexy(4*(i+1), 3+i, 12-(2*i));
     }
 }
 
@@ -187,6 +187,8 @@ void menuDrawCenterSector(bool hasWall) {
 }
 
 void menuDrawGameScreen(Context *ctx) {
+    clrscr();
+
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(XSize, yBound);
