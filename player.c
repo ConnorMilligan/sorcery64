@@ -47,7 +47,7 @@ bool playerAttemptMove(Player *player, Maze *maze, enum Movement move) {
     }
 
     else if ((player->direction == East && move == Forward) || (player->direction == West && move == Backward)) {
-        if (player->position.x == MAZE_WIDTH+1)
+        if (player->position.x == MAZE_WIDTH-1)
             return false;
         else if (mazeGetPos(maze, player->position.x+1, player->position.y))
             return false;
