@@ -104,7 +104,7 @@ void menuDrawLeftSector(Context *ctx) {
     uint8 posX, posY;
     uint8 x = 1, y = 2;
     size_t i, j;
-    bool isWall;
+    bool isWall, isWallAhead;
 
     posX = ctx->player.position.x;
     posY = ctx->player.position.y;
@@ -113,10 +113,31 @@ void menuDrawLeftSector(Context *ctx) {
         switch (ctx->player.direction) {
             case North:
                 isWall = posX == 0 ? false : mazeGetPos(&ctx->maze, posX-1, posY-i);
+                isWallAhead = posY-i-1 == 0 ? false : mazeGetPos(&ctx->maze, posX, posY-i);
+                break;
+            case South:
+                isWall = posX == MAZE_HEIGHT-1 ? false : mazeGetPos(&ctx->maze, posX+1, posY+i);
+                isWallAhead = posY+i+1 == 0 ? false : mazeGetPos(&ctx->maze, posX, posY+i);
+                break;
+            case East:
+                isWall = posY == 0 ? false : mazeGetPos(&ctx->maze, posX+i, posY-1);
+                isWallAhead = posX+i+1 == 0 ? false : mazeGetPos(&ctx->maze, posX+i, posY);
+                break;
+            case West:
+                isWall = posY == MAZE_WIDTH-1 ? false : mazeGetPos(&ctx->maze, posX+i, posY+1);
+                isWallAhead = posX-i-1 == 0 ? false : mazeGetPos(&ctx->maze, posX+i, posY);
                 break;
         }
 
-        if (isWall) {
+        if (isWallAhead) {
+            // for (j = x+(4*i); j < xBound/2; j++) {
+            //     cputcxy(j, y+i-1, 175);
+            //     cputcxy(j, y+(yBound-2)-i-1, 197);
+            // }
+            break;
+        }
+
+        else if (isWall) {
 
             // Top horizontal line
             cputcxy(x+(4*i), y+i, 197);
@@ -144,15 +165,16 @@ void menuDrawLeftSector(Context *ctx) {
 }
 
 void menuDrawRightSector(bool hasWall) {
-    uint8 x = xBound-8, y = 3;
+    uint8 x = xBound-12, y = 4;
     size_t i;
 
     // Draw vertical lines
-    cvlinexy(xBound-4, 3, 12);
-    cvlinexy(xBound-8, 4, 10);
+    cvlinexy(xBound-2, 3, 12);
+    cvlinexy(xBound-6, 4, 10);
+    cvlinexy(xBound-9, 5, 8);
 
     // Horizontal lines top right
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 3; i++) {
         cputcxy(x, y, 175);
         cputcxy(x+1, y, 210);
         cputcxy(x+2, y, 195);
@@ -162,10 +184,10 @@ void menuDrawRightSector(bool hasWall) {
     }
 
     // Horizontal lines bottom right
-    x = xBound-8;
-    y = yBound-3;
+    x = xBound-12;
+    y = yBound-4;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 3; i++) {
         cputcxy(x, y, 197);
         cputcxy(x+1, y, 195);
         cputcxy(x+2, y, 210);
