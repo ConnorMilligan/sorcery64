@@ -112,20 +112,20 @@ void menuDrawLeftSector(Context *ctx) {
     for (i = 0; i < 3; i++) {
         switch (ctx->player.direction) {
             case North:
-                isWall = posX == 0 ? true : mazeGetPos(&ctx->maze, posX-1, posY-i);
-                isWallAhead = posY-i-1 == 0 ? true : mazeGetPos(&ctx->maze, posX, posY-i);
+                isWall = mazeGetPos(&ctx->maze, posX-1, posY-i);
+                isWallAhead = mazeGetPos(&ctx->maze, posX, posY-i);
                 break;
             case South:
-                isWall = posX == MAZE_WIDTH-1 ? true : mazeGetPos(&ctx->maze, posX+1, posY+i);
-                isWallAhead = posY+i+1 == 0 ? true : mazeGetPos(&ctx->maze, posX, posY+i);
+                isWall = mazeGetPos(&ctx->maze, posX+1, posY+i);
+                isWallAhead = mazeGetPos(&ctx->maze, posX, posY+i);
                 break;
             case East:
-                isWall = posY == 0 ? true : mazeGetPos(&ctx->maze, posX+i, posY-1);
-                isWallAhead = posX+i+1 == 0 ? true : mazeGetPos(&ctx->maze, posX+i, posY);
+                isWall = mazeGetPos(&ctx->maze, posX+i, posY-1);
+                isWallAhead = mazeGetPos(&ctx->maze, posX+i, posY);
                 break;
             case West:
-                isWall = posY == MAZE_HEIGHT-1 ? true : mazeGetPos(&ctx->maze, posX-i, posY+1);
-                isWallAhead = posX-i-1 == 0 ? true : mazeGetPos(&ctx->maze, posX-i, posY);
+                isWall = mazeGetPos(&ctx->maze, posX-i, posY+1);
+                isWallAhead = mazeGetPos(&ctx->maze, posX-i, posY);
                 break;
         }
 
@@ -176,20 +176,20 @@ void menuDrawRightSector(Context *ctx) {
     for (i = 0; i < 3; i++) {
         switch (ctx->player.direction) {
             case North:
-                isWall = posX == MAZE_WIDTH-1 ? true : mazeGetPos(&ctx->maze, posX+1, posY-i);
-                isWallAhead = posY-i-1 == 0 ? true : mazeGetPos(&ctx->maze, posX, posY-i);
+                isWall = mazeGetPos(&ctx->maze, posX+1, posY-i);
+                isWallAhead = mazeGetPos(&ctx->maze, posX, posY-i);
                 break;
             case South:
-                isWall = posX == 0 ? true : mazeGetPos(&ctx->maze, posX-1, posY+i);
-                isWallAhead = posY+i+1 == 0 ? true : mazeGetPos(&ctx->maze, posX, posY+i);
+                isWall = mazeGetPos(&ctx->maze, posX-1, posY+i);
+                isWallAhead = mazeGetPos(&ctx->maze, posX, posY+i);
                 break;
             case East:
-                isWall = posY == MAZE_HEIGHT-1 ? true : mazeGetPos(&ctx->maze, posX+i, posY+1);
-                isWallAhead = posX+i+1 == 0 ? true : mazeGetPos(&ctx->maze, posX+i, posY);
+                isWall = mazeGetPos(&ctx->maze, posX+i, posY+1);
+                isWallAhead = mazeGetPos(&ctx->maze, posX+i, posY);
                 break;
             case West:
-                isWall = posY == 0 ? true : mazeGetPos(&ctx->maze, posX-i, posY-1);
-                isWallAhead = posX-i-1 == 0 ? true : mazeGetPos(&ctx->maze, posX-i, posY);
+                isWall = mazeGetPos(&ctx->maze, posX-i, posY-1);
+                isWallAhead = mazeGetPos(&ctx->maze, posX-i, posY);
                 break;
         }
 
@@ -228,6 +228,39 @@ void menuDrawRightSector(Context *ctx) {
     }
 }
 
+// This covers a specific case, but a pretty important one,
+void menuDrawCenterSector(Context *ctx) {
+    uint8 posX, posY;
+    uint8 x = (xBound/2)-1, y = 5;
+    size_t i;
+    bool wall;
+
+    posX = ctx->player.position.x;
+    posY = ctx->player.position.y;
+
+    switch (ctx->player.direction) {
+        case North:
+            wall = posY-3 >= 0 ? mazeGetPos(&ctx->maze, posX, posY-3) : false;
+            break;
+        case South:
+            wall = posY+3 <= MAZE_HEIGHT-1 ? mazeGetPos(&ctx->maze, posX, posY+3) : false;
+            break;
+        case East:
+            wall = posX+3 >= MAZE_WIDTH-1 ? mazeGetPos(&ctx->maze, posX+3, posY) : false;
+            break;
+        case West:
+            wall = posX-3 >= 0 ? mazeGetPos(&ctx->maze, posX-3, posY) : false;
+            break;
+    }
+
+    if (wall) {
+        for (i = 0; i < 4; i++) {
+            cputcxy(x+i, y, 197);
+            cputcxy(x+i, yBound-y, 175);
+        }
+    }
+}
+
 void menuDrawGameScreen(Context *ctx) {
     clrscr();
 
@@ -245,7 +278,7 @@ void menuDrawGameScreen(Context *ctx) {
     // Draw walls
     menuDrawLeftSector(ctx);
     menuDrawRightSector(ctx);
-    //menuDrawCenterSector(ctx);
+    menuDrawCenterSector(ctx);
     
 }
 
