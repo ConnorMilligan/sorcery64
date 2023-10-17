@@ -240,16 +240,16 @@ void menuDrawCenterSector(Context *ctx) {
 
     switch (ctx->player.direction) {
         case North:
-            wall = posY-3 >= 0 ? mazeGetPos(&ctx->maze, posX, posY-3) : false;
+            wall = posY-3 >= 0 ? (mazeGetPos(&ctx->maze, posX, posY-3) && !mazeGetPos(&ctx->maze, posX, posY-2)) : false;
             break;
         case South:
-            wall = posY+3 <= MAZE_HEIGHT-1 ? mazeGetPos(&ctx->maze, posX, posY+3) : false;
+            wall = posY+3 <= MAZE_HEIGHT-1 ? (mazeGetPos(&ctx->maze, posX, posY+3) && !mazeGetPos(&ctx->maze, posX, posY+2)) : false;
             break;
         case East:
-            wall = posX+3 >= MAZE_WIDTH-1 ? mazeGetPos(&ctx->maze, posX+3, posY) : false;
+            wall = posX+3 >= MAZE_WIDTH-1 ? (mazeGetPos(&ctx->maze, posX+3, posY) && !mazeGetPos(&ctx->maze, posX+2, posY)) : false;
             break;
         case West:
-            wall = posX-3 >= 0 ? mazeGetPos(&ctx->maze, posX-3, posY) : false;
+            wall = posX-3 >= 0 ? (mazeGetPos(&ctx->maze, posX-3, posY) && !mazeGetPos(&ctx->maze, posX-2, posY)) : false;
             break;
     }
 

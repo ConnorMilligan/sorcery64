@@ -11,15 +11,15 @@
 #define LEFT_PRESSED(c) (c == KEY_LEFT || c == KEY_A || c == KEY_H)
 #define RIGHT_PRESSED(c) (c == KEY_RIGHT || c == KEY_D || c == KEY_L)
 
-#define KEY_J 75
-#define KEY_K 74
+#define KEY_J 74
+#define KEY_K 75
 #define KEY_H 72
 #define KEY_L 76
 
 #define KEY_UP 145
-#define KEY_DOWN 175
+#define KEY_DOWN 17
 #define KEY_LEFT 157
-#define KEY_RIGHT 297
+#define KEY_RIGHT 29
 
 #define KEY_W 87
 #define KEY_A 65
