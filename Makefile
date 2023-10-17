@@ -1,27 +1,29 @@
-SOURCES = ${wildcard *.c}
+SRC_DIR = src
+BIN_DIR = bin
+
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(BIN_DIR)/%.o,$(SOURCES))
 
 PROGRAM = sorcery64
 CC65_TARGET = c64
- 
-CC      = cl65
-CFLAGS  = -t $(CC65_TARGET) --create-dep $(<:.c=.d) -O
-LDFLAGS = -t $(CC65_TARGET) -m $(PROGRAM).map
+CC = cl65
+CFLAGS = -t $(CC65_TARGET) -O
+LDFLAGS = -t $(CC65_TARGET) -m $(BIN_DIR)/$(PROGRAM).map
 
 ########################################
 
-.SUFFIXES:
 .PHONY: all clean
-all: $(PROGRAM)
 
-ifneq ($(MAKECMDGOALS),clean)
--include $(SOURCES:.c=.d)
-endif
+all: $(BIN_DIR)/$(PROGRAM)
 
-%.o: %.c
+-include $(DEPS)
+
+$(BIN_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(SOURCES:.c=.o)
+$(BIN_DIR)/$(PROGRAM): $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $@.prg $^
 
 clean:
-	$(RM) $(SOURCES:.c=.o) $(SOURCES:.c=.d) $(PROGRAM).prg $(PROGRAM).map
+	$(RM) -r $(BIN_DIR)

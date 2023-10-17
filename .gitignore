@@ -1,5 +1,2 @@
-*.map
-*.prg
-*.d
-*.o
-/.vscode
+.vscode/
+bin/
