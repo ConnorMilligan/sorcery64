@@ -17,7 +17,14 @@ void menuDrawGameScreen(Context *ctx);
 void menuDrawMap(Context *ctx);
 
 /* Console */
-void consoleWrite(char *text);
+void consoleBufferBuild(ConsoleBuffer *consoleBuffer);
+void consoleWrite(ConsoleBuffer *consoleBuffer);
+void consoleBufferAdd(ConsoleBuffer *consoleBuffer, const char *text);
+void consoleBufferCleanUp(ConsoleBuffer *consoleBuffer);
+
+/* Context */
+void contextBuild(Context *ctx);
+void contextCleanUp(Context *ctx);
 
 /* Game */
 void buildContext(Context *ctx);

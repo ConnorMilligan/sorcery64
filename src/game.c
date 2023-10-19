@@ -3,31 +3,12 @@
 
 #include <conio.h>
 
-void buildContext(Context *ctx) {
-    // Build the context
-
-    playerBuild(&ctx->player);
-    mazeBuild(&ctx->maze);
-    ctx->player.position = ctx->maze.start;
-
-    ctx->gameRunning = true;
-    ctx->quitPrompt = false;
-    ctx->showMap = false;
-
-    ctx->quitSelector = 0;
-    ctx->choice = 0;
-    ctx->input = 0;
-
-    ctx->locale = English;
-    //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
-}
-
 void gameLoop() {
     Context ctx;
-    buildContext(&ctx);
+    contextBuild(&ctx);
 
     while (ctx.gameRunning) {
+        consoleBufferAdd(&ctx.consoleBuffer, "pekora");
         draw(&ctx);
 
         // gotoxy(3,5);
@@ -40,6 +21,7 @@ void gameLoop() {
         takeInput(&ctx);
     }
     
+    contextCleanUp(&ctx);
 }
 
 void draw(Context *ctx) {

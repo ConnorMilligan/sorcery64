@@ -106,13 +106,14 @@ typedef struct Maze {
 } Maze;
 
 typedef struct ConsoleBuffer {
-    char *buffer[6];
+    const char **buffer[6];
     uint8 pos;
 } ConsoleBuffer;
 
 typedef struct Context {
     Player player;
     Maze maze;
+    ConsoleBuffer consoleBuffer;
 
     bool gameRunning;
     bool quitPrompt;

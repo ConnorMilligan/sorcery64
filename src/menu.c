@@ -269,6 +269,7 @@ void menuDrawCenterSector(Context *ctx) {
 }
 
 void menuDrawGameScreen(Context *ctx) {
+    uint8 i;
     clrscr();
 
     // Draw lines
@@ -281,6 +282,9 @@ void menuDrawGameScreen(Context *ctx) {
 
     // Draw player information
     menuDrawPlayerInfo(ctx);
+
+    // Display console
+    consoleWrite(&ctx->consoleBuffer);
 
     // Draw walls
     menuDrawLeftSector(ctx);
