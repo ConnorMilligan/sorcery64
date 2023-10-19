@@ -10,6 +10,13 @@
 extern uint8 XSize, YSize, xBound, yBound;
 extern const char* locale[2][LC_NUM_STRINGS];
 
+void menuDrawTeeLine(uint8 x, uint8 y);
+void menuDrawWindow(uint8 x, uint8 y, uint8 width, uint8 height);
+void menuDrawLeftSector(Context *ctx);
+void menuDrawRightSector(Context *ctx);
+void menuDrawCenterSector(Context *ctx);
+
+
 void menuDrawTeeLine(uint8 x, uint8 y) {
     cputcxy(0, y, CH_LTEE);
     chline(x - 2);

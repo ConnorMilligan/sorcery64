@@ -105,6 +105,10 @@ typedef struct Maze {
     Position start;
 } Maze;
 
+typedef struct ConsoleBuffer {
+    char *buffer[6];
+    uint8 pos;
+} ConsoleBuffer;
 
 typedef struct Context {
     Player player;

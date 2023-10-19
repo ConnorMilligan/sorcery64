@@ -14,10 +14,10 @@ void menuDrawTitleScreen(Context *ctx);
 void menuDrawQuitPrompt(Context *ctx);
 void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
-void menuDrawPopUpWindow(char *title);
 void menuDrawMap(Context *ctx);
 
-void menuConsoleWrite(char *text);
+/* Console */
+void consoleWrite(char *text);
 
 /* Game */
 void buildContext(Context *ctx);
