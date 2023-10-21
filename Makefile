@@ -19,7 +19,6 @@ all: $(BIN_DIR)/$(PROGRAM)
 -include $(DEPS)
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(BIN_DIR)/$(PROGRAM): $(OBJECTS)
