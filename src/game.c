@@ -2,13 +2,15 @@
 #include "locale.h"
 
 #include <conio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void gameLoop() {
     Context ctx;
     contextBuild(&ctx);
 
     while (ctx.gameRunning) {
-        consoleBufferAdd(&ctx.consoleBuffer, "this is a very long string that should have some issue with text wrapping around i hope");
         draw(&ctx);
 
         // gotoxy(3,5);
@@ -111,16 +113,47 @@ void takeInput(Context *ctx) {
             clrscr();
         } 
         else if (UP_PRESSED(ctx->input)) {
-            playerAttemptMove(&ctx->player, &ctx->maze, Forward);
+            if (playerAttemptMove(&ctx->player, &ctx->maze, Forward)) {
+                // I am so sorry
+                char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][ctx->player.direction+4])-1));
+                
+                sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
+                consoleBufferAdd(&ctx->consoleBuffer, message);
+                free(message);
+            } else {
+                consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
+            }
         }
         else if (DOWN_PRESSED(ctx->input)) {
-            playerAttemptMove(&ctx->player, &ctx->maze, Backward);
+            if (playerAttemptMove(&ctx->player, &ctx->maze, Backward)) {
+                // I am still sorry, but not as sorry since i'm doing this line now
+                uint8 dir = ctx->player.direction == North ? LC_SOUTH : ctx->player.direction == East ? LC_WEST : ctx->player.direction == South ? LC_NORTH : LC_EAST;  
+                char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][dir])-1));
+
+                sprintf(message, locale[ctx->locale][LC_RETREAT_MESSAGE], locale[ctx->locale][dir]);
+                consoleBufferAdd(&ctx->consoleBuffer, message);
+                free(message);
+            } else {
+                consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
+            }
         }
         else if (LEFT_PRESSED(ctx->input)) {
+            char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_TURN_MESSAGE]) + strlen(locale[ctx->locale][LC_LEFT])-1));
+
             playerMakeTurn(&ctx->player, Left);
+            
+            sprintf(message, locale[ctx->locale][LC_TURN_MESSAGE], locale[ctx->locale][LC_LEFT]);
+            consoleBufferAdd(&ctx->consoleBuffer, message);
+            free(message);
         }
         else if (RIGHT_PRESSED(ctx->input)) {
+            char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_TURN_MESSAGE]) + strlen(locale[ctx->locale][LC_RIGHT])-1));
+
             playerMakeTurn(&ctx->player, Right);
+
+            sprintf(message, locale[ctx->locale][LC_TURN_MESSAGE], locale[ctx->locale][LC_RIGHT]);
+            consoleBufferAdd(&ctx->consoleBuffer, message);
+            free(message);
         }
         
     }

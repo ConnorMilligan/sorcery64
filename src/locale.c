@@ -23,7 +23,17 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "nrt\0",
         "est\0",
         "sth\0",
-        "wst\0"
+        "wst\0",
+        "north\0",
+        "east\0",
+        "south\0",
+        "west\0",
+        "you advance %s!\0",
+        "you retreat %s!\0",
+        "ouch! you ran into a wall!\0",
+        "you turn %s!\0",
+        "left\0",
+        "right\0"
     },
     { // Esperanto
         "premu enigi por komenci\0",
@@ -47,6 +57,16 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "nrd\0",
         "ori\0",
         "sud\0",
-        "okc\0"
+        "okc\0",
+        "nordo\0",
+        "oriento\0",
+        "sudo\0",
+        "okcidento\0",
+        "vi antauxeniras %s!\0",
+        "vi malantauxeniras %s!\0",
+        "axu! vi renkontis muregon!\0",
+        "vi turnigxas %s!\0",
+        "maldekstra\0",
+        "dekstra\0"
     }
 };
