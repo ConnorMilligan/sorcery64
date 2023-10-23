@@ -28,14 +28,16 @@ void consoleWrite(ConsoleBuffer *consoleBuffer) {
         x = 3;
 
         if (*consoleBuffer->buffer[pos] != '\0') {
-            cputcxy(x-2, y, 215);
+            if (y < YSize-2)
+                cputcxy(x-2, y, 215);
 
             for (j = 0; j < strlen(*consoleBuffer->buffer[pos]); j++) {
                 if (x == XSize-1 || getNextWordLen(*consoleBuffer->buffer[pos], j) + x > XSize-1) {
-                    if (y == YSize-2)
-                        return;
                     x = 3;
                     y++;
+                }
+                if (y > YSize-2) {
+                    return;
                 }
                 cputcxy(x, y, (*consoleBuffer->buffer[pos])[j]);
                 x++;
