@@ -79,3 +79,14 @@ uint8 getNextWordLen(const char *text, uint8 pos) {
 
     return len;
 }
+
+void consoleMenuClear() {
+    size_t x, y;
+
+    for (y = yBound+1; y < YSize-1; y++) {
+        cputcxy(1, y, CHAR_BLANK);
+        for (x = 3; x < XSize-1; x++) {
+            cputcxy(x, y, CHAR_BLANK);
+        }
+    }
+}

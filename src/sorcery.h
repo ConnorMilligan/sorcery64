@@ -16,11 +16,15 @@ void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawMap(Context *ctx);
 
+void menuClearViewport();
+void menuClearInfoWindow();
+
 /* Console */
 void consoleBufferBuild(ConsoleBuffer *consoleBuffer);
 void consoleWrite(ConsoleBuffer *consoleBuffer);
 void consoleBufferAdd(ConsoleBuffer *consoleBuffer, const char *text);
 void consoleBufferCleanUp(ConsoleBuffer *consoleBuffer);
+void consoleMenuClear();
 
 /* Context */
 void contextBuild(Context *ctx);

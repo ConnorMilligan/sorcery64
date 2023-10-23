@@ -283,14 +283,13 @@ void menuDrawGameScreen(Context *ctx) {
     // Draw player information
     menuDrawPlayerInfo(ctx);
 
-    // Display console
-    consoleWrite(&ctx->consoleBuffer);
-
     // Draw walls
     menuDrawLeftSector(ctx);
     menuDrawRightSector(ctx);
     menuDrawCenterSector(ctx);
-    
+
+    // Display console
+    consoleWrite(&ctx->consoleBuffer);
 }
 
 void menuDrawMap(Context *ctx) {
@@ -313,6 +312,43 @@ void menuDrawMap(Context *ctx) {
 
     textcolor(COLOR_RED);
     cputcxy(x+ctx->player.position.x+1, y+ctx->player.position.y+1, '@');
-    textcolor(COLOR_WHITE);
-    
+    textcolor(COLOR_WHITE);   
+}
+
+void menuClearViewport() {
+    uint8 x = 1, y = 2;
+    size_t i, j;
+
+    for (i = 0; i < 3; i++) {
+        
+        for (j = 0; j < 4; j++) {
+            // clear top and bottom horizontal lines
+            cputcxy(xBound-x-j-(4*i), y+i, CHAR_BLANK);
+            cputcxy(xBound-x-j-(4*i), y+(yBound-4)-i, CHAR_BLANK);
+            cputcxy(x+j+(4*i), y+i, CHAR_BLANK);
+            cputcxy(x+j+(4*i), y+(yBound-4)-i, CHAR_BLANK);
+
+            // clear immediate adjacent section
+            cputcxy(xBound-(4*i)-j-1, y+i+1, CHAR_BLANK);
+            cputcxy(xBound-(4*i)-j-1, y+(yBound-4)-i-1, CHAR_BLANK);
+            cputcxy(x+(4*i)+j, y+i+1, CHAR_BLANK);
+            cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, CHAR_BLANK);
+        }
+
+        // clear vertical line
+        for (j = 0; j < 12-(2*i); j++) {
+            cputcxy(xBound-4*(i+1), j+i+3, CHAR_BLANK);
+            cputcxy(4*(i+1), j+i+3, CHAR_BLANK);
+        }
+    }
+}
+
+void menuClearInfoWindow() {
+    size_t x, y;
+
+    for (y = 1; y < yBound-1; y++) {
+        for (x = xBound+1; x < XSize-1; x++) {
+            cputcxy(x, y, CHAR_BLANK);
+        }
+    }
 }
