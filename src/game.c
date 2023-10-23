@@ -27,8 +27,6 @@ void gameLoop() {
 }
 
 void draw(Context *ctx) {
-
-
     if (ctx->quitPrompt) {
         menuDrawQuitPrompt(ctx);
     } else {
@@ -110,13 +108,12 @@ void takeInput(Context *ctx) {
     else if (ctx->gameState == Game) {
         if (ctx->input == 'm') {
             ctx->showMap = ctx->showMap ? false : true;
-            clrscr();
         } 
         else if (UP_PRESSED(ctx->input)) {
             if (playerAttemptMove(&ctx->player, &ctx->maze, Forward)) {
                 // I am so sorry
                 char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][ctx->player.direction+4])-1));
-                
+
                 sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
                 consoleBufferAdd(&ctx->consoleBuffer, message);
                 free(message);

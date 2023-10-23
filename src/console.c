@@ -22,13 +22,13 @@ void consoleWrite(ConsoleBuffer *consoleBuffer) {
     uint8 x = 3, y = yBound+1;
     uint8 pos;
 
-    // Loop through the buffer in reverse order
+    // Loop through the buffer in order
     for (i = 0; i < 6; i++) {
-        pos = (consoleBuffer->pos + 6 - i - 1) % 6;
+        pos = (consoleBuffer->pos + 6 - i) % 6;
         x = 3;
 
         if (*consoleBuffer->buffer[pos] != '\0') {
-            if (y < YSize-2)
+            if (y < YSize-1)
                 cputcxy(x-2, y, 215);
 
             for (j = 0; j < strlen(*consoleBuffer->buffer[pos]); j++) {
