@@ -45,9 +45,9 @@ void menuDrawTitleScreen(Context *ctx) {
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(XSize, 20);
 
-    cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_TITLE_PROMPT])/2, YSize - 3, locale[ctx->locale][LC_TITLE_PROMPT]);
+    cputsxy((XSize)/2 - strlen(locale[ctx->state.locale][LC_TITLE_PROMPT])/2, YSize - 3, locale[ctx->state.locale][LC_TITLE_PROMPT]);
     gotoxy(1, YSize-1);
-    cprintf(locale[ctx->locale][LC_TITLE_LANG], ctx->locale == English ? "en" : "eo");
+    cprintf(locale[ctx->state.locale][LC_TITLE_LANG], ctx->state.locale == English ? "en" : "eo");
 }
 
 void menuDrawQuitPrompt(Context *ctx) {
@@ -64,46 +64,46 @@ void menuDrawQuitPrompt(Context *ctx) {
     textcolor(COLOR_RED);
     menuDrawWindow(x, y, 15, 8);
     textcolor(COLOR_WHITE);
-    cputsxy(x + 1, 10, locale[ctx->locale][LC_QUIT_PROMPT1]);
-    cputsxy(x + 1, 11, locale[ctx->locale][LC_QUIT_PROMPT2]);
+    cputsxy(x + 1, 10, locale[ctx->state.locale][LC_QUIT_PROMPT1]);
+    cputsxy(x + 1, 11, locale[ctx->state.locale][LC_QUIT_PROMPT2]);
 
-    cputsxy(x + 6, 13, locale[ctx->locale][LC_YES]);
-    cputsxy(x + 6, 14, locale[ctx->locale][LC_NO]);
+    cputsxy(x + 6, 13, locale[ctx->state.locale][LC_YES]);
+    cputsxy(x + 6, 14, locale[ctx->state.locale][LC_NO]);
 
-    ctx->quitSelector ? cputcxy(XSize/2 - 4, 14, 218) : cputcxy(XSize/2 - 4, 13, 218);
-    ctx->quitSelector ? cputcxy(XSize/2 - 4, 13, CHAR_BLANK) : cputcxy(XSize/2 - 4, 14, CHAR_BLANK);
+    ctx->state.quitSelector ? cputcxy(XSize/2 - 4, 14, 218) : cputcxy(XSize/2 - 4, 13, 218);
+    ctx->state.quitSelector ? cputcxy(XSize/2 - 4, 13, CHAR_BLANK) : cputcxy(XSize/2 - 4, 14, CHAR_BLANK);
 }
 
 void menuDrawNamePrompt(Context *ctx) {
     menuDrawWindow(0, 0, XSize, YSize);
-    cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_NAME_PROMPT])/2, YSize/2-1, locale[ctx->locale][LC_NAME_PROMPT]);
+    cputsxy((XSize)/2 - strlen(locale[ctx->state.locale][LC_NAME_PROMPT])/2, YSize/2-1, locale[ctx->state.locale][LC_NAME_PROMPT]);
     cputcxy((XSize)/2 - 5, YSize/2+1, 62);
 }
 
 void menuDrawPlayerInfo(Context *ctx) {
     cputsxy(xBound+1, 1, ctx->player.name);
     gotoxy(xBound+1, 2);
-    cprintf(locale[ctx->locale][LC_STAT_LEVEL], ctx->player.stats.level);
+    cprintf(locale[ctx->state.locale][LC_STAT_LEVEL], ctx->player.stats.level);
     gotoxy(xBound+1, 3);
-    cprintf(locale[ctx->locale][LC_STAT_HP], ctx->player.stats.health.health, ctx->player.stats.health.maxHealth);
+    cprintf(locale[ctx->state.locale][LC_STAT_HP], ctx->player.stats.health.health, ctx->player.stats.health.maxHealth);
 
     // Stats
-    cputsxy(xBound+1, 5, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
+    cputsxy(xBound+1, 5, locale[ctx->state.locale][LC_SIDEBAR_STAT_LABEL]);
     gotoxy(xBound+1, 6);
-    cprintf(locale[ctx->locale][LC_STAT_ATK], ctx->player.stats.attack);
+    cprintf(locale[ctx->state.locale][LC_STAT_ATK], ctx->player.stats.attack);
     gotoxy(xBound+1, 7);
-    cprintf(locale[ctx->locale][LC_STAT_DEF], ctx->player.stats.defense);
+    cprintf(locale[ctx->state.locale][LC_STAT_DEF], ctx->player.stats.defense);
     gotoxy(xBound+1, 8);
-    cprintf(locale[ctx->locale][LC_STAT_SPD], ctx->player.stats.speed);
+    cprintf(locale[ctx->state.locale][LC_STAT_SPD], ctx->player.stats.speed);
     gotoxy(xBound+1, 9);
-    cprintf(locale[ctx->locale][LC_STAT_LCK], ctx->player.stats.luck);
+    cprintf(locale[ctx->state.locale][LC_STAT_LCK], ctx->player.stats.luck);
 
     // Location
-    cputsxy(xBound+1, 11, locale[ctx->locale][LC_SIDEBAR_LOC_LABEL]);
+    cputsxy(xBound+1, 11, locale[ctx->state.locale][LC_SIDEBAR_LOC_LABEL]);
     gotoxy(xBound+1, 12);
-    cprintf(locale[ctx->locale][LC_SIDEBAR_LOC], ctx->player.position.x, ctx->player.position.y);
+    cprintf(locale[ctx->state.locale][LC_SIDEBAR_LOC], ctx->player.position.x, ctx->player.position.y);
     gotoxy(xBound+1, 13);
-    cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], locale[ctx->locale][ctx->player.direction]);
+    cprintf(locale[ctx->state.locale][LC_SIDEBAR_DIR], locale[ctx->state.locale][ctx->player.direction]);
 
 }
 
@@ -269,7 +269,6 @@ void menuDrawCenterSector(Context *ctx) {
 }
 
 void menuDrawGameScreen(Context *ctx) {
-    uint8 i;
     clrscr();
 
     // Draw lines
@@ -299,7 +298,7 @@ void menuDrawMap(Context *ctx) {
     uint8 width = 22, height = 22;
 
     menuDrawWindow(x, y, width, height);
-    cputsxy(x+1, y, locale[ctx->locale][LC_MAP_WINDOW_LABEL]);
+    cputsxy(x+1, y, locale[ctx->state.locale][LC_MAP_WINDOW_LABEL]);
 
     for (i = 0; i < MAZE_HEIGHT; i++) {
         for (j = 0; j < MAZE_WIDTH; j++) {
@@ -315,4 +314,48 @@ void menuDrawMap(Context *ctx) {
     cputcxy(x+ctx->player.position.x+1, y+ctx->player.position.y+1, '@');
     textcolor(COLOR_WHITE);
     
+}
+
+void menuClearLeftWallSegment(uint8 section) {
+    uint8 x = 1, y = 2;
+    size_t i;
+
+    // clear top and bottom horizontal lines
+    for (i = 0; i < 4; i++) {
+        cputcxy(x+i+(4*section), y+section, CHAR_BLANK);
+        cputcxy(x+i+(4*section), y+(yBound-4)-section, CHAR_BLANK);
+    }
+
+    // clear immediate adjacent section
+    for (i = 0; i < 4; i++) {
+        cputcxy(x+(4*section)+i, y+section+1, CHAR_BLANK);
+        cputcxy(x+(4*section)+i, y+(yBound-4)-section-1, CHAR_BLANK);
+    }
+
+    // clear vertical line
+    for (i = 0; i < 12-(2*section); i++) {
+        cputcxy(4*(section+1), i+section+3, CHAR_BLANK);
+    }
+}
+
+void menuClearRightWallSegment(uint8 section) {
+    uint8 x = xBound-1, y = 2;
+    size_t i;
+
+    // clear top and bottom horizontal lines
+    for (i = 0; i < 4; i++) {
+        cputcxy(x-i-(4*section), y+section, CHAR_BLANK);
+        cputcxy(x-i-(4*section), y+(yBound-4)-section, CHAR_BLANK);
+    }
+
+    // clear immediate adjacent section
+    for (i = 1; i < 4; i++) {
+        cputcxy(xBound-(4*section)-i, y+section+1, CHAR_BLANK);
+        cputcxy(xBound-(4*section)-i, y+(yBound-4)-section-1, CHAR_BLANK);
+    }
+
+    // clear vertical line
+    for (i = 0; i < 12-(2*section); i++) {
+        cputcxy(xBound-4*(section+1), i+section+3, CHAR_BLANK);
+    }
 }

@@ -111,15 +111,14 @@ typedef struct ConsoleBuffer {
 } ConsoleBuffer;
 
 typedef struct PrevWallState {
-    bool leftSegment;
-    bool rightSegemnt;
-    bool centerSegment;
+    bool leftSegment[3];
+    bool rightSegment[3];
 } PrevWallState;
 
-typedef struct Context {
-    Player player;
-    Maze maze;
-    ConsoleBuffer consoleBuffer;
+typedef struct StateCluster {
+    PrevWallState prevWallState;
+    enum GameState gameState;
+    enum Locale locale;
 
     bool gameRunning;
     bool quitPrompt;
@@ -128,9 +127,13 @@ typedef struct Context {
     uint8 quitSelector;
     uint8 choice;
     uint8 input;
+} StateCluster;
 
-    enum Locale locale;
-    enum GameState gameState;
+typedef struct Context {
+    Player player;
+    Maze maze;
+    ConsoleBuffer consoleBuffer;
+    StateCluster state;
 } Context;
 
 

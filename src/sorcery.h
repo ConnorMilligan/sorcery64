@@ -16,6 +16,10 @@ void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawMap(Context *ctx);
 
+void menuClearLeftWallSegment(uint8 section);
+void menuClearRightWallSegment(uint8 section);
+void menuClearCenterWallSegment();
+
 /* Console */
 void consoleBufferBuild(ConsoleBuffer *consoleBuffer);
 void consoleWrite(ConsoleBuffer *consoleBuffer);
