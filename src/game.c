@@ -8,7 +8,7 @@ void gameLoop() {
     contextBuild(&ctx);
 
     while (ctx.gameRunning) {
-        consoleBufferAdd(&ctx.consoleBuffer, "pekora");
+        consoleBufferAdd(&ctx.consoleBuffer, "this is a test string that should be wrapped around the screen");
         draw(&ctx);
 
         // gotoxy(3,5);

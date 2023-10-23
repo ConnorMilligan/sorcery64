@@ -110,6 +110,12 @@ typedef struct ConsoleBuffer {
     uint8 pos;
 } ConsoleBuffer;
 
+typedef struct PrevWallState {
+    bool leftSegment;
+    bool rightSegemnt;
+    bool centerSegment;
+} PrevWallState;
+
 typedef struct Context {
     Player player;
     Maze maze;
