@@ -136,38 +136,43 @@ void menuDrawLeftSector(Context *ctx) {
                 break;
         }
 
-        if (isWallAhead) {
-            for (j = x+(4*i); j < xBound/2+1; j++) {
-                cputcxy(j, y+i, 197);
-                cputcxy(j, y+(yBound-2)-i-2, 175);
+        if (isWall != ctx->state.prevWallState.leftSegment[i]) {
+            ctx->state.prevWallState.leftSegment[i] = isWall;
+            menuClearLeftWallSegment(i);
+
+            if (isWallAhead) {
+                for (j = x+(4*i); j < xBound/2+1; j++) {
+                    cputcxy(j, y+i, 197);
+                    cputcxy(j, y+(yBound-2)-i-2, 175);
+                }
+                break;
             }
-            break;
-        }
 
-        else if (isWall) {
+            else if (isWall) {
 
-            // Top horizontal line
-            cputcxy(x+(4*i), y+i, 197);
-            cputcxy(x+1+(4*i), y+i, 195);
-            cputcxy(x+2+(4*i), y+i, 210);
-            cputcxy(x+3+(4*i), y+i, 175);
+                // Top horizontal line
+                cputcxy(x+(4*i), y+i, 197);
+                cputcxy(x+1+(4*i), y+i, 195);
+                cputcxy(x+2+(4*i), y+i, 210);
+                cputcxy(x+3+(4*i), y+i, 175);
 
-            // Bottom horizontal line
-            cputcxy(x+(4*i), y+(yBound-4)-i, 175);
-            cputcxy(x+1+(4*i), y+(yBound-4)-i, 210);
-            cputcxy(x+2+(4*i), y+(yBound-4)-i, 195);
-            cputcxy(x+3+(4*i), y+(yBound-4)-i, 197);
+                // Bottom horizontal line
+                cputcxy(x+(4*i), y+(yBound-4)-i, 175);
+                cputcxy(x+1+(4*i), y+(yBound-4)-i, 210);
+                cputcxy(x+2+(4*i), y+(yBound-4)-i, 195);
+                cputcxy(x+3+(4*i), y+(yBound-4)-i, 197);
 
-        }
-        else {
-            for (j = 0; j < 4; j++) {
-                cputcxy(x+(4*i)+j, y+i+1, 197);
-                cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, 175);
             }
-        }
+            else {
+                for (j = 0; j < 4; j++) {
+                    cputcxy(x+(4*i)+j, y+i+1, 197);
+                    cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, 175);
+                }
+            }
 
-        // Vertical line
-        cvlinexy(4*(i+1), 3+i, 12-(2*i));
+            // Vertical line
+            cvlinexy(4*(i+1), 3+i, 12-(2*i));
+        }
     }
 }
 
@@ -200,38 +205,43 @@ void menuDrawRightSector(Context *ctx) {
                 break;
         }
 
-        if (isWallAhead) {
-            for (j = xBound-(4*i)-1; j > xBound/2; j--) {
-                cputcxy(j, y+i, 197);
-                cputcxy(j, y+(yBound-2)-i-2, 175);
+        if (isWall != ctx->state.prevWallState.rightSegment[i]) {
+            ctx->state.prevWallState.rightSegment[i] = isWall;
+            menuClearRightWallSegment(i);
+
+            if (isWallAhead) {
+                for (j = xBound-(4*i)-1; j > xBound/2; j--) {
+                    cputcxy(j, y+i, 197);
+                    cputcxy(j, y+(yBound-2)-i-2, 175);
+                }
+                break;
             }
-            break;
-        }
 
-        else if (isWall) {
+            else if (isWall) {
 
-            // Top horizontal line
-            cputcxy(x-(4*i), y+i, 197);
-            cputcxy(x-1-(4*i), y+i, 195);
-            cputcxy(x-2-(4*i), y+i, 210);
-            cputcxy(x-3-(4*i), y+i, 175);
+                // Top horizontal line
+                cputcxy(x-(4*i), y+i, 197);
+                cputcxy(x-1-(4*i), y+i, 195);
+                cputcxy(x-2-(4*i), y+i, 210);
+                cputcxy(x-3-(4*i), y+i, 175);
 
-            // Bottom horizontal line
-            cputcxy(x-(4*i), y+(yBound-4)-i, 175);
-            cputcxy(x-1-(4*i), y+(yBound-4)-i, 210);
-            cputcxy(x-2-(4*i), y+(yBound-4)-i, 195);
-            cputcxy(x-3-(4*i), y+(yBound-4)-i, 197);
+                // Bottom horizontal line
+                cputcxy(x-(4*i), y+(yBound-4)-i, 175);
+                cputcxy(x-1-(4*i), y+(yBound-4)-i, 210);
+                cputcxy(x-2-(4*i), y+(yBound-4)-i, 195);
+                cputcxy(x-3-(4*i), y+(yBound-4)-i, 197);
 
-        }
-        else {
-            for (j = 1; j < 4; j++) {
-                cputcxy(xBound-(4*i)-j, y+i+1, 197);
-                cputcxy(xBound-(4*i)-j, y+(yBound-4)-i-1, 175);
             }
-        }
+            else {
+                for (j = 1; j < 4; j++) {
+                    cputcxy(xBound-(4*i)-j, y+i+1, 197);
+                    cputcxy(xBound-(4*i)-j, y+(yBound-4)-i-1, 175);
+                }
+            }
 
-        // Vertical line
-        cvlinexy(xBound-4*(i+1), 3+i, 12-(2*i));
+            // Vertical line
+            cvlinexy(xBound-4*(i+1), 3+i, 12-(2*i));
+        }
     }
 }
 
@@ -269,8 +279,6 @@ void menuDrawCenterSector(Context *ctx) {
 }
 
 void menuDrawGameScreen(Context *ctx) {
-    clrscr();
-
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
     menuDrawTeeLine(XSize, yBound);
