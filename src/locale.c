@@ -33,7 +33,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "ouch! you ran into a wall!\0",
         "you turn %s!\0",
         "left\0",
-        "right\0"
+        "right\0",
+        "you enter the dungeon!\0"
     },
     { // Esperanto
         "premu enigi por komenci\0",
@@ -67,6 +68,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "axu! vi renkontis muregon!\0",
         "vi turnigxas %s!\0",
         "maldekstra\0",
-        "dekstra\0"
+        "dekstra\0",
+        "vi eniras la labirinton!\0"
     }
 };

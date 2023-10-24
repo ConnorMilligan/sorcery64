@@ -99,6 +99,7 @@ void takeInput(Context *ctx) {
             }
         }
         else if (ctx->input == KEY_RETURN) {
+            consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MAZE_ENTRY_MESSAGE]);
             ctx->gameState = Game;
             clrscr();
         }
