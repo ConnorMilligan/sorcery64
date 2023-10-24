@@ -44,7 +44,10 @@ void consoleWrite(ConsoleBuffer *consoleBuffer) {
             }
             y++;
         }
+        if (i == 0)
+            textcolor(COLOR_GRAY2);
     }
+    textcolor(COLOR_WHITE);
 }
 
 void consoleBufferAdd(ConsoleBuffer *consoleBuffer, const char *text) {

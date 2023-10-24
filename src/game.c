@@ -114,7 +114,7 @@ void takeInput(Context *ctx) {
             ctx->showMap = ctx->showMap ? false : true;
         }
         else if (ctx->input == 'b') {
-            consoleBufferAdd(&ctx->consoleBuffer, "you encounter a critter!");
+            consoleBufferAdd(&ctx->consoleBuffer, "you encounter the vile ghost sock!");
             ctx->gameState = Battle;
             clrscr();
         }
