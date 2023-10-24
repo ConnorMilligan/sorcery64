@@ -41,7 +41,8 @@ typedef char int8;
 enum GameState {
     TitleScreen,
     NamePrompt,
-    Game
+    Game,
+    Battle
 };
 
 enum quitSelection {

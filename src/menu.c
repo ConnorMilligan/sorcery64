@@ -269,7 +269,6 @@ void menuDrawCenterSector(Context *ctx) {
 }
 
 void menuDrawGameScreen(Context *ctx) {
-    uint8 i;
     clrscr();
 
     // Draw lines
@@ -287,6 +286,60 @@ void menuDrawGameScreen(Context *ctx) {
     menuDrawLeftSector(ctx);
     menuDrawRightSector(ctx);
     menuDrawCenterSector(ctx);
+
+    // Display console
+    consoleWrite(&ctx->consoleBuffer);
+}
+
+void menuDrawBattleScreen(Context *ctx) {
+    uint8 i, j;
+    uint8 x = (xBound-1)/2-4, y = 1;
+    char head[8][8] = {
+        {32, 32, 213, 195, 195, 201, 32, 32},
+        {32, 206, 32, 32, 32, 32, 205, 32},
+        {213, 32, 150, 32, 32, 215, 32, 201},
+        {221, 32, 32, 32, 32, 32, 32, 221},
+        {221, 32, 175, 210, 210, 175, 32, 221},
+        {202, 32, 32, 32, 32, 32, 32, 203},
+        {32, 205, 32, 32, 32, 32, 206, 32},
+        {32, 32, 202, 195, 195, 203, 32, 32}
+    };
+    char body[8][8] = {
+        {32, 32, 206, 32, 32, 205, 32, 32},
+        {32, 206, 32, 32, 32, 32, 205, 32},
+        {206, 32, 32, 32, 32, 32, 32, 205},
+        {221, 32, 32, 32, 32, 32, 32, 221},
+        {221, 32, 32, 32, 32, 32, 32, 221},
+        {221, 32, 32, 32, 32, 32, 32, 221},
+        {221, 213, 201, 213, 201, 213, 201, 221},
+        {202, 203, 202, 203, 202, 203, 202, 203}
+    };
+    clrscr();
+
+    // Draw lines
+    menuDrawWindow(0, 0, XSize, YSize);
+    menuDrawTeeLine(XSize, yBound);
+    // Separator line
+    cvlinexy(xBound, 1, YSize-2);
+    cputcxy(xBound, 0, 178);
+    cputcxy(xBound, yBound, 219);
+    cputcxy(xBound, YSize-1, 177);
+
+    // Draw player information
+    menuDrawPlayerInfo(ctx);
+
+    for (i = 0; i < 8; i++) {
+        for (j = 0; j < 8; j++) {
+            cputcxy(x+j, y+i, head[i][j]);
+            cputcxy(x+j, yBound-8+i, body[i][j]);
+        }
+    }
+
+    cputsxy(xBound+1, yBound+1, "- attack");
+    cputsxy(xBound+1, yBound+2, "- defend");
+    cputsxy(xBound+1, yBound+3, "- run");
+
+    
 
     // Display console
     consoleWrite(&ctx->consoleBuffer);

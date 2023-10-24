@@ -41,6 +41,9 @@ void draw(Context *ctx) {
         case Game:
             menuDrawGameScreen(ctx);
             break;
+        case Battle:
+            menuDrawBattleScreen(ctx);
+            break;
     }
 
     if (ctx->showMap) {
@@ -109,7 +112,12 @@ void takeInput(Context *ctx) {
     else if (ctx->gameState == Game) {
         if (ctx->input == 'm') {
             ctx->showMap = ctx->showMap ? false : true;
-        } 
+        }
+        else if (ctx->input == 'b') {
+            consoleBufferAdd(&ctx->consoleBuffer, "you encounter a critter!");
+            ctx->gameState = Battle;
+            clrscr();
+        }
         else if (UP_PRESSED(ctx->input)) {
             if (playerAttemptMove(&ctx->player, &ctx->maze, Forward)) {
                 // I am so sorry
