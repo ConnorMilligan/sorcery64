@@ -293,7 +293,7 @@ void menuDrawGameScreen(Context *ctx) {
 
 void menuDrawBattleScreen(Context *ctx) {
     uint8 i, j;
-    uint8 x = (xBound-1)/2-4, y = 1;
+    uint8 x = (xBound-1)/2-3, y = 1;
     char head[8][8] = {
         {32, 32, 213, 195, 195, 201, 32, 32},
         {32, 206, 32, 32, 32, 32, 205, 32},
@@ -327,6 +327,10 @@ void menuDrawBattleScreen(Context *ctx) {
 
     // Draw player information
     menuDrawPlayerInfo(ctx);
+        // Draw walls
+    menuDrawLeftSector(ctx);
+    menuDrawRightSector(ctx);
+    menuDrawCenterSector(ctx);
 
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
