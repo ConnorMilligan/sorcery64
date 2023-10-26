@@ -17,7 +17,7 @@ void consoleBufferBuild(ConsoleBuffer *consoleBuffer) {
     consoleBuffer->pos = 0;
 }
 
-void consoleWrite(ConsoleBuffer *consoleBuffer) {
+void consoleWrite(ConsoleBuffer *consoleBuffer, uint8 bound) {
     uint8 i, j;
     uint8 x = 3, y = yBound+1;
     uint8 pos;
@@ -32,11 +32,12 @@ void consoleWrite(ConsoleBuffer *consoleBuffer) {
                 cputcxy(x-2, y, 215);
 
             for (j = 0; j < strlen(*consoleBuffer->buffer[pos]); j++) {
-                if (x == XSize-1 || getNextWordLen(*consoleBuffer->buffer[pos], j) + x > XSize-1) {
+                if (x == XSize-1 || getNextWordLen(*consoleBuffer->buffer[pos], j) + x > bound-1) {
                     x = 3;
                     y++;
                 }
                 if (y > YSize-2) {
+                    textcolor(COLOR_WHITE);
                     return;
                 }
                 cputcxy(x, y, (*consoleBuffer->buffer[pos])[j]);

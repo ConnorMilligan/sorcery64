@@ -288,7 +288,7 @@ void menuDrawGameScreen(Context *ctx) {
     menuDrawCenterSector(ctx);
 
     // Display console
-    consoleWrite(&ctx->consoleBuffer);
+    consoleWrite(&ctx->consoleBuffer, XSize);
 }
 
 void menuDrawBattleScreen(Context *ctx) {
@@ -346,7 +346,7 @@ void menuDrawBattleScreen(Context *ctx) {
     
 
     // Display console
-    consoleWrite(&ctx->consoleBuffer);
+    consoleWrite(&ctx->consoleBuffer, xBound);
 }
 
 void menuDrawMap(Context *ctx) {

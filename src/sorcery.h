@@ -22,7 +22,7 @@ void menuClearInfoWindow();
 
 /* Console */
 void consoleBufferBuild(ConsoleBuffer *consoleBuffer);
-void consoleWrite(ConsoleBuffer *consoleBuffer);
+void consoleWrite(ConsoleBuffer *consoleBuffer, uint8 bound);
 void consoleBufferAdd(ConsoleBuffer *consoleBuffer, const char *text);
 void consoleBufferCleanUp(ConsoleBuffer *consoleBuffer);
 void consoleMenuClear();
