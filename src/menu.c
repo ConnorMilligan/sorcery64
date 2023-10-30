@@ -146,15 +146,22 @@ void menuDrawLeftSector(Context *ctx) {
 
         else if (isWall) {
 
-            // Top horizontal line
+            // Top horizontal line part1
             cputcxy(x+(4*i), y+i, 197);
             cputcxy(x+1+(4*i), y+i, 195);
+
+            // Bottom horizontal line part1
+            cputcxy(x+(4*i), y+(yBound-4)-i, 175);
+            cputcxy(x+1+(4*i), y+(yBound-4)-i, 210);
+
+
+            // Hacky way to prevent flickering when in battle
+            if (i == 2 && ctx->gameState == Battle) {return;}
+            // Top horizontal line part2
             cputcxy(x+2+(4*i), y+i, 210);
             cputcxy(x+3+(4*i), y+i, 175);
 
-            // Bottom horizontal line
-            cputcxy(x+(4*i), y+(yBound-4)-i, 175);
-            cputcxy(x+1+(4*i), y+(yBound-4)-i, 210);
+            // Bottom horizontal line part2
             cputcxy(x+2+(4*i), y+(yBound-4)-i, 195);
             cputcxy(x+3+(4*i), y+(yBound-4)-i, 197);
 
@@ -163,6 +170,8 @@ void menuDrawLeftSector(Context *ctx) {
             for (j = 0; j < 4; j++) {
                 cputcxy(x+(4*i)+j, y+i+1, 197);
                 cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, 175);
+                // flickering in battle prevention
+                if (j == 2 && ctx->gameState == Battle) {return;}
             }
         }
 
@@ -213,12 +222,17 @@ void menuDrawRightSector(Context *ctx) {
             // Top horizontal line
             cputcxy(x-(4*i), y+i, 197);
             cputcxy(x-1-(4*i), y+i, 195);
-            cputcxy(x-2-(4*i), y+i, 210);
-            cputcxy(x-3-(4*i), y+i, 175);
-
+            
             // Bottom horizontal line
             cputcxy(x-(4*i), y+(yBound-4)-i, 175);
             cputcxy(x-1-(4*i), y+(yBound-4)-i, 210);
+
+            // Hacky way to prevent flickering when in battle
+            if (i == 2 && ctx->gameState == Battle) {return;}
+            // Top horizontal line
+            cputcxy(x-2-(4*i), y+i, 210);
+            cputcxy(x-3-(4*i), y+i, 175);
+            // Bottom horizontal line
             cputcxy(x-2-(4*i), y+(yBound-4)-i, 195);
             cputcxy(x-3-(4*i), y+(yBound-4)-i, 197);
 
@@ -227,6 +241,8 @@ void menuDrawRightSector(Context *ctx) {
             for (j = 1; j < 4; j++) {
                 cputcxy(xBound-(4*i)-j, y+i+1, 197);
                 cputcxy(xBound-(4*i)-j, y+(yBound-4)-i-1, 175);
+                // flickering in battle prevention
+                if (j == 2 && ctx->gameState == Battle) {return;}
             }
         }
 
@@ -260,7 +276,7 @@ void menuDrawCenterSector(Context *ctx) {
             break;
     }
 
-    if (wall) {
+    if (wall && ctx->gameState != Battle) {
         for (i = 0; i < 4; i++) {
             cputcxy(x+i, y, 197);
             cputcxy(x+i, yBound-y, 175);
@@ -314,7 +330,6 @@ void menuDrawBattleScreen(Context *ctx) {
         {221, 213, 201, 213, 201, 213, 201, 221},
         {202, 203, 202, 203, 202, 203, 202, 203}
     };
-    clrscr();
 
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
@@ -327,7 +342,7 @@ void menuDrawBattleScreen(Context *ctx) {
 
     // Draw player information
     menuDrawPlayerInfo(ctx);
-        // Draw walls
+    // Draw walls
     menuDrawLeftSector(ctx);
     menuDrawRightSector(ctx);
     menuDrawCenterSector(ctx);
@@ -339,11 +354,15 @@ void menuDrawBattleScreen(Context *ctx) {
         }
     }
 
-    cputsxy(xBound+1, yBound+1, "- attack");
-    cputsxy(xBound+1, yBound+2, "- defend");
-    cputsxy(xBound+1, yBound+3, "- run");
+    for (i = 0; i < 3; i++) {
+        cputcxy(xBound+1, yBound+1+i, CHAR_BLANK);
+    }
 
-    
+    cputsxy(xBound+3, yBound+1, "attack");
+    cputsxy(xBound+3, yBound+2, "defend");
+    cputsxy(xBound+3, yBound+3, "run");
+
+    cputcxy(xBound+1, yBound+1+ctx->choice, 218);
 
     // Display console
     consoleWrite(&ctx->consoleBuffer, xBound);

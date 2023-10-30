@@ -54,6 +54,7 @@ void draw(Context *ctx) {
 void takeInput(Context *ctx) {
     ctx->input = cgetc();
 
+
     // Quit prompt
     if (ctx->quitPrompt) {
         if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
@@ -116,6 +117,7 @@ void takeInput(Context *ctx) {
         else if (ctx->input == 'b') {
             consoleBufferAdd(&ctx->consoleBuffer, "you encounter the vile ghost sock!");
             ctx->gameState = Battle;
+            ctx->choice = 0;
             clrscr();
         }
         else if (UP_PRESSED(ctx->input)) {
@@ -161,8 +163,31 @@ void takeInput(Context *ctx) {
             consoleBufferAdd(&ctx->consoleBuffer, message);
             free(message);
         }
-        
     }
+
+    // Battle
+    else if (ctx->gameState == Battle) {
+        if (UP_PRESSED(ctx->input)) {
+            //advance choice up to 3 then wrap around
+            ctx->choice = ctx->choice-1 < 0 ? 2 : ctx->choice-1;
+        }
+        else if (DOWN_PRESSED(ctx->input)) {
+            ctx->choice = ctx->choice+1 > 2 ? 0 : ctx->choice+1;
+        }
+        else if (ctx->input == KEY_RETURN) {
+            if (ctx->choice == 0) {
+                consoleBufferAdd(&ctx->consoleBuffer, "you attack the ghost sock!");
+            }
+            else if (ctx->choice == 1) {
+                consoleBufferAdd(&ctx->consoleBuffer, "you run away from the ghost sock!");
+            }
+            else if (ctx->choice == 2) {
+                consoleBufferAdd(&ctx->consoleBuffer, "you pass your turn!");
+            }
+            clrscr();
+        }
+    }
+    
     
 
     if (ctx->input == 3) {
