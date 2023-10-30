@@ -156,7 +156,7 @@ void menuDrawLeftSector(Context *ctx) {
 
 
             // Hacky way to prevent flickering when in battle
-            if (i == 2 && ctx->gameState == Battle) {return;}
+            if (i == 2 && ctx->gameState == Battle) {break;}
             // Top horizontal line part2
             cputcxy(x+2+(4*i), y+i, 210);
             cputcxy(x+3+(4*i), y+i, 175);
@@ -171,7 +171,7 @@ void menuDrawLeftSector(Context *ctx) {
                 cputcxy(x+(4*i)+j, y+i+1, 197);
                 cputcxy(x+(4*i)+j, y+(yBound-4)-i-1, 175);
                 // flickering in battle prevention
-                if (j == 2 && ctx->gameState == Battle) {return;}
+                if (i == 2 && ctx->gameState == Battle) {break;}
             }
         }
 
@@ -228,7 +228,7 @@ void menuDrawRightSector(Context *ctx) {
             cputcxy(x-1-(4*i), y+(yBound-4)-i, 210);
 
             // Hacky way to prevent flickering when in battle
-            if (i == 2 && ctx->gameState == Battle) {return;}
+            if (i == 2 && ctx->gameState == Battle) {break;}
             // Top horizontal line
             cputcxy(x-2-(4*i), y+i, 210);
             cputcxy(x-3-(4*i), y+i, 175);
@@ -242,7 +242,7 @@ void menuDrawRightSector(Context *ctx) {
                 cputcxy(xBound-(4*i)-j, y+i+1, 197);
                 cputcxy(xBound-(4*i)-j, y+(yBound-4)-i-1, 175);
                 // flickering in battle prevention
-                if (j == 2 && ctx->gameState == Battle) {return;}
+                if (i == 2 && ctx->gameState == Battle) {break;}
             }
         }
 
@@ -310,26 +310,6 @@ void menuDrawGameScreen(Context *ctx) {
 void menuDrawBattleScreen(Context *ctx) {
     uint8 i, j;
     uint8 x = (xBound-1)/2-3, y = 1;
-    char head[8][8] = {
-        {32, 32, 213, 195, 195, 201, 32, 32},
-        {32, 206, 32, 32, 32, 32, 205, 32},
-        {213, 32, 150, 32, 32, 215, 32, 201},
-        {221, 32, 32, 32, 32, 32, 32, 221},
-        {221, 32, 175, 210, 210, 175, 32, 221},
-        {202, 32, 32, 32, 32, 32, 32, 203},
-        {32, 205, 32, 32, 32, 32, 206, 32},
-        {32, 32, 202, 195, 195, 203, 32, 32}
-    };
-    char body[8][8] = {
-        {32, 32, 206, 32, 32, 205, 32, 32},
-        {32, 206, 32, 32, 32, 32, 205, 32},
-        {206, 32, 32, 32, 32, 32, 32, 205},
-        {221, 32, 32, 32, 32, 32, 32, 221},
-        {221, 32, 32, 32, 32, 32, 32, 221},
-        {221, 32, 32, 32, 32, 32, 32, 221},
-        {221, 213, 201, 213, 201, 213, 201, 221},
-        {202, 203, 202, 203, 202, 203, 202, 203}
-    };
 
     // Draw lines
     menuDrawWindow(0, 0, XSize, YSize);
@@ -349,8 +329,8 @@ void menuDrawBattleScreen(Context *ctx) {
 
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
-            cputcxy(x+j, y+i, head[i][j]);
-            cputcxy(x+j, yBound-8+i, body[i][j]);
+            cputcxy(x+j, y+i, (*ctx->enemy.head)[i][j]);
+            cputcxy(x+j, yBound-8+i, (*ctx->enemy.body)[i][j]);
         }
     }
 

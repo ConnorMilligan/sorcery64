@@ -101,6 +101,15 @@ typedef struct Player {
     Stats stats;
 } Player;
 
+typedef struct Enemy {
+    char *name;
+
+    const char (*head)[8][8];
+    const char (*body)[8][8];
+
+    Stats stats;
+} Enemy;
+
 typedef struct Maze {
     uint8 map[MAZE_HEIGHT][MAZE_OFFSET];
     Position start;
@@ -113,6 +122,7 @@ typedef struct ConsoleBuffer {
 
 typedef struct Context {
     Player player;
+    Enemy enemy;
     Maze maze;
     ConsoleBuffer consoleBuffer;
 

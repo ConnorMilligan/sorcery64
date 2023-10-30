@@ -4,6 +4,7 @@ void contextBuild(Context *ctx) {
     // Build the context
 
     playerBuild(&ctx->player);
+    enemyBuild(&ctx->enemy);
     mazeBuild(&ctx->maze);
     consoleBufferBuild(&ctx->consoleBuffer);
     ctx->player.position = ctx->maze.start;
@@ -17,8 +18,8 @@ void contextBuild(Context *ctx) {
     ctx->input = 0;
 
     ctx->locale = English;
-    ctx->gameState = TitleScreen;
-    //ctx->gameState = Game;
+    //ctx->gameState = TitleScreen;
+    ctx->gameState = Game;
 }
 
 
