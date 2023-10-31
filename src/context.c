@@ -4,7 +4,7 @@ void contextBuild(Context *ctx) {
     // Build the context
 
     playerBuild(&ctx->player);
-    enemyBuild(&ctx->enemy);
+    enemyBuild(&ctx->enemy, 1);
     mazeBuild(&ctx->maze);
     consoleBufferBuild(&ctx->consoleBuffer);
     ctx->player.position = ctx->maze.start;

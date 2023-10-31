@@ -114,7 +114,14 @@ void takeInput(Context *ctx) {
                 ctx->showMap = ctx->showMap ? false : true;
             }
             else if (ctx->input == 'b') {
-                consoleBufferAdd(&ctx->consoleBuffer, "you encounter the vile ghost sock!");
+                char *message;
+                enemyBuild(&ctx->enemy, ctx->player.stats.level);
+                message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT]) + strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective]) + strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]) + strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 2));
+                sprintf(message, locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT], locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
+
+                consoleBufferAdd(&ctx->consoleBuffer, message);
+                free(message);
+
                 ctx->gameState = Battle;
                 ctx->choice = 0;
                 clrscr();
@@ -181,6 +188,7 @@ void takeInput(Context *ctx) {
                 }
                 else if (ctx->choice == 2) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you pass your turn!");
+                    ctx->gameState = Game;
                 }
                 clrscr();
             }

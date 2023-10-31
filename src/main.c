@@ -2,6 +2,8 @@
 
 #include <conio.h>
 #include <peekpoke.h>
+#include <stdlib.h>
+#include <time.h>
 
 uint8 XSize, YSize, xBound, yBound;
 
@@ -10,6 +12,8 @@ int main (void) {
     screensize(&XSize, &YSize);
     xBound = (XSize - XSize/3)+2;
     yBound = 17;
+
+    srand(time(NULL));
 
     // revert from shifted-mode
     POKE(53272,21);

@@ -34,7 +34,23 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "you turn %s!\0",
         "left\0",
         "right\0",
-        "you enter the dungeon!\0"
+        "you enter the dungeon!\0",
+        "frown\0",
+        "cat\0",
+        "eye\0",
+        "duck\0",
+        "corruption\0",
+        "ghostly\0",
+        "mr.\0",
+        "pillar\0",
+        "dr.\0",
+        "corrupt\0",
+        "reprobate\0",
+        "waifish\0",
+        "fey\0",
+        "sordid\0",
+        "insideous\0",
+        "you encounter the %s %s %s!\0"
     },
     { // Esperanto
         "premu enigi por komenci\0",
@@ -69,6 +85,22 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "vi turnigxas %s!\0",
         "maldekstra\0",
         "dekstra\0",
-        "vi eniras la labirinton!\0"
+        "vi eniras la labirinton!\0",
+        "murmuri\0",
+        "kato\0",
+        "okulo\0",
+        "anaso\0",
+        "korupto\0",
+        "fantoma\0",
+        "sinjoro\0",
+        "pilastro\0",
+        "doktoro\0",
+        "korupta\0",
+        "malbonulo\0",
+        "malforta\0",
+        "axca\0",
+        "malpura\0",
+        "malnobla\0",
+        "vi renkontas la %sn %sn %sn!\0"
     }
 };

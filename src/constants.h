@@ -102,7 +102,9 @@ typedef struct Player {
 } Player;
 
 typedef struct Enemy {
-    char *name;
+    uint8 headName;
+    uint8 bodyName;
+    uint8 adjective;
 
     const char (*head)[8][8];
     const char (*body)[8][8];

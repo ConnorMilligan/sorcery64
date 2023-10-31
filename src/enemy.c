@@ -1,6 +1,8 @@
 #include "sorcery.h"
 
-const char heads[4][8][8] = {
+#include <stdlib.h>
+
+const char heads[5][8][8] = {
     { // Frown
         {32, 32, 213, 195, 195, 201, 32, 32},
         {32, 206, 32, 32, 32, 32, 205, 32},
@@ -40,10 +42,20 @@ const char heads[4][8][8] = {
         {32, 206, 32, 175, 175, 32, 205, 32},
         {32, 205, 183, 32, 32, 183, 206, 32},
         {32, 32, 183, 195, 195, 183, 32, 32}
+    },
+    { // corruption
+        {32, 32, 44, 180, 27, 60, 32, 32},
+        {32, 110, 0, 167, 227, 255, 114, 32},
+        {33, 124, 57, 69, 246, 73, 128, 119},
+        {228, 193, 180, 170, 104, 89, 29, 121},
+        {61, 132, 162, 21, 2, 160, 96, 248},
+        {89, 128, 185, 74, 157, 75, 68, 255},
+        {32, 158, 29, 31, 114, 33, 243, 32},
+        {32, 32, 247, 205, 254, 153, 32, 32}
     }
 };
 
-const char bodies[4][8][8] = {
+const char bodies[5][8][8] = {
     { // Ghostly
         {32, 32, 206, 32, 32, 205, 32, 32},
         {32, 206, 32, 32, 32, 32, 205, 32},
@@ -83,24 +95,38 @@ const char bodies[4][8][8] = {
         {165, 209, 209, 167, 46, 202, 203, 167},
         {165, 32, 32, 167, 46, 32, 32, 167},
         {165, 32, 32, 167, 46, 32, 32, 167}
+    },
+    { // corruption
+        {32, 32, 255, 165, 5, 49, 32, 32},
+        {32, 161, 143, 96, 57, 82, 63, 32},
+        {111, 162, 29, 211, 124, 203, 247, 174},
+        {47, 166, 245, 31, 160, 250, 42, 181},
+        {156, 215, 64, 20, 203, 128, 158, 95},
+        {149, 175, 10, 58, 77, 240, 32, 156},
+        {36, 99, 44, 54, 190, 77, 4, 202},
+        {49, 92, 127, 186, 165, 162, 191, 154}
     }
 };
 
 
-void enemyBuild(Enemy *enemy) {
-    enemy->name = "Goblin";
+void enemyBuild(Enemy *enemy, uint8 level) {
+    
+    enemy->headName = rand() % 5;
+    enemy->bodyName = rand() % 5;;
+    enemy->adjective = rand() % 5;
 
-    enemy->head = &heads[3];
-    enemy->body = &bodies[3];
+    enemy->head = &heads[enemy->headName];
+    enemy->body = &bodies[enemy->bodyName];
 
-    enemy->stats.level = 1;
+    enemy->stats.level = level;
+
     enemy->stats.experience = 0;
 
-    enemy->stats.health.health = 10;
-    enemy->stats.health.maxHealth = 10;
+    enemy->stats.health.health = 10 * level;
+    enemy->stats.health.maxHealth = 10 * level;
 
-    enemy->stats.attack = 1;
-    enemy->stats.defense = 1;
-    enemy->stats.speed = 1;
-    enemy->stats.luck = 1;
+    enemy->stats.attack = 2 + ((rand() % 3 + 1)*level);
+    enemy->stats.defense = 2 + ((rand() % 3 + 1)*level);
+    enemy->stats.speed = 2 + ((rand() % 3 + 1)*level);
+    enemy->stats.luck = 2 + ((rand() % 3 + 1)*level);
 }

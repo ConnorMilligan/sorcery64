@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 33
+#define LC_NUM_STRINGS 49
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -46,6 +46,26 @@
 #define LC_MAZE_ENTRY_MESSAGE 32
 
 #define LC_MAP_WINDOW_LABEL 17
+
+#define LC_ENEMY_HEAD_1 33
+#define LC_ENEMY_HEAD_2 34
+#define LC_ENEMY_HEAD_3 35
+#define LC_ENEMY_HEAD_4 36
+#define LC_ENEMY_HEAD_5 37
+
+#define LC_ENEMY_BODY_1 38
+#define LC_ENEMY_BODY_2 39
+#define LC_ENEMY_BODY_3 40
+#define LC_ENEMY_BODY_4 41
+#define LC_ENEMY_BODY_5 42
+
+#define LC_ENEMY_ADJECTIVE_1 43
+#define LC_ENEMY_ADJECTIVE_2 44
+#define LC_ENEMY_ADJECTIVE_3 45
+#define LC_ENEMY_ADJECTIVE_4 46
+#define LC_ENEMY_ADJECTIVE_5 47
+
+#define LC_ENEMY_ENCOUNTER_TEXT 48
 
 extern const char* locale[2][LC_NUM_STRINGS];
 

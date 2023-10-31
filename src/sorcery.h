@@ -47,6 +47,6 @@ bool playerAttemptMove(Player *player, Maze *maze, enum Movement move);
 void playerMakeTurn(Player *player, enum Movement move);
 
 /* Enemy */
-void enemyBuild(Enemy *enemy);
+void enemyBuild(Enemy *enemy, uint8 level);
 
 #endif
