@@ -50,7 +50,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "fey\0",
         "sordid\0",
         "insideous\0",
-        "you encounter the %s %s %s!\0"
+        "you encounter the %s %s %s!\0",
+        "help\0"
     },
     { // Esperanto
         "premu enigi por komenci\0",
@@ -101,6 +102,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "axca\0",
         "malpura\0",
         "malnobla\0",
-        "vi renkontas la %sn %sn %sn!\0"
+        "vi renkontas la %sn %sn %sn!\0",
+        "helpo\0"
     }
 };

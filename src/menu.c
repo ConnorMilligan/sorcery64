@@ -371,6 +371,42 @@ void menuDrawMap(Context *ctx) {
     textcolor(COLOR_WHITE);   
 }
 
+void menuDrawPlayerStats(Context *ctx) {
+    uint8 i, j;
+    uint8 x = 4, y = 1;
+    uint8 width = 22, height = 22;
+
+    menuDrawWindow(x, y, width, height);
+    cputsxy(x+1, y, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
+
+    for (i = 0; i < width-2; i++) {
+        for (j = 0; j < height-2; j++) {
+            cputcxy(x+i+1, y+j+1, 32);
+        }
+    }
+
+    cputsxy(x+1, y+1, "vital statistics");
+}
+
+void menuDrawEnemyStats(Context *ctx) {}
+
+void menuDrawHelp(Context *ctx) {
+    uint8 i, j;
+    uint8 x = 4, y = 1;
+    uint8 width = 22, height = 22;
+
+    menuDrawWindow(x, y, width, height);
+    cputsxy(x+1, y, locale[ctx->locale][LC_HELP_WINDOW_LABEL]);
+
+    for (i = 0; i < width-2; i++) {
+        for (j = 0; j < height-2; j++) {
+            cputcxy(x+i+1, y+j+1, 32);
+        }
+    }
+
+    cputsxy(x+1, y+1, "pekora");
+}
+
 void menuClearViewport() {
     uint8 x = 1, y = 2;
     size_t i, j;

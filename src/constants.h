@@ -129,8 +129,12 @@ typedef struct Context {
     ConsoleBuffer consoleBuffer;
 
     bool gameRunning;
+
     bool quitPrompt;
     bool showMap;
+    bool showPlayerStats;
+    bool showEnemyStats;
+    bool showHelp;
 
     uint8 quitSelector;
     uint8 choice;

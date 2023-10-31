@@ -15,7 +15,11 @@ void menuDrawQuitPrompt(Context *ctx);
 void menuDrawNamePrompt(Context *ctx);
 void menuDrawGameScreen(Context *ctx);
 void menuDrawBattleScreen(Context *ctx);
+
 void menuDrawMap(Context *ctx);
+void menuDrawPlayerStats(Context *ctx);
+void menuDrawEnemyStats(Context *ctx);
+void menuDrawHelp(Context *ctx);
 
 void menuClearViewport();
 void menuClearInfoWindow();

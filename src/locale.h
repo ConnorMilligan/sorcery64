@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 49
+#define LC_NUM_STRINGS 50
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -46,6 +46,7 @@
 #define LC_MAZE_ENTRY_MESSAGE 32
 
 #define LC_MAP_WINDOW_LABEL 17
+#define LC_HELP_WINDOW_LABEL 49
 
 #define LC_ENEMY_HEAD_1 33
 #define LC_ENEMY_HEAD_2 34

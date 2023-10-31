@@ -30,25 +30,34 @@ void draw(Context *ctx) {
     if (ctx->quitPrompt) {
         menuDrawQuitPrompt(ctx);
     } else {
+        switch (ctx->gameState) {
+            case TitleScreen:
+                menuDrawTitleScreen(ctx);
+                break;
+            case NamePrompt:
+                menuDrawNamePrompt(ctx);
+                break;
+            case Game:
+                menuDrawGameScreen(ctx);
+                break;
+            case Battle:
+                menuDrawBattleScreen(ctx);
+                break;
+        }
 
-    switch (ctx->gameState) {
-        case TitleScreen:
-            menuDrawTitleScreen(ctx);
-            break;
-        case NamePrompt:
-            menuDrawNamePrompt(ctx);
-            break;
-        case Game:
-            menuDrawGameScreen(ctx);
-            break;
-        case Battle:
-            menuDrawBattleScreen(ctx);
-            break;
+        if (ctx->showMap) {
+            menuDrawMap(ctx);
+        } 
+        else if (ctx->showPlayerStats) {
+            menuDrawPlayerStats(ctx);
+        }
+        else if (ctx->showEnemyStats) {
+            menuDrawEnemyStats(ctx);
+        }
+        else if (ctx->showHelp) {
+            menuDrawHelp(ctx);
+        }
     }
-
-    if (ctx->showMap) {
-        menuDrawMap(ctx);
-    }}
 }
 
 void takeInput(Context *ctx) {
@@ -110,8 +119,14 @@ void takeInput(Context *ctx) {
             break;
         
         case Game:
-            if (ctx->input == 'm') {
+            if (ctx->input == 'm' && !ctx->showPlayerStats && !ctx->showEnemyStats && !ctx->showHelp) {
                 ctx->showMap = ctx->showMap ? false : true;
+            }
+            else if (ctx->input == '?' && !ctx->showMap && !ctx->showPlayerStats && !ctx->showEnemyStats) {
+                ctx->showHelp = ctx->showHelp ? false : true;
+            }
+            else if (ctx->input == 'p' && !ctx->showMap && !ctx->showHelp && !ctx->showEnemyStats) {
+                ctx->showPlayerStats = ctx->showPlayerStats ? false : true;
             }
             else if (ctx->input == 'b') {
                 char *message;
@@ -203,7 +218,7 @@ void takeInput(Context *ctx) {
         ctx->quitPrompt = true;
     }
 
-    else if (ctx->input == 80) {
+    else if (ctx->input == 'q') {
         ctx->locale = ctx->locale == English ? Esperanto : English;
         clrscr();
     }
