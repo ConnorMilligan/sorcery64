@@ -12,11 +12,7 @@ void contextBuild(Context *ctx) {
     ctx->gameRunning = true;
 
     ctx->quitPrompt = false;
-    ctx->showMap = false;
-    ctx->showPlayerStats = false;
-    ctx->showEnemyStats = false;
-    ctx->showHelp = false;
-
+    
     ctx->quitSelector = 0;
     ctx->choice = 0;
     ctx->input = 0;

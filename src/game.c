@@ -44,19 +44,6 @@ void draw(Context *ctx) {
                 menuDrawBattleScreen(ctx);
                 break;
         }
-
-        if (ctx->showMap) {
-            menuDrawMap(ctx);
-        } 
-        else if (ctx->showPlayerStats) {
-            menuDrawPlayerStats(ctx);
-        }
-        else if (ctx->showEnemyStats) {
-            menuDrawEnemyStats(ctx);
-        }
-        else if (ctx->showHelp) {
-            menuDrawHelp(ctx);
-        }
     }
 }
 
@@ -119,14 +106,27 @@ void takeInput(Context *ctx) {
             break;
         
         case Game:
-            if (ctx->input == 'm' && !ctx->showPlayerStats && !ctx->showEnemyStats && !ctx->showHelp) {
-                ctx->showMap = ctx->showMap ? false : true;
+            if (ctx->input == 'm') {
+                // we unforunately have to call draws to pop-up windows here to prevent expensive re-drawing
+                menuDrawMap(ctx);
+                ctx->input = 0;
+                while (ctx->input != 'm' && ctx->input != KEY_RETURN && ctx->input != 3) {
+                    ctx->input = cgetc();
+                }
             }
-            else if (ctx->input == '?' && !ctx->showMap && !ctx->showPlayerStats && !ctx->showEnemyStats) {
-                ctx->showHelp = ctx->showHelp ? false : true;
+            else if (ctx->input == '?') {
+                menuDrawHelp(ctx);
+                ctx->input = 0;
+                while (ctx->input != '?' && ctx->input != KEY_RETURN && ctx->input != 3) {
+                    ctx->input = cgetc();
+                }
             }
-            else if (ctx->input == 'p' && !ctx->showMap && !ctx->showHelp && !ctx->showEnemyStats) {
-                ctx->showPlayerStats = ctx->showPlayerStats ? false : true;
+            else if (ctx->input == 'p') {
+                menuDrawPlayerStats(ctx);
+                ctx->input = 0;
+                while (ctx->input != 'p' && ctx->input != KEY_RETURN && ctx->input != 3) {
+                    ctx->input = cgetc();
+                }
             }
             else if (ctx->input == 'b') {
                 char *message;
@@ -189,20 +189,26 @@ void takeInput(Context *ctx) {
         case Battle:
             if (UP_PRESSED(ctx->input)) {
                 //advance choice up to 3 then wrap around
-                ctx->choice = ctx->choice-1 < 0 ? 2 : ctx->choice-1;
+                ctx->choice = ctx->choice-1 < 0 ? 4 : ctx->choice-1;
             }
             else if (DOWN_PRESSED(ctx->input)) {
-                ctx->choice = ctx->choice+1 > 2 ? 0 : ctx->choice+1;
+                ctx->choice = ctx->choice+1 > 4 ? 0 : ctx->choice+1;
             }
             else if (ctx->input == KEY_RETURN) {
                 if (ctx->choice == 0) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you attack the ghost sock!");
                 }
                 else if (ctx->choice == 1) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you run away from the ghost sock!");
+                    consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");
                 }
                 else if (ctx->choice == 2) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you pass your turn!");
+                    consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");
+                }
+                else if (ctx->choice == 3) {
+                    consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");
+                }
+                else if (ctx->choice == 4) {
+                    consoleBufferAdd(&ctx->consoleBuffer, "you flee!");
                     ctx->gameState = Game;
                 }
                 clrscr();

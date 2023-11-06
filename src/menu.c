@@ -334,13 +334,15 @@ void menuDrawBattleScreen(Context *ctx) {
         }
     }
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 5; i++) {
         cputcxy(xBound+1, yBound+1+i, CHAR_BLANK);
     }
 
     cputsxy(xBound+3, yBound+1, "attack");
     cputsxy(xBound+3, yBound+2, "defend");
-    cputsxy(xBound+3, yBound+3, "run");
+    cputsxy(xBound+3, yBound+3, "inspect");
+    cputsxy(xBound+3, yBound+4, "item");
+    cputsxy(xBound+3, yBound+5, "run");
 
     cputcxy(xBound+1, yBound+1+ctx->choice, 218);
 
