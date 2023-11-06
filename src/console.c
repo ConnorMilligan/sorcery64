@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-uint8 getNextWordLen(const char *text, uint8 pos);
-
 void consoleBufferBuild(ConsoleBuffer *consoleBuffer) {
     uint8 i;
 

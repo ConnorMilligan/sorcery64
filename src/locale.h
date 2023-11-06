@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 50
+#define LC_NUM_STRINGS 62
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -20,6 +20,14 @@
 #define LC_STAT_DEF 11
 #define LC_STAT_SPD 12
 #define LC_STAT_LCK 13
+
+#define LC_STAT_FULL_LEVEL 50
+#define LC_STAT_FULL_HP 51
+#define LC_STAT_FULL_ATK 52
+#define LC_STAT_FULL_DEF 53
+#define LC_STAT_FULL_SPD 54
+#define LC_STAT_FULL_LCK 55
+#define LC_STAT_FULL_EXP 56
 
 #define LC_SIDEBAR_STAT_LABEL 9
 #define LC_SIDEBAR_LOC_LABEL 14
@@ -67,6 +75,12 @@
 #define LC_ENEMY_ADJECTIVE_5 47
 
 #define LC_ENEMY_ENCOUNTER_TEXT 48
+
+#define LC_PLAYER_INFO_FLAVOR1 57
+#define LC_PLAYER_INFO_FLAVOR2 58
+#define LC_PLAYER_INFO_FLAVOR3 59
+#define LC_PLAYER_INFO_FLAVOR4 60
+#define LC_PLAYER_INFO_FLAVOR5 61
 
 extern const char* locale[2][LC_NUM_STRINGS];
 

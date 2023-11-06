@@ -31,6 +31,8 @@ void consoleBufferAdd(ConsoleBuffer *consoleBuffer, const char *text);
 void consoleBufferCleanUp(ConsoleBuffer *consoleBuffer);
 void consoleMenuClear();
 
+uint8 getNextWordLen(const char *text, uint8 pos);
+
 /* Context */
 void contextBuild(Context *ctx);
 void contextCleanUp(Context *ctx);

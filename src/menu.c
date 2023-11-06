@@ -377,6 +377,7 @@ void menuDrawPlayerStats(Context *ctx) {
     uint8 i, j;
     uint8 x = 4, y = 1;
     uint8 width = 22, height = 22;
+    uint8 flavor = LC_PLAYER_INFO_FLAVOR1 + rand() % 5;
 
     menuDrawWindow(x, y, width, height);
     cputsxy(x+1, y, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
@@ -387,7 +388,33 @@ void menuDrawPlayerStats(Context *ctx) {
         }
     }
 
-    cputsxy(x+1, y+1, "vital statistics");
+    cputsxy(x+1, y+2, ctx->player.name);
+    gotoxy(x+1, y+4);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_LEVEL], ctx->player.stats.level);
+    gotoxy(x+1, y+5);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_HP], ctx->player.stats.health.health, ctx->player.stats.health.maxHealth);
+
+    // Stats
+    gotoxy(x+1, y+7);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_ATK], ctx->player.stats.attack);
+    gotoxy(x+1, y+8);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_DEF], ctx->player.stats.defense);
+    gotoxy(x+1, y+9);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_SPD], ctx->player.stats.speed);
+    gotoxy(x+1, y+10);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_LCK], ctx->player.stats.luck);
+
+    gotoxy(x+1, y+12);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_EXP], ctx->player.stats.experience);
+
+    for (i = 0; i < strlen(locale[ctx->locale][flavor]); i++) {
+        if (x > 4+width || getNextWordLen(locale[ctx->locale][flavor], i) + x+1 > 3+width) {
+            x = 4;
+            y++;
+        }
+        cputcxy(x+1, y+14, locale[ctx->locale][flavor][i]);
+        x++;
+    }
 }
 
 void menuDrawEnemyStats(Context *ctx) {}
