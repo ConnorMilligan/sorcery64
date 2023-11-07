@@ -1,6 +1,8 @@
 #include "sorcery.h"
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 const char heads[5][8][8] = {
     { // Frown
@@ -125,8 +127,25 @@ void enemyBuild(Enemy *enemy, uint8 level) {
     enemy->stats.health.health = 10 * level;
     enemy->stats.health.maxHealth = 10 * level;
 
-    enemy->stats.attack = 2 + ((rand() % 3 + 1)*level);
-    enemy->stats.defense = 2 + ((rand() % 3 + 1)*level);
-    enemy->stats.speed = 2 + ((rand() % 3 + 1)*level);
-    enemy->stats.luck = 2 + ((rand() % 3 + 1)*level);
+    enemy->stats.attack = ((rand() % 3 + 1)*level);
+    enemy->stats.defense = ((rand() % 3 + 1)*level);
+    enemy->stats.speed = ((rand() % 3 + 1)*level);
+    enemy->stats.luck = ((rand() % 3 + 1)*level);
+}
+
+void enemyAttack(Context *ctx) {
+    int8 damage = ctx->enemy.stats.attack - ctx->player.stats.defense/2;
+    char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK]) + 
+                                           strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective] - 1) + 
+                                           strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName] - 1) +
+                                           strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 1) +
+                                           damage%10 + 1);
+    sprintf(message, locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK], locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], damage);
+
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
+
+    if (damage < 0)
+        damage = 0;
+    ctx->player.stats.health.health -= damage;
 }

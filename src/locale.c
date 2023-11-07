@@ -63,7 +63,13 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "\"an intrepid explorer of the deep...\"",
         "\"a brave soul seeking adventure...\"",
         "\"a steadfast spelunker of a subterranian stronghold...\"",
-        "\"a foolhardy adventurer seeking riches...\""
+        "\"a foolhardy adventurer seeking riches...\"",
+        "\"a vile critter from the depths...\"",
+        "\"a grotesque beast roaming the dank halls...\"",
+        "\"a forlorn monstrosity which walks these ruined halls...\"",
+        "\"an acrid rendering of flesh slinking through the depths...\"",
+        "\"a wretched abomination roving through the undercroft...\"",
+        "the %s %s %s attacks! dealing %d damage!"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -127,6 +133,12 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "\"aventuristo esploranta la profundajxon...\"",
         "\"brava animo sercxanta aventuron...\"",
         "\"forta spelunkisto de subtera fortikaxjo...\"",
-        "\"malsaxga aventuristo sercxanta rixcaxjojn...\""
+        "\"malsaxga aventuristo sercxanta rixcaxjojn...\"",
+        "\"malbona besteto el la profundajxo...\"",
+        "\"horenda besto vaganta la malsekajn koridorojn...\"",
+        "\"malgaja monstrajxo kiu promenas la ruinojn...\"",
+        "\"acida karno sxvelanta tra la profundajxo...\"",
+        "\"malbona abomenajxo vaganta la subterajn koridorojn...\"",
+        "la %sn %sn %sn atakas! farante %d damacon!"
     }
 };

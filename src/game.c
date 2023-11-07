@@ -131,7 +131,11 @@ void takeInput(Context *ctx) {
             else if (ctx->input == 'b') {
                 char *message;
                 enemyBuild(&ctx->enemy, ctx->player.stats.level);
-                message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT]) + strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective]) + strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]) + strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 2));
+                message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT]) + 
+                                                 strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective]) + 
+                                                 strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]) + 
+                                                 strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 2));
+
                 sprintf(message, locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT], locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
 
                 consoleBufferAdd(&ctx->consoleBuffer, message);
@@ -197,12 +201,17 @@ void takeInput(Context *ctx) {
             else if (ctx->input == KEY_RETURN) {
                 if (ctx->choice == 0) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you attack the ghost sock!");
+                    enemyAttack(ctx);
                 }
                 else if (ctx->choice == 1) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");
                 }
                 else if (ctx->choice == 2) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");
+                    menuDrawEnemyStats(ctx);
+                    ctx->input = 0;
+                    while (ctx->input != KEY_RETURN && ctx->input != 3)
+                        ctx->input = cgetc();
                 }
                 else if (ctx->choice == 3) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");

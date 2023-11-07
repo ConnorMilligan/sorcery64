@@ -51,8 +51,12 @@ bool mazeGetPos(Maze *maze, int8 x, int8 y);
 void playerBuild(Player *player);
 bool playerAttemptMove(Player *player, Maze *maze, enum Movement move);
 void playerMakeTurn(Player *player, enum Movement move);
+void playerAttackEnemy(Player *player, Enemy *enemy);
+void playerDefend(Player *player, Enemy *enemy);
+bool playerFlee(Player *player);
 
 /* Enemy */
 void enemyBuild(Enemy *enemy, uint8 level);
+void enemyAttack(Context *ctx);
 
 #endif
