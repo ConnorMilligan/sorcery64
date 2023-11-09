@@ -6,6 +6,7 @@
 #include <peekpoke.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 extern uint8 XSize, YSize, xBound, yBound;
 extern const char* locale[2][LC_NUM_STRINGS];
@@ -412,7 +413,9 @@ void menuDrawPlayerStats(Context *ctx) {
             x = XSize/2-width/2;
             y++;
         }
-        cputcxy(x+1, y+14, locale[ctx->locale][flavor][i]);
+        if (locale[ctx->locale][flavor][i] != ' ' && x != width+(XSize/2-width/2)-2) {
+            cputcxy(x+1, y+14, locale[ctx->locale][flavor][i]);
+        }
         x++;
     }
 }
@@ -422,6 +425,8 @@ void menuDrawEnemyStats(Context *ctx) {
     uint8 width = 24, height = 18;
     uint8 x = XSize/2-width/2, y = YSize/2-height/2;
     uint8 flavor = LC_ENEMY_INFO_FLAVOR1+ rand() % 5;
+    uint8 statOffset = 0;
+    char *name;
 
     menuDrawWindow(x, y, width, height);
     cputsxy(x+1, y, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);
@@ -431,29 +436,42 @@ void menuDrawEnemyStats(Context *ctx) {
             cputcxy(x+i+1, y+j+1, 32);
         }
     }
-    gotoxy(x+2, y+2);
-    cprintf("%s %s %s", locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
-    gotoxy(x+2, y+4);
+
+    gotoxy(x+1, y+2);
+    // Bit of a hacky workaround, but saves on a bit of time complexity
+    if (width - 2 < (strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective]) + strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) + strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]) + 2)) {
+        cprintf("%s %s", locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]);
+        gotoxy(x+1, y+3);
+        cprintf("%s", locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
+        statOffset = 1;
+    } else {
+        cprintf("%s %s %s", locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
+    }
+
+
+    gotoxy(x+2, y+4+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_LEVEL], ctx->enemy.stats.level);
-    gotoxy(x+2, y+5);
+    gotoxy(x+2, y+5+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_HP], ctx->enemy.stats.health.health, ctx->enemy.stats.health.maxHealth);
 
     // Stats
-    gotoxy(x+3, y+7);
+    gotoxy(x+3, y+7+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_ATK], ctx->enemy.stats.attack);
-    gotoxy(x+3, y+8);
+    gotoxy(x+3, y+8+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_DEF], ctx->enemy.stats.defense);
-    gotoxy(x+3, y+9);
+    gotoxy(x+3, y+9+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_SPD], ctx->enemy.stats.speed);
-    gotoxy(x+3, y+10);
+    gotoxy(x+3, y+10+statOffset);
     cprintf(locale[ctx->locale][LC_STAT_FULL_LCK], ctx->enemy.stats.luck);
 
     for (i = 0; i < strlen(locale[ctx->locale][flavor]); i++) {
-        if (x > width+(XSize/2-width/2)-2 || getNextWordLen(locale[ctx->locale][flavor], i) + x > width+(XSize/2-width/2)-2) {
+        if (x > width+(XSize/2-width/2)-1 || getNextWordLen(locale[ctx->locale][flavor], i) + x > width+(XSize/2-width/2)-2) {
             x = XSize/2-width/2;
             y++;
         }
-        cputcxy(x+1, y+14, locale[ctx->locale][flavor][i]);
+        if (locale[ctx->locale][flavor][i] != ' ' && x != width+(XSize/2-width/2)-2) {
+            cputcxy(x+1, y+13, locale[ctx->locale][flavor][i]);
+        }
         x++;
     }
 }

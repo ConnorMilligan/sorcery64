@@ -68,8 +68,9 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "\"a grotesque beast roaming the dank halls...\"",
         "\"a forlorn monstrosity which walks these ruined halls...\"",
         "\"an acrid rendering of flesh slinking through the depths...\"",
-        "\"a wretched abomination roving through the undercroft...\"",
-        "the %s %s %s attacks! dealing %d damage!"
+        "\"a wretched abomination roving through the crypts...\"",
+        "the %s %s %s attacks! dealing %d damage!",
+        "you inspect the creature.",
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -139,6 +140,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "\"malgaja monstrajxo kiu promenas la ruinojn...\"",
         "\"acida karno sxvelanta tra la profundajxo...\"",
         "\"malbona abomenajxo vaganta la subterajn koridorojn...\"",
-        "la %sn %sn %sn atakas! farante %d damacon!"
+        "la %sn %sn %sn atakas! farante %d damacon!",
+        "vi inspektas la beston.",
     }
 };
