@@ -339,11 +339,11 @@ void menuDrawBattleScreen(Context *ctx) {
         cputcxy(xBound+1, yBound+1+i, CHAR_BLANK);
     }
 
-    cputsxy(xBound+3, yBound+1, "attack");
-    cputsxy(xBound+3, yBound+2, "defend");
-    cputsxy(xBound+3, yBound+3, "inspect");
-    cputsxy(xBound+3, yBound+4, "item");
-    cputsxy(xBound+3, yBound+5, "run");
+    cputsxy(xBound+3, yBound+1, locale[ctx->locale][LC_COMBAT_ATTACK_BUTTION]);
+    cputsxy(xBound+3, yBound+2, locale[ctx->locale][LC_COMBAT_DEFEND_BUTTON]);
+    cputsxy(xBound+3, yBound+3, locale[ctx->locale][LC_COMBAT_INSPECT_BUTTON]);
+    cputsxy(xBound+3, yBound+4, locale[ctx->locale][LC_COMBAT_ITEM_BUTTON]);
+    cputsxy(xBound+3, yBound+5, locale[ctx->locale][LC_COMBAT_RUN_BUTTON]);
 
     cputcxy(xBound+1, yBound+1+ctx->choice, 218);
 

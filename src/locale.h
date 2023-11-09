@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 69
+#define LC_NUM_STRINGS 74
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -88,8 +88,14 @@
 #define LC_ENEMY_INFO_FLAVOR4 65
 #define LC_ENEMY_INFO_FLAVOR5 66
 
-#define LC_COMBAT_ENEMY_ATTACK 67
-#define LC_ENEMY_INSPECT 68
+#define LC_COMBAT_ATTACK_BUTTION 67
+#define LC_COMBAT_DEFEND_BUTTON 68
+#define LC_COMBAT_INSPECT_BUTTON 69
+#define LC_COMBAT_ITEM_BUTTON 70
+#define LC_COMBAT_RUN_BUTTON 71
+
+#define LC_COMBAT_ENEMY_ATTACK 72
+#define LC_ENEMY_INSPECT 73
 
 extern const char* locale[2][LC_NUM_STRINGS];
 
