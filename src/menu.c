@@ -177,7 +177,9 @@ void menuDrawLeftSector(Context *ctx) {
         }
 
         // Vertical line
-        cvlinexy(4*(i+1), 3+i, 12-(2*i));
+        if (ctx->gameState != Battle || i != 2) {
+            cvlinexy(4*(i+1), 3+i, 12-(2*i));
+        }
     }
 }
 
@@ -248,7 +250,9 @@ void menuDrawRightSector(Context *ctx) {
         }
 
         // Vertical line
-        cvlinexy(xBound-4*(i+1), 3+i, 12-(2*i));
+        if (ctx->gameState != Battle || i != 2) {
+            cvlinexy(xBound-4*(i+1), 3+i, 12-(2*i));
+        }
     }
 }
 
