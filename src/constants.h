@@ -71,8 +71,8 @@ enum Locale {
 };
 
 typedef struct Health {
-    uint8 health;
-    uint8 maxHealth;
+    int8 health;
+    int8 maxHealth;
 } Health;
 
 typedef struct Position {

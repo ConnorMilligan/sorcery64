@@ -76,6 +76,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "run",
         "the %s %s %s attacks! dealing %d damage!",
         "you inspect the creature.",
+        "you attack! dealing %d damage!",
+        "critical hit! you deal %d damage!"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -152,5 +154,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "kuri",
         "la %sn %sn %sn atakas! farante %d damacon!",
         "vi inspektas la beston.",
+        "vi atakas! farante %d damacon!",
+        "kritika trafo! vi faras %d damacon!"
     }
 };

@@ -200,8 +200,8 @@ void takeInput(Context *ctx) {
             }
             else if (ctx->input == KEY_RETURN) {
                 if (ctx->choice == 0) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you attack the ghost sock!");
                     enemyAttack(ctx);
+                    playerAttackEnemy(ctx);
                 }
                 else if (ctx->choice == 1) {
                     consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");

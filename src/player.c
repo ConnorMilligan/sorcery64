@@ -1,6 +1,9 @@
 #include "sorcery.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
 
 void playerBuild(Player *player) {
 
@@ -77,3 +80,31 @@ void playerMakeTurn(Player *player, enum Movement move) {
         
     }
 }
+
+void playerAttackEnemy(Context *ctx) {
+    uint8 attackMod, damage;
+    char *message;
+
+    // As luck increases, so do the odds of a # [0,10] falling between [0,luck];
+    // If the number falls between [0,luck], then the attack is a critical hit (double damage)
+    attackMod = (rand() % 10) <= ctx->player.stats.luck ? 2 : 1;
+
+    // Damage range is [attack/2, (3/2)*attack] * modifier
+    damage = (rand() % (ctx->player.stats.attack/2) + (ctx->player.stats.attack/2)) * attackMod;
+
+    if (attackMod == 1) {
+        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_PLAYER_ATTACK]) + damage%10 + 1));
+        sprintf(message, locale[ctx->locale][LC_COMBAT_PLAYER_ATTACK], damage);
+    } else {
+        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_PLAYER_ATTACK_CRIT]) + damage%10 + 1));
+        sprintf(message, locale[ctx->locale][LC_COMBAT_PLAYER_ATTACK_CRIT], damage);
+    }
+
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
+
+    ctx->enemy.stats.health.health -= damage; 
+}
+
+void playerDefend(Player *player, Enemy *enemy);
+bool playerFlee(Player *player);
