@@ -233,8 +233,17 @@ void takeInput(Context *ctx) {
                         consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");
                         break;
                     case Run:
-                        consoleBufferAdd(&ctx->consoleBuffer, "you flee!");
-                        ctx->gameState = Game;
+                        // chance of sucessful flee scales off of player luck
+                        if ((rand() % 10)+ctx->player.stats.luck > 5) {
+                            consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_PLAYER_RUN_SUCCESS]);
+                            ctx->gameState = Game;
+                        } else {
+                            consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_PLAYER_RUN_FAIL]);
+                            clrscr();
+                            draw(ctx);
+                            sleep(1);
+                            enemyAttack(ctx, false);
+                        }
                         break;
                 } 
                 clrscr();

@@ -78,7 +78,9 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "you inspect the creature.",
         "you attack! dealing %d damage!",
         "critical hit! you deal %d damage!",
-        "you brace yourself!"
+        "you brace yourself!",
+        "you flee!",
+        "you try to flee, but fail!"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -157,6 +159,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "vi inspektas la beston.",
         "vi atakas! farante %d damacon!",
         "kritika trafo! vi faras %d damacon!",
-        "vi preparas vin!"
+        "vi preparas vin!",
+        "vi forfugas!",
+        "vi provas forfugi, sed malsukcesas!"
     }
 };
