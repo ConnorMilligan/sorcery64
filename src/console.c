@@ -87,7 +87,7 @@ void consoleMenuClear() {
 
     for (y = yBound+1; y < YSize-1; y++) {
         cputcxy(1, y, CHAR_BLANK);
-        for (x = 3; x < XSize-1; x++) {
+        for (x = 3; x < xBound-1; x++) {
             cputcxy(x, y, CHAR_BLANK);
         }
     }

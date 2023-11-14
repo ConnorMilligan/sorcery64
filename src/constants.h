@@ -36,7 +36,7 @@
 #define MAZE_OFFSET 3
 
 typedef unsigned char uint8;
-typedef char int8;
+typedef signed char int8;
 
 enum GameState {
     TitleScreen,
@@ -45,10 +45,18 @@ enum GameState {
     Battle
 };
 
-enum quitSelection {
+enum QuitSelection {
     Quit,
     Remain,
     Pass
+};
+
+enum BattleSelection {
+    Attack,
+    Defend,
+    Inspect,
+    Item,
+    Run
 };
 
 enum Direction {

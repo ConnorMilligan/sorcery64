@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void gameLoop() {
     Context ctx;
@@ -191,6 +192,7 @@ void takeInput(Context *ctx) {
             break;
 
         case Battle:
+            
             if (UP_PRESSED(ctx->input)) {
                 //advance choice up to 3 then wrap around
                 ctx->choice = ctx->choice-1 < 0 ? 4 : ctx->choice-1;
@@ -199,27 +201,39 @@ void takeInput(Context *ctx) {
                 ctx->choice = ctx->choice+1 > 4 ? 0 : ctx->choice+1;
             }
             else if (ctx->input == KEY_RETURN) {
-                if (ctx->choice == 0) {
-                    enemyAttack(ctx);
-                    playerAttackEnemy(ctx);
-                }
-                else if (ctx->choice == 1) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");
-                }
-                else if (ctx->choice == 2) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");
-                    menuDrawEnemyStats(ctx);
-                    ctx->input = 0;
-                    while (ctx->input != KEY_RETURN && ctx->input != 3)
-                        ctx->input = cgetc();
-                }
-                else if (ctx->choice == 3) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");
-                }
-                else if (ctx->choice == 4) {
-                    consoleBufferAdd(&ctx->consoleBuffer, "you flee!");
-                    ctx->gameState = Game;
-                }
+                switch (ctx->choice) {
+                    case Attack:
+                        // This is a pretty dreadful way of doing this
+                        playerAttackEnemy(ctx);
+                        //clrscr();
+                        consoleMenuClear();
+                        draw(ctx);
+                        sleep(1);
+                        if (ctx->enemy.stats.health.health <= 0) {
+                            consoleBufferAdd(&ctx->consoleBuffer, "you killed the thing");
+                            ctx->gameState = Game;
+                        } else {
+                            enemyAttack(ctx);
+                        }
+                        break; 
+                    case Defend:
+                        consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");
+                        break;
+                    case Inspect:
+                        consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");
+                        menuDrawEnemyStats(ctx);
+                        ctx->input = 0;
+                        while (ctx->input != KEY_RETURN && ctx->input != 3)
+                            ctx->input = cgetc();
+                        break;
+                    case Item:
+                        consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");
+                        break;
+                    case Run:
+                        consoleBufferAdd(&ctx->consoleBuffer, "you flee!");
+                        ctx->gameState = Game;
+                        break;
+                } 
                 clrscr();
             }
             break;

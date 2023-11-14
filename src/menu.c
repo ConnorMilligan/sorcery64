@@ -141,7 +141,7 @@ void menuDrawLeftSector(Context *ctx) {
             for (j = x+(4*i); j < xBound/2+1; j++) {
                 cputcxy(j, y+i, 197);
                 cputcxy(j, y+(yBound-2)-i-2, 175);
-                if (ctx->gameState == Battle && j > xBound/2-6) { break; }
+                if (ctx->gameState == Battle && j > xBound/2-5) { break; }
             }
             break;
         }
