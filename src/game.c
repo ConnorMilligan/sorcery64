@@ -205,19 +205,22 @@ void takeInput(Context *ctx) {
                     case Attack:
                         // This is a pretty dreadful way of doing this
                         playerAttackEnemy(ctx);
-                        //clrscr();
-                        consoleMenuClear();
+                        clrscr();
                         draw(ctx);
                         sleep(1);
                         if (ctx->enemy.stats.health.health <= 0) {
                             consoleBufferAdd(&ctx->consoleBuffer, "you killed the thing");
                             ctx->gameState = Game;
                         } else {
-                            enemyAttack(ctx);
+                            enemyAttack(ctx, false);
                         }
                         break; 
                     case Defend:
-                        consoleBufferAdd(&ctx->consoleBuffer, "you defend against the ghost sock!");
+                        consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_PLAYER_DEFEND]);
+                        clrscr();
+                        draw(ctx);
+                        sleep(1);
+                        enemyAttack(ctx, true);
                         break;
                     case Inspect:
                         consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");

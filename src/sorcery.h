@@ -57,6 +57,6 @@ bool playerFlee(Player *player);
 
 /* Enemy */
 void enemyBuild(Enemy *enemy, uint8 level);
-void enemyAttack(Context *ctx);
+void enemyAttack(Context *ctx, bool playerDefending);
 
 #endif

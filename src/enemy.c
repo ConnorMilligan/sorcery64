@@ -133,9 +133,14 @@ void enemyBuild(Enemy *enemy, uint8 level) {
     enemy->stats.luck = ((rand() % 3 + 1)*level);
 }
 
-void enemyAttack(Context *ctx) {
-    int8 damage = ctx->enemy.stats.attack - ctx->player.stats.defense/2;
-    char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK]) + 
+void enemyAttack(Context *ctx, bool playerDefending) { 
+    // A defening player uses their full defense stat
+    int8 damage = playerDefending ? ctx->enemy.stats.attack - ctx->player.stats.defense : ctx->enemy.stats.attack - ctx->player.stats.defense/2;
+    char *message;
+    // bounding check
+    damage = damage < 0 ? 0 : damage;
+
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK]) + 
                                            strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective] - 1) + 
                                            strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName] - 1) +
                                            strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 1) +
