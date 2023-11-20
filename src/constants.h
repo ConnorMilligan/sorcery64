@@ -35,6 +35,8 @@
 #define MAZE_HEIGHT 20
 #define MAZE_OFFSET 3
 
+#define XP_FACTOR 2
+
 typedef unsigned char uint8;
 typedef signed char int8;
 

@@ -20,6 +20,7 @@ void menuDrawMap(Context *ctx);
 void menuDrawPlayerStats(Context *ctx);
 void menuDrawEnemyStats(Context *ctx);
 void menuDrawHelp(Context *ctx);
+void menuDrawLevelUp(Context *ctx, Stats *lvlStats);
 
 void menuClearViewport();
 void menuClearInfoWindow();
@@ -52,8 +53,7 @@ void playerBuild(Player *player);
 bool playerAttemptMove(Player *player, Maze *maze, enum Movement move);
 void playerMakeTurn(Player *player, enum Movement move);
 void playerAttackEnemy(Context *ctx);
-void playerDefend(Player *player, Enemy *enemy);
-bool playerFlee(Player *player);
+bool playerAddXp(Context *ctx, Stats *lvlStats);
 
 /* Enemy */
 void enemyBuild(Enemy *enemy, uint8 level);

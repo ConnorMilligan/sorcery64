@@ -106,5 +106,22 @@ void playerAttackEnemy(Context *ctx) {
     ctx->enemy.stats.health.health -= damage; 
 }
 
-void playerDefend(Player *player, Enemy *enemy);
-bool playerFlee(Player *player);
+bool playerAddXp(Context *ctx, Stats *lvlStats) {
+
+    ctx->player.stats.experience += ctx->enemy.stats.level * 1.5;
+
+    if (ctx->player.stats.experience >= XP_FACTOR * ctx->player.stats.level + 1) {
+        ctx->player.stats.level++;
+
+        ctx->player.stats.health.maxHealth += lvlStats->health.maxHealth = 10;
+        ctx->player.stats.health.health += lvlStats->health.health = 10;
+
+        ctx->player.stats.attack += lvlStats->attack = rand() % 3 + 1;
+        ctx->player.stats.defense += lvlStats->defense = rand() % 3 + 1;
+        ctx->player.stats.speed += lvlStats->speed = rand() % 3 + 1;
+        ctx->player.stats.luck += lvlStats->luck = rand() % 3 + 1;
+
+        return true;
+    }
+    return false;
+}

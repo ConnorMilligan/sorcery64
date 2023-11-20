@@ -192,6 +192,7 @@ void takeInput(Context *ctx) {
             break;
 
         case Battle:
+            Stats lvlStats;
             
             if (UP_PRESSED(ctx->input)) {
                 //advance choice up to 3 then wrap around
@@ -209,7 +210,14 @@ void takeInput(Context *ctx) {
                         draw(ctx);
                         sleep(1);
                         if (ctx->enemy.stats.health.health <= 0) {
-                            consoleBufferAdd(&ctx->consoleBuffer, "you killed the thing");
+                            consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_ENEMY_DEFEATED]);
+                            if (playerAddXp(ctx, &lvlStats)) {
+                                menuDrawLevelUp(ctx, &lvlStats);
+                                ctx->input = 0;
+                                while (ctx->input != KEY_RETURN && ctx->input != 3) {
+                                    ctx->input = cgetc();
+                                }
+                            }
                             ctx->gameState = Game;
                         } else {
                             enemyAttack(ctx, false);
@@ -223,7 +231,7 @@ void takeInput(Context *ctx) {
                         enemyAttack(ctx, true);
                         break;
                     case Inspect:
-                        consoleBufferAdd(&ctx->consoleBuffer, "you inspect the creature");
+                        consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_ENEMY_INSPECT]);
                         menuDrawEnemyStats(ctx);
                         ctx->input = 0;
                         while (ctx->input != KEY_RETURN && ctx->input != 3)
