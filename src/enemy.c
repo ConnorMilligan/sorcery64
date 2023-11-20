@@ -140,12 +140,8 @@ void enemyAttack(Context *ctx, bool playerDefending) {
     // bounding check
     damage = damage < 0 ? 0 : damage;
 
-    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK]) + 
-                                           strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective] - 1) + 
-                                           strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName] - 1) +
-                                           strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 1) +
-                                           damage%10 + 1);
-    sprintf(message, locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK], locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], damage);
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK]) + damage%10 + 1));
+    sprintf(message, locale[ctx->locale][LC_COMBAT_ENEMY_ATTACK], damage);
 
     consoleBufferAdd(&ctx->consoleBuffer, message);
     free(message);
