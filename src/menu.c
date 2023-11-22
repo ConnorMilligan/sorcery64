@@ -501,11 +501,11 @@ void menuDrawHelp(Context *ctx) {
 
 void menuDrawLevelUp(Context *ctx, Stats *lvlStats) {
     uint8 i, j;
-    uint8 x = 4, y = 1;
-    uint8 width = 22, height = 22;
+    uint8 x = 8, y = 6;
+    uint8 width = 24, height = 14;
 
     menuDrawWindow(x, y, width, height);
-    cputsxy(x+1, y, locale[ctx->locale][LC_HELP_WINDOW_LABEL]);
+    cputsxy(x+1, y, locale[ctx->locale][LC_LEVEL_UP_WINDOW_LABEL]);
 
     for (i = 0; i < width-2; i++) {
         for (j = 0; j < height-2; j++) {
@@ -513,7 +513,42 @@ void menuDrawLevelUp(Context *ctx, Stats *lvlStats) {
         }
     }
 
-    cputsxy(x+1, y+1, "pekora");
+    gotoxy(x+1, y+2);
+    cprintf(locale[ctx->locale][LC_COMBAT_LEVEL_UP], ctx->player.stats.level);
+
+    // Stats
+    gotoxy(x+2, y+5);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_ATK], ctx->player.stats.attack-lvlStats->attack); 
+    gotoxy(x+13, y+5);
+    textcolor(COLOR_GREEN);
+    cprintf("+%d", lvlStats->attack);
+    textcolor(COLOR_WHITE);
+
+    gotoxy(x+2, y+6);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_DEF], ctx->player.stats.defense-lvlStats->defense);
+    gotoxy(x+13, y+6);
+    textcolor(COLOR_GREEN);
+    cprintf("+%d", lvlStats->defense);
+    textcolor(COLOR_WHITE);
+
+    gotoxy(x+2, y+7);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_SPD], ctx->player.stats.speed-lvlStats->speed);
+    gotoxy(x+13, y+7);
+    textcolor(COLOR_GREEN);
+    cprintf("+%d", lvlStats->speed);
+    textcolor(COLOR_WHITE);
+
+    gotoxy(x+2, y+8);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_LCK], ctx->player.stats.luck-lvlStats->luck);
+    gotoxy(x+13, y+8);
+    textcolor(COLOR_GREEN);
+    cprintf("+%d", lvlStats->luck);
+    textcolor(COLOR_WHITE);
+
+    gotoxy(x+2, y+11);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_EXP], ctx->player.stats.experience, XP_FACTOR * ctx->player.stats.level + 1);
+
+
 }
 
 void menuClearViewport() {

@@ -81,7 +81,10 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "you brace yourself!",
         "you flee!",
         "you try to flee, but fail!",
-        "you fell the enemy!"
+        "you fell the enemy!",
+        "level up!",
+        "you gained %d experience!",
+        "you grew to level %d!"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -163,6 +166,9 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "vi preparas vin!",
         "vi forfugas!",
         "vi provas forfugi, sed malsukcesas!",
-        "vi mortigas la malamikon!"
+        "vi mortigas la malamikon!",
+        "nivelo supren!",
+        "vi gajnis %d sperton!",
+        "vi kreskis al nivelo %d!"
     }
 };

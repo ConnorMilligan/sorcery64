@@ -107,10 +107,21 @@ void playerAttackEnemy(Context *ctx) {
 }
 
 bool playerAddXp(Context *ctx, Stats *lvlStats) {
+    char *message;
+
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_XP_GAIN]) + (ctx->enemy.stats.level*3)/2%10 + 1));
+    sprintf(message, locale[ctx->locale][LC_COMBAT_XP_GAIN], (ctx->enemy.stats.level*3)/2);
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
 
     ctx->player.stats.experience += (ctx->enemy.stats.level * 3) / 2;
 
     if (ctx->player.stats.experience >= XP_FACTOR * ctx->player.stats.level + 1) {
+        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_COMBAT_LEVEL_UP]) + ctx->player.stats.level+1%10 + 1));
+        sprintf(message, locale[ctx->locale][LC_COMBAT_LEVEL_UP], ctx->player.stats.level+1);
+        consoleBufferAdd(&ctx->consoleBuffer, message);
+        free(message);
+
         ctx->player.stats.level++;
 
         ctx->player.stats.health.maxHealth += lvlStats->health.maxHealth = 10;
