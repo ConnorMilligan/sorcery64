@@ -412,7 +412,7 @@ void menuDrawPlayerStats(Context *ctx) {
     cprintf(locale[ctx->locale][LC_STAT_FULL_LCK], ctx->player.stats.luck);
 
     gotoxy(x+2, y+12);
-    cprintf(locale[ctx->locale][LC_STAT_FULL_EXP], ctx->player.stats.experience);
+    cprintf(locale[ctx->locale][LC_STAT_FULL_EXP], ctx->player.stats.experience, XP_FACTOR * ctx->player.stats.level + 1);
 
     for (i = 0; i < strlen(locale[ctx->locale][flavor]); i++) {
         if (x > width+(XSize/2-width/2)-2 || getNextWordLen(locale[ctx->locale][flavor], i) + x > width+(XSize/2-width/2)-2) {

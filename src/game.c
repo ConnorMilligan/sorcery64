@@ -50,6 +50,7 @@ void draw(Context *ctx) {
 
 void takeInput(Context *ctx) {
     uint8 x, y;
+    Stats lvlStats;
     ctx->input = cgetc();
 
     // Quit prompt
@@ -106,7 +107,7 @@ void takeInput(Context *ctx) {
             }
             break;
         
-        case Game:
+        case Game: 
             if (ctx->input == 'm') {
                 // we unforunately have to call draws to pop-up windows here to prevent expensive re-drawing
                 menuDrawMap(ctx);
@@ -192,7 +193,6 @@ void takeInput(Context *ctx) {
             break;
 
         case Battle:
-            Stats lvlStats;
             
             if (UP_PRESSED(ctx->input)) {
                 //advance choice up to 3 then wrap around

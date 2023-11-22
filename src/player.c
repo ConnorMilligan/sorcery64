@@ -108,7 +108,7 @@ void playerAttackEnemy(Context *ctx) {
 
 bool playerAddXp(Context *ctx, Stats *lvlStats) {
 
-    ctx->player.stats.experience += ctx->enemy.stats.level * 1.5;
+    ctx->player.stats.experience += (ctx->enemy.stats.level * 3) / 2;
 
     if (ctx->player.stats.experience >= XP_FACTOR * ctx->player.stats.level + 1) {
         ctx->player.stats.level++;
