@@ -19,7 +19,8 @@ void contextBuild(Context *ctx) {
 
     ctx->locale = English;
     //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
+    ctx->gameState = DeathScreen;
+    //ctx->gameState = Game;
 }
 
 

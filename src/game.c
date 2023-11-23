@@ -44,6 +44,9 @@ void draw(Context *ctx) {
             case Battle:
                 menuDrawBattleScreen(ctx);
                 break;
+            case DeathScreen:
+                menuDrawDeathScreen(ctx);
+                break;
         }
     }
 }
@@ -227,6 +230,9 @@ void takeInput(Context *ctx) {
                             ctx->gameState = Game;
                         } else {
                             enemyAttack(ctx, false);
+                            if (ctx->player.stats.health.health <= 0) {
+                                ctx->gameState = DeathScreen;
+                            }
                         }
                         break; 
                     case Defend:
@@ -235,6 +241,9 @@ void takeInput(Context *ctx) {
                         draw(ctx);
                         sleep(1);
                         enemyAttack(ctx, true);
+                        if (ctx->player.stats.health.health <= 0) {
+                            ctx->gameState = DeathScreen;
+                        }
                         break;
                     case Inspect:
                         consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_ENEMY_INSPECT]);
@@ -260,6 +269,13 @@ void takeInput(Context *ctx) {
                         }
                         break;
                 } 
+                clrscr();
+            }
+            break;
+
+        case DeathScreen:
+            if (ctx->input == KEY_RETURN) {
+                ctx->gameState = TitleScreen;
                 clrscr();
             }
             break;

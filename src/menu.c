@@ -75,6 +75,12 @@ void menuDrawQuitPrompt(Context *ctx) {
     ctx->quitSelector ? cputcxy(XSize/2 - 4, 13, CHAR_BLANK) : cputcxy(XSize/2 - 4, 14, CHAR_BLANK);
 }
 
+void menuDrawDeathScreen(Context *ctx) {
+    menuDrawWindow(0, 0, XSize, YSize);
+    cvlinexy(5, 5, YSize-5);
+    cvlinexy(XSize-5, 5, YSize-5);
+}
+
 void menuDrawNamePrompt(Context *ctx) {
     menuDrawWindow(0, 0, XSize, YSize);
     cputsxy((XSize)/2 - strlen(locale[ctx->locale][LC_NAME_PROMPT])/2, YSize/2-1, locale[ctx->locale][LC_NAME_PROMPT]);

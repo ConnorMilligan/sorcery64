@@ -44,7 +44,8 @@ enum GameState {
     TitleScreen,
     NamePrompt,
     Game,
-    Battle
+    Battle,
+    DeathScreen
 };
 
 enum QuitSelection {
