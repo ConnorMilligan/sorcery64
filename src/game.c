@@ -155,6 +155,8 @@ void takeInput(Context *ctx) {
                     sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
                     consoleBufferAdd(&ctx->consoleBuffer, message);
                     free(message);
+
+                    ctx->player.score += 10;
                 } else {
                     consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
                 }
@@ -168,6 +170,8 @@ void takeInput(Context *ctx) {
                     sprintf(message, locale[ctx->locale][LC_RETREAT_MESSAGE], locale[ctx->locale][dir]);
                     consoleBufferAdd(&ctx->consoleBuffer, message);
                     free(message);
+
+                    ctx->player.score += 10;
                 } else {
                     consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
                 }
@@ -214,10 +218,12 @@ void takeInput(Context *ctx) {
                             if (playerAddXp(ctx, &lvlStats)) {
                                 menuDrawLevelUp(ctx, &lvlStats);
                                 ctx->input = 0;
+                                ctx->player.score += 100*ctx->player.stats.level;
                                 while (ctx->input != KEY_RETURN && ctx->input != 3) {
                                     ctx->input = cgetc();
                                 }
                             }
+                            ctx->player.score += 50+(10*ctx->enemy.stats.level);
                             ctx->gameState = Game;
                         } else {
                             enemyAttack(ctx, false);

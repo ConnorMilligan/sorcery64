@@ -84,7 +84,9 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "you fell the enemy!",
         "level up!",
         "you gained %d experience!",
-        "you grew to level %d!"
+        "you grew to level %d!",
+        "score",
+        "score: %d"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -169,6 +171,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "vi mortigas la malamikon!",
         "nivelo supren!",
         "vi gajnis %d sperton!",
-        "vi kreskis al nivelo %d!"
+        "vi kreskis al nivelo %d!",
+        "poentaro",
+        "poentaro: %d"
     }
 };

@@ -108,6 +108,8 @@ typedef struct Player {
     Position position;
     enum Direction direction;
 
+    int score;
+
     Stats stats;
 } Player;
 

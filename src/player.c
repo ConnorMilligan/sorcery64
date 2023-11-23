@@ -12,6 +12,8 @@ void playerBuild(Player *player) {
     player->position.x = 0;
     player->position.y = 0;
     player->direction = North;
+
+    player->score = 0;
     
     player->stats.level = 1;
     player->stats.experience = 0;

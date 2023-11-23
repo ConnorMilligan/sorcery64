@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 83
+#define LC_NUM_STRINGS 85
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -20,6 +20,7 @@
 #define LC_STAT_DEF 11
 #define LC_STAT_SPD 12
 #define LC_STAT_LCK 13
+#define LC_SCORE 83
 
 #define LC_STAT_FULL_LEVEL 50
 #define LC_STAT_FULL_HP 51
@@ -28,6 +29,7 @@
 #define LC_STAT_FULL_SPD 54
 #define LC_STAT_FULL_LCK 55
 #define LC_STAT_FULL_EXP 56
+#define LC_SCORE_FULL 84
 
 #define LC_SIDEBAR_STAT_LABEL 9
 #define LC_SIDEBAR_LOC_LABEL 14

@@ -106,6 +106,11 @@ void menuDrawPlayerInfo(Context *ctx) {
     gotoxy(xBound+1, 13);
     cprintf(locale[ctx->locale][LC_SIDEBAR_DIR], locale[ctx->locale][ctx->player.direction]);
 
+    // Score
+    cputsxy(xBound+1, 15, locale[ctx->locale][LC_SCORE]);
+    gotoxy(xBound+1, 16);
+    cprintf("%d", ctx->player.score);
+
 }
 
 void menuDrawLeftSector(Context *ctx) {
@@ -382,7 +387,7 @@ void menuDrawMap(Context *ctx) {
 
 void menuDrawPlayerStats(Context *ctx) {
     uint8 i, j;
-    uint8 width = 24, height = 18;
+    uint8 width = 24, height = 19;
     uint8 x = XSize/2-width/2, y = YSize/2-height/2;
     uint8 flavor = LC_PLAYER_INFO_FLAVOR1 + rand() % 5;
 
@@ -413,6 +418,8 @@ void menuDrawPlayerStats(Context *ctx) {
 
     gotoxy(x+2, y+12);
     cprintf(locale[ctx->locale][LC_STAT_FULL_EXP], ctx->player.stats.experience, XP_FACTOR * ctx->player.stats.level + 1);
+    gotoxy(x+2, y+13);
+    cprintf(locale[ctx->locale][LC_SCORE_FULL], ctx->player.score);
 
     for (i = 0; i < strlen(locale[ctx->locale][flavor]); i++) {
         if (x > width+(XSize/2-width/2)-2 || getNextWordLen(locale[ctx->locale][flavor], i) + x > width+(XSize/2-width/2)-2) {
@@ -420,7 +427,7 @@ void menuDrawPlayerStats(Context *ctx) {
             y++;
         }
         if (locale[ctx->locale][flavor][i] != ' ' && x != width+(XSize/2-width/2)-2) {
-            cputcxy(x+1, y+14, locale[ctx->locale][flavor][i]);
+            cputcxy(x+1, y+15, locale[ctx->locale][flavor][i]);
         }
         x++;
     }
