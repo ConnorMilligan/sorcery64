@@ -76,9 +76,19 @@ void menuDrawQuitPrompt(Context *ctx) {
 }
 
 void menuDrawDeathScreen(Context *ctx) {
+    size_t i, j;
+
     menuDrawWindow(0, 0, XSize, YSize);
-    cvlinexy(5, 5, YSize-5);
-    cvlinexy(XSize-5, 5, YSize-5);
+    // right line is one more than the left line (zero indexed)
+    cvlinexy(XSize-13, YSize/2, YSize/2);
+    cvlinexy(12, YSize/2, YSize/2);
+
+    chlinexy(16, YSize/2-4, 8);
+
+    for (i = 0; i < 4; i++) {
+        cputcxy(12+i, YSize/2-i, 206);
+        cputcxy(XSize-13-i, YSize/2-i, 205);
+    }
 }
 
 void menuDrawNamePrompt(Context *ctx) {

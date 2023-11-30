@@ -233,6 +233,7 @@ void takeInput(Context *ctx) {
                             if (ctx->player.stats.health.health <= 0) {
                                 ctx->gameState = DeathScreen;
                             }
+                            ctx->input = 0;
                         }
                         break; 
                     case Defend:
@@ -244,6 +245,7 @@ void takeInput(Context *ctx) {
                         if (ctx->player.stats.health.health <= 0) {
                             ctx->gameState = DeathScreen;
                         }
+                        ctx->input = 0;
                         break;
                     case Inspect:
                         consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_ENEMY_INSPECT]);
