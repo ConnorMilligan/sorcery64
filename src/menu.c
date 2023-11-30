@@ -77,18 +77,35 @@ void menuDrawQuitPrompt(Context *ctx) {
 
 void menuDrawDeathScreen(Context *ctx) {
     size_t i, j;
+    char str[10];
 
     menuDrawWindow(0, 0, XSize, YSize);
+
+    // Draw the tombstone
     // right line is one more than the left line (zero indexed)
-    cvlinexy(XSize-13, YSize/2, YSize/2);
+    cvlinexy(XSize-12, YSize/2, YSize/2);
     cvlinexy(12, YSize/2, YSize/2);
 
-    chlinexy(16, YSize/2-4, 8);
+    chlinexy(17, YSize/2-5, 7);
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 5; i++) {
         cputcxy(12+i, YSize/2-i, 206);
-        cputcxy(XSize-13-i, YSize/2-i, 205);
+        cputcxy(XSize-12-i, YSize/2-i, 205);
     }
+
+    // lil cross
+    cvlinexy((XSize)/2, YSize/2-2, 4);
+    chlinexy((XSize)/2-1, YSize/2-1, 3);
+    cputcxy((XSize)/2, YSize/2-1, 219);
+
+    // Text
+    cputsxy(XSize/2 - strlen(locale[ctx->locale][LC_DEATH_TOMBSTONE])/2, YSize/2+4, locale[ctx->locale][LC_DEATH_TOMBSTONE]);
+    cputsxy(XSize/2 - strlen(ctx->player.name)/2, YSize/2+5, ctx->player.name);
+
+    sprintf(str, "%u", ctx->player.score);
+
+    gotoxy(XSize/2 - strlen(locale[ctx->locale][LC_SCORE_FULL])/2 - strlen(str)/2 + 1, YSize/2+7);
+    cprintf(locale[ctx->locale][LC_SCORE_FULL], ctx->player.score);
 }
 
 void menuDrawNamePrompt(Context *ctx) {

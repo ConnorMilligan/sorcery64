@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 85
+#define LC_NUM_STRINGS 86
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -108,6 +108,8 @@
 
 #define LC_COMBAT_XP_GAIN 81
 #define LC_COMBAT_LEVEL_UP 82
+
+#define LC_DEATH_TOMBSTONE 85
 
 extern const char* locale[2][LC_NUM_STRINGS];
 

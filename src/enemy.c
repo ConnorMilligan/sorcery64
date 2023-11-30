@@ -127,7 +127,7 @@ void enemyBuild(Enemy *enemy, uint8 level) {
     enemy->stats.health.health = 10 * level;
     enemy->stats.health.maxHealth = 10 * level;
 
-    enemy->stats.attack = ((rand() % 3 + 1)*level*10);
+    enemy->stats.attack = ((rand() % 3 + 1)*level);
     enemy->stats.defense = ((rand() % 3 + 1)*level);
     enemy->stats.speed = ((rand() % 3 + 1)*level);
     enemy->stats.luck = ((rand() % 3 + 1)*level);
