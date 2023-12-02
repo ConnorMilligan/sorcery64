@@ -215,6 +215,7 @@ void takeInput(Context *ctx) {
                         playerAttackEnemy(ctx);
                         clrscr();
                         draw(ctx);
+                        musicCombatPlayerTurn();
                         sleep(1);
                         if (ctx->enemy.stats.health.health <= 0) {
                             consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_ENEMY_DEFEATED]);
@@ -230,6 +231,7 @@ void takeInput(Context *ctx) {
                             ctx->gameState = Game;
                         } else {
                             enemyAttack(ctx, false);
+                            musicCombatEnemyTurn();
                             if (ctx->player.stats.health.health <= 0) {
                                 ctx->gameState = DeathScreen;
                             }
@@ -239,14 +241,17 @@ void takeInput(Context *ctx) {
                         consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_PLAYER_DEFEND]);
                         clrscr();
                         draw(ctx);
+                        musicCombatPlayerTurn();
                         sleep(1);
                         enemyAttack(ctx, true);
+                        musicCombatEnemyTurn();
                         if (ctx->player.stats.health.health <= 0) {
                             ctx->gameState = DeathScreen;
                         }
                         break;
                     case Inspect:
                         consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_ENEMY_INSPECT]);
+                        musicCombatPlayerTurn();
                         menuDrawEnemyStats(ctx);
                         ctx->input = 0;
                         while (ctx->input != KEY_RETURN && ctx->input != 3)
@@ -264,8 +269,10 @@ void takeInput(Context *ctx) {
                             consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_PLAYER_RUN_FAIL]);
                             clrscr();
                             draw(ctx);
+                            musicCombatPlayerTurn();
                             sleep(1);
                             enemyAttack(ctx, false);
+                            musicCombatEnemyTurn();
                         }
                         break;
                 } 

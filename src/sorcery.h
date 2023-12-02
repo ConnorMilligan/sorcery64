@@ -45,6 +45,10 @@ void gameLoop();
 void draw(Context *ctx);
 void takeInput(Context *ctx);
 
+/* Music */
+void musicCombatPlayerTurn();
+void musicCombatEnemyTurn();
+
 /* Maze */
 void mazeBuild(Maze *maze);
 bool mazeGetPos(Maze *maze, int8 x, int8 y);
