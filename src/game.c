@@ -13,7 +13,6 @@ void gameLoop() {
 
     while (ctx.gameRunning) {
         draw(&ctx);
-
         // gotoxy(3,5);
         // cprintf("value of input: %d", ctx.input);
         // gotoxy(3,6);
@@ -219,6 +218,7 @@ void takeInput(Context *ctx) {
                         sleep(1);
                         if (ctx->enemy.stats.health.health <= 0) {
                             consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_COMBAT_ENEMY_DEFEATED]);
+                            musicCombatWin();
                             if (playerAddXp(ctx, &lvlStats)) {
                                 menuDrawLevelUp(ctx, &lvlStats);
                                 ctx->input = 0;

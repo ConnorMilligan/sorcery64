@@ -48,6 +48,7 @@ void takeInput(Context *ctx);
 /* Music */
 void musicCombatPlayerTurn();
 void musicCombatEnemyTurn();
+void musicCombatWin();
 
 /* Maze */
 void mazeBuild(Maze *maze);
