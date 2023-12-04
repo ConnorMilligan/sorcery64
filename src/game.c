@@ -78,17 +78,18 @@ void takeInput(Context *ctx) {
             // I do feel bad about this, honestly
             while (ctx->input != KEY_L && ctx->input != KEY_RETURN && ctx->input != 3) {
                 ctx->input = cgetc();
-                if (ctx->input == KEY_RETURN) {
-                    ctx->gameState = NamePrompt;
-                    clrscr();
-                }
-                else if (ctx->input == KEY_L) {
-                    ctx->locale = ctx->locale == English ? Esperanto : English;
-                    clrscr();
-                }
+            }
+
+            if (ctx->input == KEY_RETURN) {
+                ctx->gameState = NamePrompt;
+                clrscr();
+            }
+            else if (ctx->input == KEY_L) {
+                ctx->locale = ctx->locale == English ? Esperanto : English;
+                clrscr();
             }
             break;
-        
+
         case NamePrompt:
             x = (XSize)/2 - 4, y = YSize/2+1;
 
