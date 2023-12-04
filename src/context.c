@@ -18,8 +18,8 @@ void contextBuild(Context *ctx) {
     ctx->input = 0;
 
     ctx->locale = English;
-    //ctx->gameState = TitleScreen;
-    ctx->gameState = Game;
+    ctx->gameState = TitleScreen;
+    //ctx->gameState = Game;
 }
 
 
