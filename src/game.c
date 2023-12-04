@@ -75,13 +75,17 @@ void takeInput(Context *ctx) {
     // Title Screen prompts
     switch (ctx->gameState) {
         case TitleScreen:
-            if (ctx->input == KEY_RETURN) {
-                ctx->gameState = NamePrompt;
-                clrscr();
-            }
-            else if (ctx->input == KEY_L) {
-                ctx->locale = ctx->locale == English ? Esperanto : English;
-                clrscr();
+            // I do feel bad about this, honestly
+            while (ctx->input != KEY_L && ctx->input != KEY_RETURN && ctx->input != 3) {
+                ctx->input = cgetc();
+                if (ctx->input == KEY_RETURN) {
+                    ctx->gameState = NamePrompt;
+                    clrscr();
+                }
+                else if (ctx->input == KEY_L) {
+                    ctx->locale = ctx->locale == English ? Esperanto : English;
+                    clrscr();
+                }
             }
             break;
         
