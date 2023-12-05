@@ -624,6 +624,26 @@ void menuDrawLevelUp(Context *ctx, Stats *lvlStats) {
 
 }
 
+void menuDrawInventory(Context *ctx) {
+    uint8 i, j;
+    uint8 x = 4, y = 1;
+    uint8 width = 20, height = 22;
+
+    menuDrawWindow(x, y, width, height);
+    cputsxy(x+1, y, locale[ctx->locale][LC_INVENTORY_WINDOW_LABEL]);
+
+    for (i = 0; i < width-2; i++) {
+        for (j = 0; j < height-2; j++) {
+            cputcxy(x+i+1, y+j+1, 32);
+        }
+    }
+    
+
+    for (i = 0; i < INVENTORY_SIZE+1; i++) {
+        cputsxy(x+4, y+2+i, locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].modifier]);
+    }
+}
+
 void menuClearViewport() {
     uint8 x = 1, y = 2;
     size_t i, j;

@@ -88,6 +88,14 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "score",
         "score: %d",
         "here lies",
+        "health potion",
+        "attack potion",
+        "defense potion",
+        "speed potion",
+        "luck potion",
+        "use",
+        "drop",
+        "inventory"
     },
     { // Esperanto
         "premu enigi por komenci",
@@ -176,5 +184,13 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "poentaro",
         "poentaro: %d",
         "tie kusxas",
+        "sana miksauxo",
+        "atako miksauxo",
+        "defendo miksauxo",
+        "rapido miksauxo",
+        "sxanco miksauxo",
+        "uzi",
+        "lasu",
+        "inventaro"
     }
 };

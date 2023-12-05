@@ -22,6 +22,7 @@ void menuDrawPlayerStats(Context *ctx);
 void menuDrawEnemyStats(Context *ctx);
 void menuDrawHelp(Context *ctx);
 void menuDrawLevelUp(Context *ctx, Stats *lvlStats);
+void menuDrawInventory(Context *ctx);
 
 void menuClearViewport();
 void menuClearInfoWindow();
@@ -64,5 +65,9 @@ bool playerAddXp(Context *ctx, Stats *lvlStats);
 /* Enemy */
 void enemyBuild(Enemy *enemy, uint8 level);
 void enemyAttack(Context *ctx, bool playerDefending);
+
+/* Item */
+void itemBuild(Item *item, enum StatType stat, int8 modifier);
+void itemBuildEmpty(Item *item);
 
 #endif

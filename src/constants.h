@@ -36,6 +36,7 @@
 #define MAZE_OFFSET 3
 
 #define XP_FACTOR 2
+#define INVENTORY_SIZE 5
 
 typedef unsigned char uint8;
 typedef signed char int8;
@@ -58,8 +59,16 @@ enum BattleSelection {
     Attack,
     Defend,
     Inspect,
-    Item,
+    Inventory,
     Run
+};
+
+enum StatType {
+    StatHealth,
+    StatAttack,
+    StatDefense,
+    StatSpeed,
+    StatLuck
 };
 
 enum Direction {
@@ -103,6 +112,12 @@ typedef struct Stats {
     uint8 luck;
 } Stats;
 
+typedef struct Item {
+    enum StatType stat;
+
+    int8 modifier;
+} Item;
+
 typedef struct Player {
     char name[9];
 
@@ -111,6 +126,7 @@ typedef struct Player {
 
     unsigned int score;
 
+    Item items[INVENTORY_SIZE];
     Stats stats;
 } Player;
 
