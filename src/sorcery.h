@@ -23,6 +23,7 @@ void menuDrawEnemyStats(Context *ctx);
 void menuDrawHelp(Context *ctx);
 void menuDrawLevelUp(Context *ctx, Stats *lvlStats);
 void menuDrawInventory(Context *ctx);
+void menuDrawInventorySelection(Context *ctx);
 
 void menuClearViewport();
 void menuClearInfoWindow();

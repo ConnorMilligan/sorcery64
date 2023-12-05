@@ -637,11 +637,28 @@ void menuDrawInventory(Context *ctx) {
             cputcxy(x+i+1, y+j+1, 32);
         }
     }
-    
 
     for (i = 0; i < INVENTORY_SIZE+1; i++) {
-        cputsxy(x+4, y+2+i, locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].modifier]);
+        cputsxy(x+3, y+1+i, locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].modifier]);
     }
+}
+
+void menuDrawInventorySelection(Context *ctx) {
+    uint8 i, j;
+    uint8 x = 24, y = 1;
+    uint8 width = 8, height = 8;
+
+    menuDrawWindow(x, y, width, height);
+
+    for (i = 0; i < width-2; i++) {
+        for (j = 0; j < height-2; j++) {
+            cputcxy(x+i+1, y+j+1, 32);
+        }
+    }
+
+    cputsxy(x+3, y+1, locale[ctx->locale][LC_ITEM_USE]);
+    cputsxy(x+3, y+2, locale[ctx->locale][LC_ITEM_DISCARD]);
+
 }
 
 void menuClearViewport() {

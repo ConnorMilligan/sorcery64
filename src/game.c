@@ -139,25 +139,35 @@ void takeInput(Context *ctx) {
             }
             else if (ctx->input == 'i') {
                 uint8 itemChoice = 0;
+                uint8 itemAction = 3;
                 uint8 i;
 
                 menuDrawInventory(ctx);
                 ctx->input = 0;
 
-                while (ctx->input != 'i' && ctx->input != KEY_RETURN && ctx->input != 3) {
+                while (ctx->input != 'i' && ctx->input != 3) {
                     // draw the selector (i know, should be in the draw function, but would require a lot of re-writing)
                     // this also is important to prevent flickering
-                    for (i = 0; i < INVENTORY_SIZE; i++) {
-                        cputcxy(6, 2 + i, CHAR_BLANK);
+                    for (i = 0; i < INVENTORY_SIZE+1; i++) {
+                        cputcxy(5, 2 + i, CHAR_BLANK);
                     }
-                    cputcxy(6, 3 + ctx->choice, 218);
-
+                    cputcxy(5, 2 + ctx->choice, 218);
 
                     ctx->input = cgetc();
                     if (UP_PRESSED(ctx->input)) {
-                        ctx->choice = ctx->choice - 1 < 0 ? INVENTORY_SIZE-1 : ctx->choice - 1;
+                        ctx->choice = ctx->choice - 1 < 0 ? INVENTORY_SIZE : ctx->choice - 1;
                     } else if (DOWN_PRESSED(ctx->input)) {
-                        ctx->choice = ctx->choice + 1 > INVENTORY_SIZE-1 ? 0 : ctx->choice + 1;
+                        ctx->choice = ctx->choice + 1 > INVENTORY_SIZE ? 0 : ctx->choice + 1;
+                    } else if (ctx->input == KEY_RETURN) {
+                        itemAction = 0;
+                        menuDrawInventorySelection(ctx);
+                    }
+
+                    while (itemAction != 3) {
+                        ctx->input = cgetc();
+                        if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
+                            itemAction = itemAction ? 0 : 1;
+                        }
                     }
                 }
             }
