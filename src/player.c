@@ -6,7 +6,7 @@
 
 
 void playerBuild(Player *player) {
-
+    size_t i;
     strcpy(player->name, "p");
 
     player->position.x = 0;
@@ -25,6 +25,15 @@ void playerBuild(Player *player) {
     player->stats.defense = 2;
     player->stats.speed = 2;
     player->stats.luck = 2;
+
+    for (i = 0; i < INVENTORY_SIZE; i++)
+        itemBuildEmpty(&player->items[i]);
+
+    player->items[0].stat = StatHealth;
+    player->items[1].stat = StatAttack;
+    player->items[2].stat = StatDefense;
+    player->items[3].stat = StatSpeed;
+    player->items[4].stat = StatLuck;
 
 }
 

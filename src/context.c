@@ -1,17 +1,11 @@
 #include "sorcery.h"
 
 void contextBuild(Context *ctx) {
-    uint8 i;
     // Build the context
-
     playerBuild(&ctx->player);
     enemyBuild(&ctx->enemy, 1);
     mazeBuild(&ctx->maze);
     consoleBufferBuild(&ctx->consoleBuffer);
-
-    for (i = 0; i < INVENTORY_SIZE; i++) {
-        itemBuildEmpty(&ctx->player.items[i]);
-    }
 
     ctx->player.position = ctx->maze.start;
 

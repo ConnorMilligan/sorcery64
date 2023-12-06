@@ -68,8 +68,7 @@ enum StatType {
     StatAttack,
     StatDefense,
     StatSpeed,
-    StatLuck,
-    StatXp
+    StatLuck
 };
 
 enum Direction {

@@ -148,9 +148,9 @@ void takeInput(Context *ctx) {
                     menuDrawInventory(ctx, itemSelection, false);
                     ctx->input = cgetc();
                     if (UP_PRESSED(ctx->input)) {
-                        itemSelection = itemSelection - 1 < 0 ? INVENTORY_SIZE : itemSelection - 1;
+                        itemSelection = itemSelection - 1 < 0 ? INVENTORY_SIZE-1 : itemSelection - 1;
                     } else if (DOWN_PRESSED(ctx->input)) {
-                        itemSelection = itemSelection + 1 > INVENTORY_SIZE ? 0 : itemSelection + 1;
+                        itemSelection = itemSelection + 1 > INVENTORY_SIZE-1 ? 0 : itemSelection + 1;
                     } else if (ctx->input == KEY_RETURN) {
                         itemOption = 0;
                         menuDrawInventorySelection(ctx, itemOption, true);

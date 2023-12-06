@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 95
+#define LC_NUM_STRINGS 99
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1
@@ -110,15 +110,21 @@
 #define LC_COMBAT_XP_GAIN 81
 #define LC_COMBAT_LEVEL_UP 82
 
-#define LC_POTION_HEALTH 86
-#define LC_POTION_ATTACK 87
-#define LC_POTION_DEFENSE 88
-#define LC_POTION_SPEED 89
-#define LC_POTION_LUCK 90
-#define LC_POTION_XP 91
+#define LC_POTION 86
+#define LC_POTION_HEALTH 87
+#define LC_POTION_ATTACK 88
+#define LC_POTION_DEFENSE 89
+#define LC_POTION_SPEED 90
+#define LC_POTION_LUCK 91
 
-#define LC_ITEM_USE 92
-#define LC_ITEM_DISCARD 93
+#define LC_INVENTORY_USE 92
+#define LC_INVENTORY_DISCARD 93
+
+#define LC_ITEM_FIND 95
+#define LC_ITEM_FIND_FULL 96
+#define LC_ITEM_USE 97
+#define LC_ITEM_EFFECT 98
+#define LC_ITEM_DISCARD 99
 
 #define LC_DEATH_TOMBSTONE 85
 

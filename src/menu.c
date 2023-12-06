@@ -642,7 +642,8 @@ void menuDrawInventory(Context *ctx, uint8 selection, bool firstDraw) {
 
         // Draw the potions
         for (i = 0; i < INVENTORY_SIZE; i++) {
-            cputsxy(x + 3, y + 1 + i, locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[i].stat]);
+            gotoxy(x + 3, y + 1 + i);
+            cprintf(locale[ctx->locale][LC_POTION], locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].stat]);
         }
     }
 
@@ -667,8 +668,8 @@ void menuDrawInventorySelection(Context *ctx, uint8 selection, bool firstDraw) {
             }
         }
 
-        cputsxy(x + 3, y + 1, locale[ctx->locale][LC_ITEM_USE]);
-        cputsxy(x + 3, y + 2, locale[ctx->locale][LC_ITEM_DISCARD]);
+        cputsxy(x + 3, y + 1, locale[ctx->locale][LC_INVENTORY_USE]);
+        cputsxy(x + 3, y + 2, locale[ctx->locale][LC_INVENTORY_DISCARD]);
     }
     
     // Selector
