@@ -624,41 +624,57 @@ void menuDrawLevelUp(Context *ctx, Stats *lvlStats) {
 
 }
 
-void menuDrawInventory(Context *ctx) {
+void menuDrawInventory(Context *ctx, uint8 selection, bool firstDraw) {
     uint8 i, j;
-    uint8 x = 4, y = 1;
-    uint8 width = 20, height = 22;
+    uint8 width = 22, height = 10;
+    uint8 x = (XSize/2)-(width/2)-4, y = (YSize/2)-(height/2);
 
-    menuDrawWindow(x, y, width, height);
-    cputsxy(x+1, y, locale[ctx->locale][LC_INVENTORY_WINDOW_LABEL]);
+    // only bother drawing the full window once
+    if (firstDraw) {
+        menuDrawWindow(x, y, width, height);
+        cputsxy(x + 1, y, locale[ctx->locale][LC_INVENTORY_WINDOW_LABEL]);
 
-    for (i = 0; i < width-2; i++) {
-        for (j = 0; j < height-2; j++) {
-            cputcxy(x+i+1, y+j+1, 32);
+        for (i = 0; i < width - 2; i++) {
+            for (j = 0; j < height - 2; j++) {
+                cputcxy(x + i + 1, y + j + 1, 32);
+            }
+        }
+
+        // Draw the potions
+        for (i = 0; i < INVENTORY_SIZE; i++) {
+            cputsxy(x + 3, y + 1 + i, locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[i].stat]);
         }
     }
 
-    for (i = 0; i < INVENTORY_SIZE+1; i++) {
-        cputsxy(x+3, y+1+i, locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].modifier]);
+    // Draw the selector
+    for (i = 0; i < INVENTORY_SIZE + 1; i++) {
+        cputcxy(x+1, y+1 + i, CHAR_BLANK);
     }
+    cputcxy(x+1, y+1 + selection, 218);
 }
 
-void menuDrawInventorySelection(Context *ctx) {
+void menuDrawInventorySelection(Context *ctx, uint8 selection, bool firstDraw) {
     uint8 i, j;
-    uint8 x = 24, y = 1;
+    uint8 x = (XSize/2)+7, y = (YSize/2)-5;
     uint8 width = 8, height = 8;
 
-    menuDrawWindow(x, y, width, height);
+    if (firstDraw) {
+        menuDrawWindow(x, y, width, height);
 
-    for (i = 0; i < width-2; i++) {
-        for (j = 0; j < height-2; j++) {
-            cputcxy(x+i+1, y+j+1, 32);
+        for (i = 0; i < width - 2; i++) {
+            for (j = 0; j < height - 2; j++) {
+                cputcxy(x + i + 1, y + j + 1, 32);
+            }
         }
+
+        cputsxy(x + 3, y + 1, locale[ctx->locale][LC_ITEM_USE]);
+        cputsxy(x + 3, y + 2, locale[ctx->locale][LC_ITEM_DISCARD]);
     }
-
-    cputsxy(x+3, y+1, locale[ctx->locale][LC_ITEM_USE]);
-    cputsxy(x+3, y+2, locale[ctx->locale][LC_ITEM_DISCARD]);
-
+    
+    // Selector
+    cputcxy(x + 1, y + 1, CHAR_BLANK);
+    cputcxy(x + 1, y + 2, CHAR_BLANK);
+    cputcxy(x + 1, y + 1 + selection, 218);
 }
 
 void menuClearViewport() {

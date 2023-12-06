@@ -68,7 +68,8 @@ enum StatType {
     StatAttack,
     StatDefense,
     StatSpeed,
-    StatLuck
+    StatLuck,
+    StatXp
 };
 
 enum Direction {
@@ -114,7 +115,6 @@ typedef struct Stats {
 
 typedef struct Item {
     enum StatType stat;
-
     int8 modifier;
 } Item;
 

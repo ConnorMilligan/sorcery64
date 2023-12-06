@@ -138,35 +138,32 @@ void takeInput(Context *ctx) {
                 }
             }
             else if (ctx->input == 'i') {
-                uint8 itemChoice = 0;
-                uint8 itemAction = 3;
                 uint8 i;
+                uint8 itemSelection = 0, itemOption = 3;
 
-                menuDrawInventory(ctx);
                 ctx->input = 0;
+                menuDrawInventory(ctx, itemSelection, true);
 
                 while (ctx->input != 'i' && ctx->input != 3) {
-                    // draw the selector (i know, should be in the draw function, but would require a lot of re-writing)
-                    // this also is important to prevent flickering
-                    for (i = 0; i < INVENTORY_SIZE+1; i++) {
-                        cputcxy(5, 2 + i, CHAR_BLANK);
-                    }
-                    cputcxy(5, 2 + ctx->choice, 218);
-
+                    menuDrawInventory(ctx, itemSelection, false);
                     ctx->input = cgetc();
                     if (UP_PRESSED(ctx->input)) {
-                        ctx->choice = ctx->choice - 1 < 0 ? INVENTORY_SIZE : ctx->choice - 1;
+                        itemSelection = itemSelection - 1 < 0 ? INVENTORY_SIZE : itemSelection - 1;
                     } else if (DOWN_PRESSED(ctx->input)) {
-                        ctx->choice = ctx->choice + 1 > INVENTORY_SIZE ? 0 : ctx->choice + 1;
+                        itemSelection = itemSelection + 1 > INVENTORY_SIZE ? 0 : itemSelection + 1;
                     } else if (ctx->input == KEY_RETURN) {
-                        itemAction = 0;
-                        menuDrawInventorySelection(ctx);
+                        itemOption = 0;
+                        menuDrawInventorySelection(ctx, itemOption, true);
                     }
 
-                    while (itemAction != 3) {
+                    while (itemOption != 3) {
+                        menuDrawInventorySelection(ctx, itemOption, false);
                         ctx->input = cgetc();
                         if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
-                            itemAction = itemAction ? 0 : 1;
+                            itemOption = itemOption ? 0 : 1;
+                        }
+                        if (ctx->input == 'i' || ctx->input == 3) {
+                            itemOption = 3;
                         }
                     }
                 }

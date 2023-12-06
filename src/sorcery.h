@@ -22,8 +22,8 @@ void menuDrawPlayerStats(Context *ctx);
 void menuDrawEnemyStats(Context *ctx);
 void menuDrawHelp(Context *ctx);
 void menuDrawLevelUp(Context *ctx, Stats *lvlStats);
-void menuDrawInventory(Context *ctx);
-void menuDrawInventorySelection(Context *ctx);
+void menuDrawInventory(Context *ctx, uint8 selection, bool firstDraw);
+void menuDrawInventorySelection(Context *ctx, uint8 selection, bool firstDraw);
 
 void menuClearViewport();
 void menuClearInfoWindow();

@@ -93,6 +93,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "defense potion",
         "speed potion",
         "luck potion",
+        "experience potion",
         "use",
         "drop",
         "inventory"
@@ -189,6 +190,7 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "defendo miksauxo",
         "rapido miksauxo",
         "sxanco miksauxo",
+        "sperto miksauxo",
         "uzi",
         "lasu",
         "inventaro"
