@@ -130,6 +130,9 @@ void takeInput(Context *ctx) {
                     ctx->input = cgetc();
                 }
             }
+            else if (ctx->input == 'o') {
+                playerAddItem(ctx);
+            }
             else if (ctx->input == 'p') {
                 menuDrawPlayerStats(ctx);
                 ctx->input = 0;
@@ -148,10 +151,10 @@ void takeInput(Context *ctx) {
                     menuDrawInventory(ctx, itemSelection, false);
                     ctx->input = cgetc();
                     if (UP_PRESSED(ctx->input)) {
-                        itemSelection = itemSelection - 1 < 0 ? INVENTORY_SIZE-1 : itemSelection - 1;
+                        itemSelection = itemSelection - 1 < 0 ? ctx->player.inventorySize-1 : itemSelection - 1;
                     } else if (DOWN_PRESSED(ctx->input)) {
-                        itemSelection = itemSelection + 1 > INVENTORY_SIZE-1 ? 0 : itemSelection + 1;
-                    } else if (ctx->input == KEY_RETURN) {
+                        itemSelection = itemSelection + 1 > ctx->player.inventorySize-1 ? 0 : itemSelection + 1;
+                    } else if (ctx->input == KEY_RETURN && ctx->player.inventorySize > 0) {
                         itemOption = 0;
                         menuDrawInventorySelection(ctx, itemOption, true);
                     }

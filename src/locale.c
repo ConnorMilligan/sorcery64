@@ -97,9 +97,9 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "use",
         "drop",
         "inventory",
-        "you find the %s!",
-        "you find the %s, but your inventory is full!",
-        "you quaff the %s %s!",
+        "you find the %s potion!",
+        "you find the %s potion, but your inventory is full!",
+        "you quaff the %s potion!",
         "your %s increases by %d!"
 
     },

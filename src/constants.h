@@ -126,6 +126,7 @@ typedef struct Player {
     unsigned int score;
 
     Item items[INVENTORY_SIZE];
+    uint8 inventorySize;
     Stats stats;
 } Player;
 

@@ -26,15 +26,9 @@ void playerBuild(Player *player) {
     player->stats.speed = 2;
     player->stats.luck = 2;
 
+    player->inventorySize = 0;
     for (i = 0; i < INVENTORY_SIZE; i++)
         itemBuildEmpty(&player->items[i]);
-
-    player->items[0].stat = StatHealth;
-    player->items[1].stat = StatAttack;
-    player->items[2].stat = StatDefense;
-    player->items[3].stat = StatSpeed;
-    player->items[4].stat = StatLuck;
-
 }
 
 bool playerAttemptMove(Player *player, Maze *maze, enum Movement move) {
@@ -147,3 +141,34 @@ bool playerAddXp(Context *ctx, Stats *lvlStats) {
     }
     return false;
 }
+
+void playerAddItem(Context *ctx) {
+    size_t i;
+    Item item;
+    enum StatType stat = rand() % 5;
+    int8 modifier = rand() % 3 + 1;
+    char *message;
+
+    itemBuild(&item, stat, modifier);
+
+    for (i = 0; i < INVENTORY_SIZE; i++) {
+        if (ctx->player.items[i].modifier == 0) {
+            ctx->player.items[i] = item;
+            message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_FIND]) + strlen(locale[ctx->locale][LC_POTION_HEALTH]) + 1));
+            sprintf(message, locale[ctx->locale][LC_ITEM_FIND], locale[ctx->locale][LC_POTION_HEALTH+stat]);
+            consoleBufferAdd(&ctx->consoleBuffer, message);
+            free(message);
+            ctx->player.inventorySize++;
+            return;
+        }
+    }
+
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_FIND_FULL]) + strlen(locale[ctx->locale][LC_POTION_HEALTH]) + 1));
+    sprintf(message, locale[ctx->locale][LC_ITEM_FIND_FULL], locale[ctx->locale][LC_POTION_HEALTH]);
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
+}
+
+void playerUseItem(Context *ctx, uint8 selection);
+void playerDropItem(Context *ctx, uint8 selection);
+void playerRemoveItem(Context *ctx, uint8 selection);

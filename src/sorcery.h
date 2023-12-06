@@ -62,6 +62,10 @@ bool playerAttemptMove(Player *player, Maze *maze, enum Movement move);
 void playerMakeTurn(Player *player, enum Movement move);
 void playerAttackEnemy(Context *ctx);
 bool playerAddXp(Context *ctx, Stats *lvlStats);
+void playerAddItem(Context *ctx);
+void playerUseItem(Context *ctx, uint8 selection);
+void playerDropItem(Context *ctx, uint8 selection);
+void playerRemoveItem(Context *ctx, uint8 selection);
 
 /* Enemy */
 void enemyBuild(Enemy *enemy, uint8 level);
