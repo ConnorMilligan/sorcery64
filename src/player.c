@@ -159,6 +159,7 @@ void playerAddItem(Context *ctx) {
             consoleBufferAdd(&ctx->consoleBuffer, message);
             free(message);
             ctx->player.inventorySize++;
+            ctx->player.score += 10;
             return;
         }
     }
@@ -169,6 +170,72 @@ void playerAddItem(Context *ctx) {
     free(message);
 }
 
-void playerUseItem(Context *ctx, uint8 selection);
-void playerDropItem(Context *ctx, uint8 selection);
-void playerRemoveItem(Context *ctx, uint8 selection);
+void playerUseItem(Context *ctx, uint8 selection) {
+    char *message;
+    size_t i, index = 0;
+
+    // make the selection match the index of the item in the inventory
+    // this is done because the inventory is not contiguous
+    for (i = 0; i < INVENTORY_SIZE; i++) {
+        if (ctx->player.items[i].modifier != 0) {
+            if (index == selection) {
+                index = i;
+                break;
+            }
+            index++;
+        }
+    }
+
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat])));
+    sprintf(message, locale[ctx->locale][LC_ITEM_USE], locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat]);
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
+
+    switch (ctx->player.items[index].stat) {
+        case StatHealth:
+            ctx->player.stats.health.health += ctx->player.items[index].modifier;
+            if (ctx->player.stats.health.health > ctx->player.stats.health.maxHealth)
+                ctx->player.stats.health.health = ctx->player.stats.health.maxHealth;
+            break;
+        case StatAttack:
+            ctx->player.stats.attack += ctx->player.items[index].modifier;
+            break;
+        case StatDefense:
+            ctx->player.stats.defense += ctx->player.items[index].modifier;
+            break;
+        case StatSpeed:
+            ctx->player.stats.speed += ctx->player.items[index].modifier;
+            break;
+        case StatLuck:
+            ctx->player.stats.luck += ctx->player.items[index].modifier;
+            break;
+    }
+
+    itemBuildEmpty(&ctx->player.items[index]);
+    ctx->player.inventorySize--;
+}
+
+void playerDropItem(Context *ctx, uint8 selection) {
+    char *message;
+    size_t i, index = 0;
+
+    // make the selection match the index of the item in the inventory
+    // this is done because the inventory is not contiguous
+    for (i = 0; i < INVENTORY_SIZE; i++) {
+        if (ctx->player.items[i].modifier != 0) {
+            if (index == selection) {
+                index = i;
+                break;
+            }
+            index++;
+        }
+    }
+
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_DISCARD]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat])));
+    sprintf(message, locale[ctx->locale][LC_ITEM_DISCARD], locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat]);
+    consoleBufferAdd(&ctx->consoleBuffer, message);
+    free(message);
+    
+    itemBuildEmpty(&ctx->player.items[index]);
+    ctx->player.inventorySize--;
+}

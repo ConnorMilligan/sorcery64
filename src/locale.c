@@ -100,8 +100,8 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "you find the %s potion!",
         "you find the %s potion, but your inventory is full!",
         "you quaff the %s potion!",
-        "your %s increases by %d!"
-
+        "your %s increases by %d!",
+        "you drop the %s potion!",
     },
     { // Esperanto
         "premu enigi por komenci",

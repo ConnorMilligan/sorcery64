@@ -641,11 +641,15 @@ void menuDrawInventory(Context *ctx, uint8 selection, bool firstDraw) {
         }
 
         if (ctx->player.inventorySize > 0) {
+            uint8 potionCount = 0;
             // Draw the potions
             for (i = 0; i < INVENTORY_SIZE; i++) {
                 if (ctx->player.items[i].modifier != 0) {
-                    gotoxy(x + 3, y + 1 + i);
+                    gotoxy(x + 3, y + 1 + potionCount);
                     cprintf(locale[ctx->locale][LC_POTION], locale[ctx->locale][LC_POTION_HEALTH+ctx->player.items[i].stat]);
+                    gotoxy(x + width, y + 1 + potionCount);
+                    cprintf("%d", ctx->player.items[i].modifier);
+                    ++potionCount;
                 }
             }
         }

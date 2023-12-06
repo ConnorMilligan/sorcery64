@@ -3,7 +3,7 @@
 
 #include "constants.h"
 
-#define LC_NUM_STRINGS 99
+#define LC_NUM_STRINGS 100
 
 #define LC_TITLE_PROMPT 0
 #define LC_TITLE_LANG 1

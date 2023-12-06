@@ -142,7 +142,7 @@ void takeInput(Context *ctx) {
             }
             else if (ctx->input == 'i') {
                 uint8 i;
-                uint8 itemSelection = 0, itemOption = 3;
+                int8 itemSelection = 0, itemOption = 3;
 
                 ctx->input = 0;
                 menuDrawInventory(ctx, itemSelection, true);
@@ -165,8 +165,18 @@ void takeInput(Context *ctx) {
                         if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
                             itemOption = itemOption ? 0 : 1;
                         }
-                        if (ctx->input == 'i' || ctx->input == 3) {
+                        else if (ctx->input == 'i' || ctx->input == 3) {
                             itemOption = 3;
+                        }
+                        else if (ctx->input == KEY_RETURN) {
+                            if (itemOption == 0) {
+                                playerUseItem(ctx, itemSelection);
+                            }
+                            else if (itemOption == 1) {
+                                playerDropItem(ctx, itemSelection);
+                            }
+                            itemOption = 3;
+                            ctx->input = 'i';
                         }
                     }
                 }
