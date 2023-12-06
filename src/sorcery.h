@@ -63,7 +63,7 @@ void playerMakeTurn(Player *player, enum Movement move);
 void playerAttackEnemy(Context *ctx);
 bool playerAddXp(Context *ctx, Stats *lvlStats);
 void playerAddItem(Context *ctx);
-void playerUseItem(Context *ctx, uint8 selection);
+void playerUseItem(Context *ctx, uint8 selection, Item *item);
 void playerDropItem(Context *ctx, uint8 selection);
 void playerRemoveItem(Context *ctx, uint8 selection);
 

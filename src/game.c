@@ -170,7 +170,18 @@ void takeInput(Context *ctx) {
                         }
                         else if (ctx->input == KEY_RETURN) {
                             if (itemOption == 0) {
-                                playerUseItem(ctx, itemSelection);
+                                Item item;
+                                char *message;
+                                
+                                playerUseItem(ctx, itemSelection, &item);
+                                draw(ctx);
+                                sleep(1);
+
+                                message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + item.stat]) + 1));
+                                sprintf(message, locale[ctx->locale][LC_ITEM_EFFECT], locale[ctx->locale][LC_POTION_HEALTH + item.stat], item.modifier);
+                                consoleBufferAdd(&ctx->consoleBuffer, message);
+                                free(message);
+
                             }
                             else if (itemOption == 1) {
                                 playerDropItem(ctx, itemSelection);

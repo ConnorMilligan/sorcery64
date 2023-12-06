@@ -170,7 +170,7 @@ void playerAddItem(Context *ctx) {
     free(message);
 }
 
-void playerUseItem(Context *ctx, uint8 selection) {
+void playerUseItem(Context *ctx, uint8 selection, Item *item) {
     char *message;
     size_t i, index = 0;
 
@@ -210,6 +210,9 @@ void playerUseItem(Context *ctx, uint8 selection) {
             ctx->player.stats.luck += ctx->player.items[index].modifier;
             break;
     }
+
+    item->modifier = ctx->player.items[index].modifier;
+    item->stat = ctx->player.items[index].stat;
 
     itemBuildEmpty(&ctx->player.items[index]);
     ctx->player.inventorySize--;
