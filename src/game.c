@@ -174,6 +174,7 @@ void takeInput(Context *ctx) {
                                 char *message;
                                 
                                 playerUseItem(ctx, itemSelection, &item);
+                                clrscr();
                                 draw(ctx);
                                 sleep(1);
 
@@ -268,6 +269,8 @@ void takeInput(Context *ctx) {
                 ctx->choice = ctx->choice+1 > 4 ? 0 : ctx->choice+1;
             }
             else if (ctx->input == KEY_RETURN) {
+                uint8 i;
+                int8 itemSelection = 0, itemOption = 3;
                 switch (ctx->choice) {
                     case Attack:
                         // This is a pretty dreadful way of doing this
@@ -318,7 +321,61 @@ void takeInput(Context *ctx) {
                             ctx->input = cgetc();
                         break;
                     case Inventory:
-                        consoleBufferAdd(&ctx->consoleBuffer, "you use an item!");
+
+                        // All this code is copied, but functionalizing this would be really quite dreadful
+                        ctx->input = 0;
+                        menuDrawInventory(ctx, itemSelection, true);
+
+                        while (ctx->input != 'i' && ctx->input != 3) {
+                            menuDrawInventory(ctx, itemSelection, false);
+                            ctx->input = cgetc();
+                            if (UP_PRESSED(ctx->input)) {
+                                itemSelection = itemSelection - 1 < 0 ? ctx->player.inventorySize-1 : itemSelection - 1;
+                            } else if (DOWN_PRESSED(ctx->input)) {
+                                itemSelection = itemSelection + 1 > ctx->player.inventorySize-1 ? 0 : itemSelection + 1;
+                            } else if (ctx->input == KEY_RETURN && ctx->player.inventorySize > 0) {
+                                itemOption = 0;
+                                menuDrawInventorySelection(ctx, itemOption, true);
+                            }
+
+                            while (itemOption != 3) {
+                                menuDrawInventorySelection(ctx, itemOption, false);
+                                ctx->input = cgetc();
+                                if (UP_PRESSED(ctx->input) || DOWN_PRESSED(ctx->input)) {
+                                    itemOption = itemOption ? 0 : 1;
+                                }
+                                else if (ctx->input == 'i' || ctx->input == 3) {
+                                    itemOption = 3;
+                                }
+                                else if (ctx->input == KEY_RETURN) {
+                                    if (itemOption == 0) {
+                                        Item item;
+                                        char *message;
+                                        
+                                        playerUseItem(ctx, itemSelection, &item);
+                                        clrscr();
+                                        draw(ctx);
+                                        sleep(1);
+
+                                        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + item.stat]) + 1));
+                                        sprintf(message, locale[ctx->locale][LC_ITEM_EFFECT], locale[ctx->locale][LC_POTION_HEALTH + item.stat], item.modifier);
+                                        consoleBufferAdd(&ctx->consoleBuffer, message);
+                                        free(message);
+
+                                    }
+                                    else if (itemOption == 1) {
+                                        playerDropItem(ctx, itemSelection);
+                                    }
+                                    itemOption = 3;
+                                    ctx->input = 'i';
+                                }
+                            }
+                        }
+                        clrscr();
+                        draw(ctx);
+                        sleep(1);
+                        enemyAttack(ctx, false);
+                        musicCombatEnemyTurn();
                         break;
                     case Run:
                         // chance of sucessful flee scales off of player luck
