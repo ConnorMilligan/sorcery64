@@ -399,7 +399,7 @@ void takeInput(Context *ctx) {
 
         case DeathScreen:
             if (ctx->input == KEY_RETURN) {
-                ctx->gameState = TitleScreen;
+                ctx->gameRunning = false;
                 clrscr();
             }
             break;

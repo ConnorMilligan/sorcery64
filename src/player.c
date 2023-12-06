@@ -7,7 +7,8 @@
 
 void playerBuild(Player *player) {
     size_t i;
-    strcpy(player->name, "p");
+    for (i = 0; i < 9; i++)
+        player->name[i] = '\0';
 
     player->position.x = 0;
     player->position.y = 0;
