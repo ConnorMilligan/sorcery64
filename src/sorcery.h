@@ -8,7 +8,6 @@
 // Screen dimensions
 extern uint8 XSize, YSize, xBound, yBound;
 
-
 /* Menu */
 void menuDrawTitleScreen(Context *ctx);
 void menuDrawQuitPrompt(Context *ctx);
