@@ -199,10 +199,10 @@ const char* locale[2][LC_NUM_STRINGS] = {
         "uzi",
         "lasu",
         "inventaro",
-        "vi trovas la %s miksauxon!",
-        "vi trovas la %s miksauxon, sed via inventaro estas plena!",
-        "vi trinkas la %s miksauxon!",
+        "vi trovas la %sn miksauxon!",
+        "vi trovas la %sn miksauxon, sed via inventaro estas plena!",
+        "vi trinkas la %sn miksauxon!",
         "via %s kreskas je %d!",
-        "vi lasas la %s miksauxon!"
+        "vi lasas la %sn miksauxon!"
     }
 };

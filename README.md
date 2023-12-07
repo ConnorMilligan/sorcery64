@@ -1,4 +1,6 @@
 # Sorcery64
+<img src="doc/screenshot.png" alt="screenshot of in-game combat" width="auto" height="360">
+
 Sorcery64 is something of a demake of [sorcery](https://github.com/ConnorMilligan/sorcery), a project for my advanced programming class at the University of Vermont with [Tim Harrold](https://github.com/timjhh). This has only been tested on the Commodore 64, but should be compatible with other Commodore machines. The game is inspired mainly by [Wizardry: Proving Grounds of the Mad Overlord](https://en.wikipedia.org/wiki/Wizardry%3A_Proving_Grounds_of_the_Mad_Overlord).
 
 ## Building

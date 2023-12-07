@@ -91,9 +91,9 @@ void playerAttackEnemy(Context *ctx) {
     uint8 attackMod, damage;
     char *message;
 
-    // As luck increases, so do the odds of a # [0,10] falling between [0,luck];
-    // If the number falls between [0,luck], then the attack is a critical hit (double damage)
-    attackMod = (rand() % 10) <= ctx->player.stats.luck ? 2 : 1;
+    // As luck increases, so do the odds of a # [0,10] falling between [0,luck/2];
+    // If the number falls between [0,luck/2], then the attack is a critical hit (double damage)
+    attackMod = (rand() % 10) <= ctx->player.stats.luck/2 ? 2 : 1;
 
     // Damage range is [attack/2, (3/2)*attack] * modifier
     damage = (rand() % (ctx->player.stats.attack/2) + (ctx->player.stats.attack/2)) * attackMod;
@@ -147,7 +147,7 @@ void playerAddItem(Context *ctx) {
     size_t i;
     Item item;
     enum StatType stat = rand() % 5;
-    int8 modifier = rand() % 3 + 1;
+    int8 modifier = rand() % 2 + 1;
     char *message;
 
     itemBuild(&item, stat, modifier);
@@ -187,7 +187,7 @@ void playerUseItem(Context *ctx, uint8 selection, Item *item) {
         }
     }
 
-    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat])));
+    message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat]) + 1));
     sprintf(message, locale[ctx->locale][LC_ITEM_USE], locale[ctx->locale][LC_POTION_HEALTH + ctx->player.items[index].stat]);
     consoleBufferAdd(&ctx->consoleBuffer, message);
     free(message);

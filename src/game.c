@@ -256,7 +256,7 @@ void takeInput(Context *ctx) {
                         ctx->choice = 0;
                         clrscr();
                     }
-                    if (event == 1) {
+                    else if (event == 1) {
                         playerAddItem(ctx);
                     }
                     else {
