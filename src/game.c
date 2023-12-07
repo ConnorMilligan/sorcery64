@@ -99,6 +99,8 @@ void takeInput(Context *ctx) {
             // enter debug mode
             else if (ctx->input == 'd') {
                 debugMode = true;
+                strcpy(ctx->player.name, "debug");
+                ctx->gameState = Game;
                 clrscr();
             }
             break;
