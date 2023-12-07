@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+bool debugMode = false;
+
 void gameLoop() {
     Context ctx;
     contextBuild(&ctx);
@@ -48,6 +50,12 @@ void draw(Context *ctx) {
                 break;
         }
     }
+
+    if (debugMode) {
+        textcolor(COLOR_RED);
+        cputsxy(1, 0, "debug");
+        textcolor(COLOR_WHITE);
+    }
 }
 
 void takeInput(Context *ctx) {
@@ -75,8 +83,7 @@ void takeInput(Context *ctx) {
     // Title Screen prompts
     switch (ctx->gameState) {
         case TitleScreen:
-            // I do feel bad about this, honestly
-            while (ctx->input != KEY_L && ctx->input != KEY_RETURN && ctx->input != 3) {
+            while (ctx->input != KEY_L && ctx->input != KEY_RETURN && ctx->input != 3 && ctx->input != 'd') {
                 ctx->input = cgetc();
             }
 
@@ -84,8 +91,14 @@ void takeInput(Context *ctx) {
                 ctx->gameState = NamePrompt;
                 clrscr();
             }
+            // change locale
             else if (ctx->input == KEY_L) {
                 ctx->locale = ctx->locale == English ? Esperanto : English;
+                clrscr();
+            }
+            // enter debug mode
+            else if (ctx->input == 'd') {
+                debugMode = true;
                 clrscr();
             }
             break;
@@ -114,7 +127,8 @@ void takeInput(Context *ctx) {
             }
             break;
         
-        case Game: 
+        case Game:
+            // open the map
             if (ctx->input == 'm') {
                 // we unforunately have to call draws to pop-up windows here to prevent expensive re-drawing
                 menuDrawMap(ctx);
@@ -123,6 +137,7 @@ void takeInput(Context *ctx) {
                     ctx->input = cgetc();
                 }
             }
+            // open help
             else if (ctx->input == '?') {
                 menuDrawHelp(ctx);
                 ctx->input = 0;
@@ -130,9 +145,11 @@ void takeInput(Context *ctx) {
                     ctx->input = cgetc();
                 }
             }
-            else if (ctx->input == 'o') {
+            // add a potion (DEBUG)
+            else if (debugMode && ctx->input == 'o') {
                 playerAddItem(ctx);
             }
+            // show char sheet
             else if (ctx->input == 'p') {
                 menuDrawPlayerStats(ctx);
                 ctx->input = 0;
@@ -140,6 +157,7 @@ void takeInput(Context *ctx) {
                     ctx->input = cgetc();
                 }
             }
+            // show inventory
             else if (ctx->input == 'i') {
                 int8 itemSelection = 0, itemOption = 3;
 
@@ -193,7 +211,8 @@ void takeInput(Context *ctx) {
                     }
                 }
             }
-            else if (ctx->input == 'b') {
+            // enter battle mode (DEBUG)
+            else if (debugMode && ctx->input == 'b') {
                 char *message;
                 enemyBuild(&ctx->enemy, ctx->player.stats.level);
                 message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT]) + 
@@ -210,9 +229,9 @@ void takeInput(Context *ctx) {
                 ctx->choice = 0;
                 clrscr();
             }
+            // move forward
             else if (UP_PRESSED(ctx->input)) {
                 if (playerAttemptMove(&ctx->player, &ctx->maze, Forward)) {
-                    // I am so sorry
                     char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][ctx->player.direction+4])-1));
 
                     sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
@@ -224,9 +243,9 @@ void takeInput(Context *ctx) {
                     consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
                 }
             }
+            // move backwards
             else if (DOWN_PRESSED(ctx->input)) {
                 if (playerAttemptMove(&ctx->player, &ctx->maze, Backward)) {
-                    // I am still sorry, but not as sorry since i'm doing this line now
                     uint8 dir = ctx->player.direction == North ? LC_SOUTH : ctx->player.direction == East ? LC_WEST : ctx->player.direction == South ? LC_NORTH : LC_EAST;  
                     char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][dir])-1));
 
@@ -239,6 +258,7 @@ void takeInput(Context *ctx) {
                     consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
                 }
             }
+            // turn left
             else if (LEFT_PRESSED(ctx->input)) {
                 char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_TURN_MESSAGE]) + strlen(locale[ctx->locale][LC_LEFT])-1));
 
@@ -248,6 +268,7 @@ void takeInput(Context *ctx) {
                 consoleBufferAdd(&ctx->consoleBuffer, message);
                 free(message);
             }
+            // turn right
             else if (RIGHT_PRESSED(ctx->input)) {
                 char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_TURN_MESSAGE]) + strlen(locale[ctx->locale][LC_RIGHT])-1));
 
@@ -413,7 +434,7 @@ void takeInput(Context *ctx) {
         ctx->quitPrompt = true;
     }
 
-    else if (ctx->input == 'q') {
+    else if (debugMode && ctx->input == 'q') {
         ctx->locale = ctx->locale == English ? Esperanto : English;
         clrscr();
     }

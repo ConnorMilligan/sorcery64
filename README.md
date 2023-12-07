@@ -15,3 +15,4 @@ Compiling can be done by creating a `bin/` directory, and calling `make` or usin
 ## Sources
 - [Commodore 64 Programmer's Reference Guide](https://archive.org/details/c64-programmer-ref)
 - [MOS 6581 SID Data Sheet](https://archive.org/details/mos-6581-sid-data-sheet)
+- [cc65](https://github.com/cc65/cc65) source code
