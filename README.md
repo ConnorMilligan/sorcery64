@@ -1,5 +1,5 @@
-# sorcery64
-Sorcery64 is somthing of a demake of [sorcery](https://github.com/ConnorMilligan/sorcery), a project for my advanced programming class at the University of Vermont with [Tim Harrold](https://github.com/timjhh).
+# Sorcery64
+Sorcery64 is something of a demake of [sorcery](https://github.com/ConnorMilligan/sorcery), a project for my advanced programming class at the University of Vermont with [Tim Harrold](https://github.com/timjhh). This has only been tested on the Commodore 64, but should be compatible with other Commodore machines. The game is inspired mainly by [Wizardry: Proving Grounds of the Mad Overlord](https://en.wikipedia.org/wiki/Wizardry%3A_Proving_Grounds_of_the_Mad_Overlord).
 
 ## Building
 Building should be pretty straight forward, the only requirement is the [cc65](https://github.com/cc65/cc65) compiler. This is tested working with cc65 2.19 on Gentoo linux.
@@ -11,6 +11,7 @@ Compiling can be done by creating a `bin/` directory, and calling `make` or usin
 - Fat pointer for strings and linear allocators could have improved memory safety when it comes to formatted printing.
 - Writing a map data structure would have worked well for the locale system.
 - The `takeInput()` function really should have had it's code functionalized.
+- 38911 bytes!
 
 ## Sources
 - [Commodore 64 Programmer's Reference Guide](https://archive.org/details/c64-programmer-ref)
