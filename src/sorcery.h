@@ -51,6 +51,7 @@ void takeInput(Context *ctx);
 void musicCombatPlayerTurn();
 void musicCombatEnemyTurn();
 void musicCombatWin();
+void musicDrinkPotion();
 
 /* Maze */
 void mazeBuild(Maze *maze);

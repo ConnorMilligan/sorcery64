@@ -176,6 +176,7 @@ void takeInput(Context *ctx) {
                                 playerUseItem(ctx, itemSelection, &item);
                                 clrscr();
                                 draw(ctx);
+                                musicDrinkPotion();
                                 sleep(1);
 
                                 message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + item.stat]) + 1));
@@ -260,7 +261,6 @@ void takeInput(Context *ctx) {
             break;
 
         case Battle:
-            
             if (UP_PRESSED(ctx->input)) {
                 //advance choice up to 3 then wrap around
                 ctx->choice = ctx->choice-1 < 0 ? 4 : ctx->choice-1;
@@ -355,6 +355,7 @@ void takeInput(Context *ctx) {
                                         playerUseItem(ctx, itemSelection, &item);
                                         clrscr();
                                         draw(ctx);
+                                        musicDrinkPotion();
                                         sleep(1);
 
                                         message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ITEM_USE]) + strlen(locale[ctx->locale][LC_POTION_HEALTH + item.stat]) + 1));
@@ -373,6 +374,7 @@ void takeInput(Context *ctx) {
                         }
                         clrscr();
                         draw(ctx);
+                        musicCombatPlayerTurn();
                         sleep(1);
                         enemyAttack(ctx, false);
                         musicCombatEnemyTurn();

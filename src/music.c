@@ -10,6 +10,11 @@ const unsigned int combatWinNotes[] = {
     0xe6b, 0x133f, 0x159a, 0x1981, 0x0000, 0x159a, 0x1981, 0x1981
 };
 
+const unsigned int drinkPotionNotes[] = {
+    0x133f, 0x1464, 0x159a, 0x16e3
+};
+
+
 
 void musicCombatPlayerTurn() {
     unsigned int i,d;
@@ -46,6 +51,19 @@ void musicCombatWin() {
         SID.v1.freq = combatWinNotes[i];
         SID.v1.ctrl = 0x11;
         for(d=0; d<1300; d++) { }
+        SID.v1.ctrl = 0x10;
+    }
+}
+
+void musicDrinkPotion() {
+    unsigned int i,d;
+    
+    SID.amp = 0x1F;
+    SID.v1.ad = 0x0f;
+    for(i = sizeof(drinkPotionNotes) / sizeof(int); i > 0; i--) {
+        SID.v1.freq = drinkPotionNotes[i];
+        SID.v1.ctrl = 0x11;
+        for(d=0; d<1000; d++) { }
         SID.v1.ctrl = 0x10;
     }
 }
