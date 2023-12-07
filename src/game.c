@@ -232,13 +232,40 @@ void takeInput(Context *ctx) {
             // move forward
             else if (UP_PRESSED(ctx->input)) {
                 if (playerAttemptMove(&ctx->player, &ctx->maze, Forward)) {
-                    char *message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][ctx->player.direction+4])-1));
+                    uint8 event = rand() % 10;
+                    char *message;
 
-                    sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
-                    consoleBufferAdd(&ctx->consoleBuffer, message);
-                    free(message);
+                    // 10% chance of enemy encounter
+                    // 10% chance of item encounter
+                    // 80% chance of normal movement
+                    if (event == 0) {
+                        enemyBuild(&ctx->enemy, ctx->player.stats.level);
+                        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT]) + 
+                                                         strlen(locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective]) + 
+                                                         strlen(locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]) + 
+                                                         strlen(locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName]) - 2));
 
-                    ctx->player.score += 10;
+                        sprintf(message, locale[ctx->locale][LC_ENEMY_ENCOUNTER_TEXT], locale[ctx->locale][LC_ENEMY_ADJECTIVE_1 + ctx->enemy.adjective], locale[ctx->locale][LC_ENEMY_BODY_1 + ctx->enemy.bodyName], locale[ctx->locale][LC_ENEMY_HEAD_1 + ctx->enemy.headName]);
+
+                        consoleBufferAdd(&ctx->consoleBuffer, message);
+                        free(message);
+
+                        ctx->gameState = Battle;
+                        ctx->choice = 0;
+                        clrscr();
+                    }
+                    if (event == 1) {
+                        playerAddItem(ctx);
+                    }
+                    else {
+                        message = malloc(sizeof(char) * (strlen(locale[ctx->locale][LC_ADVANCE_MESSAGE]) + strlen(locale[ctx->locale][ctx->player.direction+4])-1));
+
+                        sprintf(message, locale[ctx->locale][LC_ADVANCE_MESSAGE], locale[ctx->locale][ctx->player.direction+4]);
+                        consoleBufferAdd(&ctx->consoleBuffer, message);
+                        free(message);
+
+                        ctx->player.score += 10;
+                    }
                 } else {
                     consoleBufferAdd(&ctx->consoleBuffer, locale[ctx->locale][LC_MOVE_FAIL_MESSAGE]);
                 }
