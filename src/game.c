@@ -132,7 +132,7 @@ void takeInput(Context *ctx) {
         case Game:
             // open the map
             if (ctx->input == 'm') {
-                // we unforunately have to call draws to pop-up windows here to prevent expensive re-drawing
+                // we unfortunately have to call draws to pop-up windows here to prevent expensive re-drawing
                 menuDrawMap(ctx);
                 ctx->input = 0;
                 while (ctx->input != 'm' && ctx->input != KEY_RETURN && ctx->input != 3) {
