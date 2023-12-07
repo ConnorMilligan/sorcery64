@@ -109,7 +109,7 @@ void menuDrawQuitPrompt(Context *ctx) {
 }
 
 void menuDrawDeathScreen(Context *ctx) {
-    size_t i, j;
+    size_t i;
     char str[10];
 
     menuDrawWindow(0, 0, XSize, YSize);
@@ -505,7 +505,6 @@ void menuDrawEnemyStats(Context *ctx) {
     uint8 x = XSize/2-width/2, y = YSize/2-height/2;
     uint8 flavor = LC_ENEMY_INFO_FLAVOR1+ rand() % 5;
     uint8 statOffset = 0;
-    char *name;
 
     menuDrawWindow(x, y, width, height);
     cputsxy(x+1, y, locale[ctx->locale][LC_SIDEBAR_STAT_LABEL]);

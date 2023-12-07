@@ -141,7 +141,6 @@ void takeInput(Context *ctx) {
                 }
             }
             else if (ctx->input == 'i') {
-                uint8 i;
                 int8 itemSelection = 0, itemOption = 3;
 
                 ctx->input = 0;
@@ -269,7 +268,6 @@ void takeInput(Context *ctx) {
                 ctx->choice = ctx->choice+1 > 4 ? 0 : ctx->choice+1;
             }
             else if (ctx->input == KEY_RETURN) {
-                uint8 i;
                 int8 itemSelection = 0, itemOption = 3;
                 switch (ctx->choice) {
                     case Attack:
